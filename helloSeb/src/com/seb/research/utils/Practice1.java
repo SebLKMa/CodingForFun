@@ -7,7 +7,7 @@ import java.util.Hashtable;
 public class Practice1 {
 
 	public static void main(String[] args) {
-		String str = "AABBCCDDEE";//"FOLLOWUP";
+		String str = "FOLLOWUP";
 
 		//removeDupsInLinkedList1(str);
 		removeDupsInLinkedList2(str);
