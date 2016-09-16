@@ -7,7 +7,7 @@ public class LinkedList {
     /**
      * Implementation of a node.
      */
-    public class Node {
+    private class Node {
         Node next; // null indicates end of list
         Object data;
         
@@ -188,8 +188,8 @@ public class LinkedList {
         }
         return desc;
     }
-    
-    
+  
+      
     public static void main(String[] args) {
         LinkedList myList = new LinkedList();
     
