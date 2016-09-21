@@ -16,6 +16,7 @@ public class MergeArrays {
 			throw new Exception("Output length must be greater or equals to sum of input1 and input2.");
 		}
 		
+		// appending to output from input1 and input2 according the lesser value
 		while (i < input1Length && j < input2Length) {
 			if (input1[i] < input2[j]) {
 				output[k] = input1[i];
@@ -27,7 +28,8 @@ public class MergeArrays {
 			}
 			k++;
 		}
-		// appending any remaining from input1 or input2 
+		// since input1Length and input2Length may not be the same, 
+		// we need to append to output any remaining from input1 or input2 
 		if (i < input1Length) {
 			for (int p = i; p < input1Length; p++) {
 				output[k] = input1[p];
