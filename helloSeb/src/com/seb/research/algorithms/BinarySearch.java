@@ -38,7 +38,7 @@ public class BinarySearch {
             System.out.println("mid:" + mid);
             if      (key < a[mid]) hi = mid - 1;
             else if (key > a[mid]) lo = mid + 1;
-            else return mid;
+            else return mid; // found
         }
         return -1;
     }
@@ -57,7 +57,7 @@ public class BinarySearch {
         // sort the array
         Arrays.sort(numbers);
         
-        int myNumber = 2;
+        int myNumber = 5;
         int i = search(myNumber, numbers);
         if (i != -1){
             System.out.println("Search for " + myNumber + " found at index " + i);
