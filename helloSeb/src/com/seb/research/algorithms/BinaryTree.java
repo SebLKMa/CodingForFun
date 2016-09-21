@@ -64,33 +64,42 @@ public class BinaryTree {
 		if (node == null) return false;
 		
 		if (data == node.data) {
+			// data found in this node
 			return true;
 		}
 		else if (data < node.data) {
+			// data is less than this node, go to left node and compare
 			return lookup(node.left, data);
 		}
 		else {
+			// go to right node and compare
 			return lookup(node.right, data);
 		}
 	}
 	
 	private Node insert(Node node, int data) {
 		if (node == null) {
+			// reaching here means we are at end of branch (either left or right)
+			// we found where new node should be created
 			node = new Node(data);
 		}
 		else {
 			if (data <= node.data) {
+				// data is less than this node, insert in left branch
+				// when insert returns we update this node left reference
 				node.left = insert(node.left, data);
 			}
 			else {
+				// data is greater than this node, insert in right branch
+				// when insert returns we update this node right reference
 				node.right = insert(node.right, data);
 			}
 		}
-		return node;
+		return node; // return the node as-is
 	}
 	
 	private int size(Node node) {
-		if (node == null) return 0;
+		if (node == null) return 0; // end of branch
 		
 		return size(node.left) + 1 + size(node.right);
 	}
@@ -154,13 +163,13 @@ public class BinaryTree {
 		BinaryTree tree = new BinaryTree();
 		tree.build21365();
 		System.out.println("Tree has three: " + tree.lookup(3));
-		System.out.println("Tree has five: " + tree.lookup(5));
-		System.out.println("Tree has five: " + tree.lookup(7));
-		System.out.println("Minimum value: " + tree.minValue());
-		System.out.println("Maximum value: " + tree.maxValue());
-		System.out.println("Tree depth: " + tree.maxDepth());
-		System.out.println("Tree size: " + tree.size());
-		System.out.println("Tree:");
+		System.out.println("Tree has five : " + tree.lookup(5));
+		System.out.println("Tree has seven: " + tree.lookup(7));
+		System.out.println("Minimum value : " + tree.minValue());
+		System.out.println("Maximum value : " + tree.maxValue());
+		System.out.println("Tree depth    : " + tree.maxDepth());
+		System.out.println("Tree size     : " + tree.size());
+		System.out.println("Tree contents :");
 		tree.printTree();
 		System.out.println();
 		System.out.println("Tree post order:");
