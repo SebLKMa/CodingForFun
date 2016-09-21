@@ -27,6 +27,7 @@ public class MergeArrays {
 			}
 			k++;
 		}
+		// appending any remaining from input1 or input2 
 		if (i < input1Length) {
 			for (int p = i; p < input1Length; p++) {
 				output[k] = input1[p];
