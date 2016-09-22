@@ -123,7 +123,7 @@ public class LinkedList {
             }
             
             //System.out.println("current:" + current.getData());
-            //current = current.getNext();
+            current = current.getNext();
             //System.out.println("current:" + current.getData());
         }
         
