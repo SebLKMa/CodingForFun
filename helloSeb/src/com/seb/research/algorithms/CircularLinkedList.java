@@ -71,14 +71,15 @@ class CircularLinkedList
         nptr.setLink(start);
         if(start == null)
         {            
-            start = nptr;
-            nptr.setLink(start);
-            end = start;            
+        	// list is empty, this new node is first and end
+            start = nptr;        // start is this new node
+            nptr.setLink(start); // new node node points next to self
+            end = start;         // end is this new node
         }
         else
         {
-            end.setLink(nptr);
-            start = nptr;        
+            end.setLink(nptr);   // end must point to start
+            start = nptr;        // start is this new pointer
         }
         size++ ;
     }
@@ -95,8 +96,8 @@ class CircularLinkedList
         }
         else
         {
-            end.setLink(nptr);
-            end = nptr;            
+            end.setLink(nptr); // end must point to new node
+            end = nptr;        // end is this new pointer
         }
         size++ ;
     }
