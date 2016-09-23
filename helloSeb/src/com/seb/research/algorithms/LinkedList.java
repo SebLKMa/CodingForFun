@@ -180,13 +180,18 @@ public class LinkedList {
     
     public String toString() {
         Node current = head.getNext();
-        String desc = "";
+        // using StringBuilder in case list is large
+        //String desc = "";
+        StringBuilder sb = new StringBuilder();
         while (current != null) {
-            // TODO: use StringBuilder if list is large
-            desc += "[" + current.getData().toString() + "]";
+        	//desc += "[" + current.getData().toString() + "]";
+            sb.append("[");
+            sb.append(current.getData().toString());
+            sb.append("]");
             current = current.getNext();
         }
-        return desc;
+        //return desc;
+        return sb.toString();
     }
   
       
