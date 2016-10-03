@@ -60,14 +60,56 @@ public class Practice3 {
         finally {
         	scan.close();
         }
+  	}
+	
+	public static void doSimpleCalc() {
+        Scanner scan = new Scanner(System.in);
+        double mealCost = scan.nextDouble(); // original meal price
+        scan.nextLine();	// nextInt() does not read newline char, need to read newline explicitly
 
-        
+        int tipPercent = scan.nextInt(); // tip percentage
+        scan.nextLine();	// nextInt() does not read newline char, need to read newline explicitly
+
+        int taxPercent = scan.nextInt(); // tax percentage
+        scan.nextLine();	// nextInt() does not read newline char, need to read newline explicitly
+
+        scan.close();
+      
+        // Write your calculation code here.
+        double totalCostGross = mealCost + 
+        				(mealCost * tipPercent / 100) +
+        				(mealCost * taxPercent / 100);
+      
+        // cast the result of the rounding operation to an int and save it as totalCost 
+        int totalCost = (int) Math.round(totalCostGross);
+      
+        // Print your result
+        System.out.println("The total meal cost is " + totalCost + " dollars.");
+	}
+	
+	public static void doOddEven() {
+	      Scanner scan = new Scanner(System.in);
+	      int n = scan.nextInt(); 
+	      scan.nextLine();	// nextInt() does not read newline char, need to read newline explicitly
+
+	      scan.close();
+	      String ans="";
+	          
+	      // if 'n' is NOT evenly divisible by 2 (i.e.: n is odd)
+	      if(n%2==0){
+	         ans = "Not Weird";
+		  }
+		  else if(n%2!=0) {
+	    	 ans = "Weird";
+		  }
+	      System.out.println(n);
+	      System.out.println(ans);
 	}
 
 	public static void main(String[] args) {
 		
 		System.out.println("hello Seb");
-	    doScanner();
+		doOddEven();
 	}
 
 }
