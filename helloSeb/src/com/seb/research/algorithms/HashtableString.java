@@ -114,6 +114,58 @@ public class HashtableString {
 		return this.size;
 	}
 	
+	public void initIterator() {
+		this.currentEntry = null;
+		this.currentIndex = this.tableSize;
+		
+		// set currentEntry and currentIndex to the first non-null entry in table
+		for (int i=0; i<this.tableSize; i++) {
+			if (this.table[i] == null) {
+				continue; // move to next element
+			}
+			else {
+				this.currentEntry = this.table[i];
+				this.currentIndex = i;
+				break;
+			}
+		}
+	}
+	
+	public boolean hasNext() {
+		if (this.currentEntry == null) {
+			return false;
+		}
+		return true;
+	}
+	
+	public String getNextKey() {
+		if (this.currentEntry == null) {
+			return ""; // iterator currentEntry is null, nothing in table
+		}
+		
+		// sets the key to be returned
+		String returnKey = new String(this.currentEntry.getKey());
+		
+		// update currentEntry to its next or to next non-null element in in table.
+		if (this.currentEntry.getNext() != null) {
+			// if currentEntry is linked to next, set it to next
+			this.currentEntry = this.currentEntry.getNext();
+		}
+		else {
+			for (int i=this.currentIndex+1; i<this.tableSize; i++) {
+				if (this.table[i] == null) {
+					continue; // move to next element
+				}
+				this.currentEntry = this.table[i];
+				this.currentIndex = i;
+				return returnKey;
+			}
+			this.currentEntry = null;
+			this.currentIndex = this.tableSize;
+		}
+		return returnKey;
+	}
+	
 	private int hashString(String key) {
 		char[] arrKey = key.toCharArray();
 		int keyLength = key.length();
@@ -130,9 +182,21 @@ public class HashtableString {
 	private int tableSize = 0;
 	private StringKeyValue[] table;
 	private int size = 0;
-	//private StringKeyValue currentEntry;
-	//private int currentIndex;
+	private StringKeyValue currentEntry = null;
+	private int currentIndex = 0;
 	
+	public static void displayAll(HashtableString hashTable) {
+		System.out.println("Current entries in hash table:");
+		
+		String key = "";
+		String value = "";
+		hashTable.initIterator();
+		while (hashTable.hasNext()) {
+			key = hashTable.getNextKey();
+			value = hashTable.get(key);
+			System.out.println("key: " + key + "\tvalue:" + value);
+		}
+	}
 	
 	public static void main(String[] args) {
 		HashtableString myTable = new HashtableString(10);
@@ -144,10 +208,13 @@ public class HashtableString {
 		String value = myTable.get(key);
 		System.out.println(key + ", " + getValue(value));
 		System.out.println("Size: " + myTable.getSize());
+		displayAll(myTable);
+		
 		myTable.remove(key);
 		value = myTable.get(key);
 		System.out.println(key + ", " + getValue(value));
 		System.out.println("Size: " + myTable.getSize());
+		displayAll(myTable);
 	}
 	
 	public static String getValue(String value) {
