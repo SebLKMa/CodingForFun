@@ -26,8 +26,8 @@ public class Practice1 {
 		char[] arrInput = str.toCharArray();
 		int inputlen = str.length();
 		int indexLen = str.length() - 1;
-		int halfLen = inputlen/2;
-		char[] arrEven = new char[halfLen];
+		int halfLen = (inputlen/2) + 1;
+		char[] arrEven = new char[halfLen + 1];
 		char[] arrOdd = new char[halfLen];
 		
 		int j = 0;
@@ -43,7 +43,7 @@ public class Practice1 {
 			}
 		}
 		
-		String newStr = new String(arrEven) + " " + new String(arrOdd);
+		String newStr = new String(arrEven).trim() + " " + new String(arrOdd).trim();
 		System.out.println(newStr);
 	}
 	
@@ -64,6 +64,9 @@ public class Practice1 {
             for (int i=0; i<n; i++) {
             	doPractice2(arrStr[i]);
             }
+        }
+        catch (Exception ex) {
+        	System.out.println(ex);
         }
         finally {
         	in.close();
