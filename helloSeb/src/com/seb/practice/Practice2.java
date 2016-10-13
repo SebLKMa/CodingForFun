@@ -101,8 +101,36 @@ public class Practice2 {
 
 	}
 	
+	public static int doFactorial(int n) {
+		if (n <= 1) {
+			return n;
+		}
+		int n1 = n - 1;
+		return n * doFactorial(n1);
+	}
+	
+	public static void doPractice2c() {
+        Scanner in = new Scanner(System.in);
+        try {
+            int n = in.nextInt();
+            in.nextLine();
+            if (n <= 0 || n >= 12) {
+            	return;
+            }
+            
+    		int factorial = doFactorial(n);
+    		System.out.println("factorial of " + n + " = " + factorial);
+        }
+        finally {
+        	in.close();
+        }
+		
+
+	}
+	
 	public static void main(String[] args) {
-		doPractice2b();
+		doPractice2c();
+		
 	}
 
 }
