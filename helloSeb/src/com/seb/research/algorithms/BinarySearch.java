@@ -30,15 +30,23 @@ public class BinarySearch {
      */
     public static int search(int key, int[] a) {
         int lo = 0;
-        int hi = a.length - 1;
+        int hi = a.length - 1; // zero index
         while (lo <= hi) {
         	System.out.println("lo:" + lo + " hi:" + hi);
             // Key is in a[lo..hi] or not present.
             int mid = lo + (hi - lo) / 2;
             System.out.println("mid:" + mid);
-            if      (key < a[mid]) hi = mid - 1;
-            else if (key > a[mid]) lo = mid + 1;
-            else return mid; // found
+            
+            if (key < a[mid]) { 
+            	hi = mid - 1; // move hi backwards
+            }
+            else if (key > a[mid]) {
+            	lo = mid + 1; // move lo forwards
+            }
+            else {
+            	System.out.println("Found at: " + mid);
+            	return mid; // found
+            }
         }
         return -1;
     }
@@ -50,9 +58,8 @@ public class BinarySearch {
      */
     public static void main(String[] args) {
 
-        // read the integers from a file
-        //In in = new In(args[0]);
-        int[] numbers = { 1, 2, 3, 4, 5, 6, 7, 8 };
+        // numbers array
+        int[] numbers = { 3, 2, 1, 4, 7, 6, 8, 5 };
 
         // sort the array
         Arrays.sort(numbers);
