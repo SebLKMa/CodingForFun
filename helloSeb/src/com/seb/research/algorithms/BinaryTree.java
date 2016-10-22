@@ -22,8 +22,14 @@ public class BinaryTree {
 		}
 	}
 	
+	private Node root;
+	
 	public BinaryTree() {
 		root = null;
+	}
+	
+	public Node getRoot() {
+		return root;
 	}
 	
 	public boolean lookup(int data) {
@@ -58,7 +64,6 @@ public class BinaryTree {
 		printPostOrder(root);
 	}
 	
-	private Node root;
 	
 	private boolean lookup(Node node, int data) {
 		if (node == null) return false;
@@ -80,6 +85,7 @@ public class BinaryTree {
 	private Node insert(Node node, int data) {
 		if (node == null) {
 			// reaching here means we are at end of branch (either left or right)
+			// if node is root and it is null, then tree is empty
 			// we found where new node should be created
 			node = new Node(data);
 		}
@@ -99,7 +105,7 @@ public class BinaryTree {
 	}
 	
 	private int size(Node node) {
-		if (node == null) return 0; // end of branch
+		if (node == null) return 0;
 		
 		return size(node.left) + 1 + size(node.right);
 	}
@@ -143,9 +149,9 @@ public class BinaryTree {
 			return;
 		}
 		
-		printTree(node.left);
+		printTree(node.left); // first print left nodes
 		System.out.print(node.data + " ");
-		printTree(node.right);
+		printTree(node.right); // then print right nodes
 	}
 	
 	private void printPostOrder(Node node) {
@@ -161,7 +167,8 @@ public class BinaryTree {
 	
 	public static void main(String[] args) {
 		BinaryTree tree = new BinaryTree();
-		tree.build21365();
+		//tree.build21365();
+		populate(tree);
 		System.out.println("Tree has three: " + tree.lookup(3));
 		System.out.println("Tree has five : " + tree.lookup(5));
 		System.out.println("Tree has seven: " + tree.lookup(7));
@@ -175,6 +182,17 @@ public class BinaryTree {
 		System.out.println("Tree post order:");
 		tree.printPostOrder();
 		System.out.println();
+		
+		System.out.println("Root :" + tree.getRoot().data);
+		
+		tree.insert(4);
+		System.out.println("Tree contents :");
+		tree.printTree();
+		System.out.println();
+		System.out.println("Tree post order:");
+		tree.printPostOrder();
+		System.out.println();
+		
 	}
 	
 	public void build21365() {
@@ -185,5 +203,13 @@ public class BinaryTree {
 		root = insert(root, 6);
 		root = insert(root, 5);
 	}
-
+	
+	public static void populate(BinaryTree tree) {
+		tree.insert(3);
+		tree.insert(1);
+		tree.insert(2);
+		tree.insert(6);
+		tree.insert(5);
+	}
+	
 }
