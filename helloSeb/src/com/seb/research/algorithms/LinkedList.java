@@ -61,6 +61,11 @@ public class LinkedList {
         Node temp = new Node(data);
         Node current = head;
         
+        // BEFORE:
+        // [head|next] -> [data1|next] -> [data2|next] -> [data3|null]
+        // AFTER: add [new data]
+        // [head|next] -> [data1|next] -> [data2|next] -> [data3|next] -> [new data|null]
+        
         // iterates from beginning until the end of list
         while (current.getNext() != null) {
             current = current.getNext();
@@ -78,6 +83,11 @@ public class LinkedList {
     public void add(Object data, int index) {
         Node temp = new Node(data);
         Node current = head;
+        
+        // BEFORE:
+        // [head|n0] -> [data1|next] -> [data2|next] -> [data3|next] -> [data4|null]
+        // AFTER: insert [data5] at index 2
+        // [head|n0] -> [data1|next] -> [data2|next] -> [data5|next] -> [data3|next] -> [data4|null]
         
         // iterates from beginning to the specified index or until end of list
         for (int i=1; i < index && current.getNext() != null; i++) {
@@ -101,6 +111,7 @@ public class LinkedList {
     public Object get(int index) {
         if (index <= 0) return null;
         
+        // iterates from beginning until index or last node
         Node current = head.getNext();        
         for (int i=1; i < index; i++) {            
             if (current.getNext() == null) {
@@ -116,6 +127,13 @@ public class LinkedList {
     public boolean remove(int index) {
         if (index < 1 || index > size()) return false;
         //System.out.println("remove index:" + index);
+        
+        // BEFORE: 
+        // [head|n0] -> [data1|next] -> [data2|next] -> [data5|next] -> [data3|next] -> [data4|null]
+        // BEFORE: remove index 3
+        // [head|n0] -> [data1|next] -> [data2|next] -> [data3|next] -> [data4|null]
+         
+        // iterates from beginning until index or last node
         Node current = head;
         for (int i=1; i < index; i++) {
             if (current.getNext() == null) {
@@ -141,13 +159,15 @@ public class LinkedList {
     	Node current = head.getNext();
     	while (current != null) {
     		if (table.containsKey(current.getData())) {
+    			// table contains the node data, remove the node
     			previous.setNext(current.getNext());
     			count--; // remember to update size
     		} else {
+    			// table does not contain node data, add node data to table
     			table.put(current.getData(), true);
-    			previous = current;
+    			previous = current; // move previous
     		}
-    		current = current.getNext();
+    		current = current.getNext(); // move current
     	}
     }
     
@@ -162,15 +182,15 @@ public class LinkedList {
     		while (runner != current) {
     			if (runner.getData() != null && runner.getData() == current.getData()) {
     				// current node data found from runner, remove current
-    				Node tmp = current.getNext();
-    				previous.setNext(tmp);
-    				current = tmp; // move current to next node
+    				Node nextNode = current.getNext();
+    				previous.setNext(nextNode);
+    				current = nextNode; // move current to next node
     				count--; // remember to update size
     				break; // by now, all dups would have been removed
     			}
     			runner = runner.getNext(); // move runner to next node
     		}
-    		if (runner == current) { // update current
+    		if (runner == current) { // update previous, move current to next
     			previous = current;
     			current = current.getNext();
     		}

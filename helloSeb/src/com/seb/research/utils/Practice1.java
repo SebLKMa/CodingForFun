@@ -7,7 +7,7 @@ import java.util.Hashtable;
 public class Practice1 {
 
 	public static void main(String[] args) {
-		String str = "FOLLOWUP";
+		String str = "HELLO FOLLOWUP";
 
 		//removeDupsInLinkedList1(str);
 		removeDupsInLinkedList2(str);
@@ -70,15 +70,15 @@ public class Practice1 {
 		}
 		int nodesSize = nodes.size();
 		System.out.println("Nodes size:" + nodesSize);
-		System.out.println("Node at:" + nodes.get(1));
-		System.out.println("Node at:" + nodes.get(nodesSize));
+		System.out.println("First node:" + nodes.get(1));
+		System.out.println("Last node:" + nodes.get(nodesSize));
 		System.out.println("Nodes description:" + nodes.toString());
 		
 		nodes.removeDupsFast();	
 		nodesSize = nodes.size();
 		System.out.println("Nodes size:" + nodesSize);
-		System.out.println("Node at:" + nodes.get(1));
-		System.out.println("Node at:" + nodes.get(nodesSize));
+		System.out.println("First node:" + nodes.get(1));
+		System.out.println("Last node:" + nodes.get(nodesSize));
 		System.out.println("Nodes description:" + nodes.toString());
 	}
 	
@@ -89,15 +89,15 @@ public class Practice1 {
 		}
 		int nodesSize = nodes.size();
 		System.out.println("Nodes size:" + nodesSize);
-		System.out.println("Node at:" + nodes.get(1));
-		System.out.println("Node at:" + nodes.get(nodesSize));
+		System.out.println("First node:" + nodes.get(1));
+		System.out.println("Last Node:" + nodes.get(nodesSize));
 		System.out.println("Nodes description:" + nodes.toString());
 		
 		nodes.removeDupsSlow();
 		nodesSize = nodes.size();
 		System.out.println("Nodes size:" + nodesSize);
-		System.out.println("Node at:" + nodes.get(1));
-		System.out.println("Node at:" + nodes.get(nodesSize));
+		System.out.println("First node:" + nodes.get(1));
+		System.out.println("Last node:" + nodes.get(nodesSize));
 		System.out.println("Nodes description:" + nodes.toString());
 	}
 }
