@@ -15,6 +15,7 @@ public class Practice1 {
 	}
 	
 	public static void removeDupsInLinkedList1(String input) {
+		// using Java LinkedList
 		LinkedList<Character> nodes = new LinkedList<Character>();
 		for (int i = 0; i<input.length(); i++){
 			nodes.add(input.charAt(i));
