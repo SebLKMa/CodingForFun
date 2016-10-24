@@ -198,8 +198,9 @@ public class BinaryTree {
 		System.out.println();
 		
 		System.out.println("Root :" + tree.getRoot().data);
-		
-		tree.insert(4);
+		int numNum = 4;
+		System.out.println("Insert :" + numNum);
+		tree.insert(numNum);
 		System.out.println("Tree contents :");
 		tree.printTree();
 		System.out.println();
