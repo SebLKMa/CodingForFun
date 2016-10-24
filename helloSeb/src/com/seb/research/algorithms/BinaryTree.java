@@ -82,6 +82,20 @@ public class BinaryTree {
 		}
 	}
 	
+	/**
+
+       3
+      / \
+     2   5
+    /   / \
+   1   4   9
+          /    insert 7 to tree
+         7 
+	 * 
+	 * @param node
+	 * @param data
+	 * @return
+	 */
 	private Node insert(Node node, int data) {
 		if (node == null) {
 			// reaching here means we are at end of branch (either left or right)
@@ -202,6 +216,15 @@ public class BinaryTree {
 		root = insert(root, 3);
 		root = insert(root, 6);
 		root = insert(root, 5);
+/*
+       2
+      / \
+     1   3
+          \
+           6
+          /
+         5
+ */
 	}
 	
 	public static void populate(BinaryTree tree) {
@@ -210,6 +233,22 @@ public class BinaryTree {
 		tree.insert(2);
 		tree.insert(6);
 		tree.insert(5);
+	/*
+	       3
+	      / \
+	     1   6
+	      \  /
+	       2 5
+	       
+	       insert 4
+	       3
+	      / \
+	     1   6
+	      \  /
+	       2 5
+	        /
+	       4
+	 */
 	}
 	
 }
