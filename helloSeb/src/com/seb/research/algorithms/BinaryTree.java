@@ -182,7 +182,7 @@ public class BinaryTree {
 	public static void main(String[] args) {
 		BinaryTree tree = new BinaryTree();
 		//tree.build21365();
-		//
+		
 		populate(tree);
 		System.out.println("Tree has three: " + tree.lookup(3));
 		System.out.println("Tree has five : " + tree.lookup(5));
