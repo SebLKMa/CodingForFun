@@ -35,7 +35,7 @@ public class Fibonacci {
     }
 
     public static void main(String[] args) {
-        int N = 5;
+        int N = 8;
         if (args.length == 1)
         {
             N = Integer.parseInt(args[0]);
