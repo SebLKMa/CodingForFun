@@ -48,6 +48,10 @@ public class BinaryTree {
 		return maxDepth(root);
 	}
 	
+	public int minDepth() {
+		return minDepth(root);
+	}
+	
 	public int minValue() {
 		return minValue(root);
 	}
@@ -133,6 +137,25 @@ public class BinaryTree {
 		// return the larger + 1
 		return Math.max(leftDepth, rightDepth) + 1;
 	}
+	
+    private int minDepth(Node node) {
+        if (node == null) return 0;
+        
+		int leftDepth = minDepth(node.left);
+		int rightDepth = minDepth(node.right);
+		
+		// return the larger + 1
+		return Math.min(leftDepth, rightDepth) + 1;        
+        //return 1 + Math.min(minDepth(node.left), minDepth(node.right));
+    }
+    
+    public boolean isBalanced(Node root) {
+        if (root == null) {
+            throw new IllegalArgumentException(
+                    "The tree root must be non null");
+        }
+        return maxDepth(root) - minDepth(root) <= 1;
+    }
 
 	// left branch has min value
 	private int minValue(Node node) {
@@ -180,6 +203,11 @@ public class BinaryTree {
 	}
 	
 	public static void main(String[] args) {
+		//doPopulateTreeTest();
+		doTreeIsBalanceTest();
+	}
+	
+	public static void doPopulateTreeTest() {
 		BinaryTree tree = new BinaryTree();
 		//tree.build21365();
 		
@@ -208,7 +236,6 @@ public class BinaryTree {
 		System.out.println("Tree post order:");
 		tree.printPostOrder();
 		System.out.println();
-		
 	}
 	
 	public void build21365() {
@@ -251,6 +278,34 @@ public class BinaryTree {
 	        /
 	       4
 	 */
+	}
+	
+	public static void doTreeIsBalanceTest() {
+		/* Constructed binary tree is
+			        1
+			      /   \
+			     2      3
+			   /  \      \
+			  4    5      6
+			 /
+			7
+	   */
+		BinaryTree tree = new BinaryTree();
+		tree.root = new Node(1);
+		tree.root.left = new Node(2);
+		tree.root.right = new Node(3);
+		tree.root.left.left = new Node(4);
+		tree.root.left.right = new Node(5);
+		tree.root.right.right = new Node(6);
+		tree.root.left.left.left = new Node(7);
+		
+		if (tree.isBalanced(tree.root))
+			System.out.println("Tree is balanced");
+		else
+			System.out.println("Tree is not balanced");
+		
+		System.out.println("Tree Max Depth: " + tree.maxDepth());
+		System.out.println("Tree Min Depth: " + tree.minDepth());
 	}
 	
 }
