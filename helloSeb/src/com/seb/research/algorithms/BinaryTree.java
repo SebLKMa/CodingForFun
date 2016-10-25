@@ -282,11 +282,11 @@ public class BinaryTree {
 	
 	public static void doTreeIsBalanceTest() {
 		/* Constructed binary tree is
-			        1
-			      /   \
-			     2      3
-			   /  \      \
-			  4    5      6
+			       1
+			     /   \
+			    2     3
+			   / \   / \
+			  4   5 5   6
 			 /
 			7
 	   */
@@ -298,6 +298,7 @@ public class BinaryTree {
 		tree.root.left.right = new Node(5);
 		tree.root.right.right = new Node(6);
 		tree.root.left.left.left = new Node(7);
+		tree.root.right.left = new Node(5);
 		
 		if (tree.isBalanced(tree.root))
 			System.out.println("Tree is balanced");
