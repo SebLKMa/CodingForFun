@@ -123,11 +123,18 @@ public class Queue<T> implements Iterable<T> {
     public static void main(String[] args) {
         Queue<String> myQueue = new Queue<String>();
         myQueue.enqueue("To");
-        myQueue.enqueue("Be");
-        myQueue.enqueue("Or");
-        myQueue.enqueue("Not");
-        myQueue.enqueue("To");
-        myQueue.enqueue("Be");
+        myQueue.enqueue("be");
+        myQueue.enqueue("or");
+        myQueue.enqueue("not");
+        myQueue.enqueue("to");
+        myQueue.enqueue("be");
+        
+        myQueue.enqueue("1");
+        myQueue.enqueue("2");
+        myQueue.enqueue("3");
+        myQueue.enqueue("4");
+        myQueue.enqueue("5");
+
         System.out.println("Size: " + myQueue.size());
         System.out.println(myQueue);
         for (String s : myQueue) {
