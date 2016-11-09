@@ -51,19 +51,15 @@ public class Practice3 {
 	        
 	        //Obtaining iterator over set entries
 	        Iterator<String> itr = keys.iterator();
-	     
-	        //Displaying Key and value pairs
+	        
 	        while (itr.hasNext()) { 
-	           // Getting Key
 	        	strWrite = itr.next();
-
-	           /* public V get(Object key): Returns the value to which 
-	            * the specified key is mapped, or null if this map 
-	            * contains no mapping for the key.
-	            */
-	           //System.out.println("Key: "+str+" & Value: "+hashtable.get(str));
 	        	out.println(strWrite);
-	        } 
+	        }
+	        // OR
+	        //for (String str : keys) {
+	        //	out.println(str);
+	        //}
 	        
 	    } finally {
 	        reader.close();
