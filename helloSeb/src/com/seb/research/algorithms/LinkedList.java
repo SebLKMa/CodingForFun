@@ -2,12 +2,14 @@ package com.seb.research.algorithms;
 
 import java.util.Hashtable;
 
+import com.seb.research.algorithms.LinkedList.Node;
+
 public class LinkedList {
     
     /**
      * Implementation of a node.
      */
-    private class Node {
+    public class Node {
         Node next; // null indicates end of list
         Object data;
         
@@ -37,11 +39,19 @@ public class LinkedList {
     private Node head;
     private int count;
     
+	protected Node getHead() {
+		return head;
+	}
+
+	protected void setHead(Node head) {
+		this.head = head;
+	}
+    
     /**
      * Constructs an empty list, head is an empty node.
      */
     public LinkedList() {
-        head = new Node(null);
+        setHead(new Node(null));
         count = 0;
     }
     
@@ -59,7 +69,7 @@ public class LinkedList {
      */
     public void add(Object data) {
         Node temp = new Node(data);
-        Node current = head;
+        Node current = getHead();
         
         // BEFORE:
         // [head|next] -> [data1|next] -> [data2|next] -> [data3|null]
@@ -82,7 +92,7 @@ public class LinkedList {
      */
     public void add(Object data, int index) {
         Node temp = new Node(data);
-        Node current = head;
+        Node current = getHead();
         
         // BEFORE:
         // [head|n0] -> [data1|next] -> [data2|next] -> [data3|next] -> [data4|null]
@@ -112,7 +122,7 @@ public class LinkedList {
         if (index <= 0) return null;
         
         // iterates from beginning until index or last node
-        Node current = head.getNext();        
+        Node current = getHead().getNext();        
         for (int i=1; i < index; i++) {            
             if (current.getNext() == null) {
                 return null;
@@ -124,6 +134,22 @@ public class LinkedList {
         return current.getData();
     }
     
+    /**
+     * Returns the data in first node and remove the first node.
+     * @return The data in first node or null if empty list.
+     */
+	public Object removeFirst() {
+		if (this.size() == 0) {
+			return null;
+		}
+		Node head = this.getHead();
+		Node firstNode = head.getNext();
+		Object item = firstNode.getData();
+		head.setNext(firstNode.getNext());
+		count--;
+		return item;
+	}
+    
     public boolean remove(int index) {
         if (index < 1 || index > size()) return false;
         //System.out.println("remove index:" + index);
@@ -134,7 +160,7 @@ public class LinkedList {
         // [head|n0] -> [data1|next] -> [data2|next] -> [data3|next] -> [data4|null]
          
         // iterates from beginning until index or last node
-        Node current = head;
+        Node current = getHead();
         for (int i=1; i < index; i++) {
             if (current.getNext() == null) {
                 return false;
@@ -155,8 +181,8 @@ public class LinkedList {
     	if (this.size() == 0) return;
     	
     	Hashtable table = new Hashtable(); // using buffer to store unique keys
-    	Node previous = head;
-    	Node current = head.getNext();
+    	Node previous = getHead();
+    	Node current = getHead().getNext();
     	while (current != null) {
     		if (table.containsKey(current.getData())) {
     			// table contains the node data, remove the node
@@ -175,10 +201,10 @@ public class LinkedList {
     	System.out.println("removeDupsSlow()");
     	if (this.size() == 0) return;
     	
-    	Node previous = head;
-    	Node current = head.getNext();
+    	Node previous = getHead();
+    	Node current = getHead().getNext();
     	while (current != null) {
-    		Node runner = head; // runner always starts from beginning to current
+    		Node runner = getHead(); // runner always starts from beginning to current
     		while (runner != current) {
     			if (runner.getData() != null && runner.getData() == current.getData()) {
     				// current node data found from runner, remove current
@@ -199,7 +225,7 @@ public class LinkedList {
     
     
     public String toString() {
-        Node current = head.getNext();
+        Node current = getHead().getNext();
         // using StringBuilder in case list is large
         //String desc = "";
         StringBuilder sb = new StringBuilder();
