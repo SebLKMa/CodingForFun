@@ -223,6 +223,23 @@ public class LinkedList {
     	}
     }
     
+    public boolean isCyclic() {
+    	Node slow = getHead();
+    	Node fast = getHead().getNext();
+    	
+    	while (true) {
+    		if (fast == null || fast.getNext() == null) {
+    			return false;
+    		}
+    		else if (fast == slow || fast.getNext() == slow) {
+    			return true;
+    		}
+    		else {
+    			slow = slow.getNext();
+    			fast = fast.getNext().getNext();
+    		}
+    	}
+    }
     
     public String toString() {
         Node current = getHead().getNext();
@@ -239,17 +256,34 @@ public class LinkedList {
         //return desc;
         return sb.toString();
     }
-  
-      
-    public static void main(String[] args) {
-        LinkedList myList = new LinkedList();
     
+    protected Node getNode(int index) {
+        if (index <= 0) return null;
+        
+        // iterates from beginning until index or last node
+        Node current = getHead().getNext();        
+        for (int i=1; i < index; i++) {            
+            if (current.getNext() == null) {
+                return null;
+            }
+            
+            current = current.getNext();
+        }
+        
+        return current;
+    }
+  
+    public static void doTest1() {
+        LinkedList myList = new LinkedList();
+        
         // add elements to LinkedList
         myList.add("1");
         myList.add("2");
         myList.add("3");
         myList.add("4");
         myList.add("5");
+        
+        System.out.println("myList is cyclic: " + myList.isCyclic());
     
         /*
          * Please note that primitive values can not be added into LinkedList
@@ -264,5 +298,28 @@ public class LinkedList {
         System.out.println("myList.get(3) - get 3rd element: " + myList.get(3));
         System.out.println("myList.size() - print linkedlist size: " + myList.size());
         System.out.println("myList - print linkedlist: " + myList);
+    }
+    
+    public static void doTest2() {
+        LinkedList myList = new LinkedList();
+        
+        // add elements to LinkedList
+        myList.add("1");
+        myList.add("2");
+        myList.add("3");
+        myList.add("4");
+        myList.add("5");
+        
+        // make the list cyclic
+        Node last = myList.getNode(myList.size());
+        Node third = myList.getNode(3);
+        last.setNext(third);
+        
+        System.out.println("myList is cyclic: " + myList.isCyclic());
+    }
+      
+    public static void main(String[] args) {
+    	//doTest1();
+    	doTest2();
     }
 }
