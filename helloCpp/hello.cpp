@@ -6,11 +6,16 @@
  */
 
 #include "Greet.h"
+#include "HelloContainers.h"
 
 int main() {
-	//cout << "Hello CPP!" << endl;
+
 	Greet greeter;
 	greeter.sayHello();
+
+	HelloContainers myContainers;
+	myContainers.helloVector();
+
 	return 0;
 }
 
