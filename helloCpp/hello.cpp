@@ -16,6 +16,10 @@ void testInheritanceInStack()
 {
 	cout << "testInheritanceInStack" << endl;
 	DerivedC myC;
+	myC.sayHello();
+
+	DerivedB myB = static_cast<DerivedB>(myC);
+	myB.sayHello();
 }
 
 void testInheritanceInHeap()
@@ -26,7 +30,12 @@ void testInheritanceInHeap()
 	cout << "pBase created" << endl;
 	if (nullptr != pBase)
 	{
-		//pBase->sayHello();
+		DerivedC* pDerivedC = dynamic_cast<DerivedC*>(pBase);
+		if (pDerivedC)
+		{
+			pDerivedC->sayHello();
+		}
+		
 		delete pBase;
 		cout << "pBase destroyed" << endl;
 	}
