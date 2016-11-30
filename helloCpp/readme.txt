@@ -84,3 +84,21 @@ Right-click on the "FirstProject" (or use the "Project" menu) ⇒ choose "Build 
 Step 4: Run
 To run the program, right-click on the "FirstProject" (or anywhere on the source "test.cpp", or select the "Run" menu) ⇒ Run As ⇒ Local C/C++ Application ⇒ (If ask, choose Cygwin's gdb debugger) ⇒ The output "Hello, world!" appears on the "Console" panel.
 NOTE: You need to create a new C++ project for EACH of your programming problems. This is messy for writing toy programs!
+
+C++ 11
+http://www.eclipse.org/forums/index.php/mv/msg/282618/787571/
+http://stackoverflow.com/questions/9131763/eclipse-cdt-c11-c0x-support
+1.Make a new C++ project
+2.Default options for everything
+3.Once created, right-click the project and go to "Properties"
+C/C++ Build -> Settings -> Tool Settings -> GCC C++ Compiler -> Miscellaneous -> Other Flags. Put -std=c++0x (or for newer compiler version -std=c++11 at the end . ... instead of GCC C++ Compiler I have also Cygwin compiler
+C/C++ General -> Paths and Symbols -> Symbols -> GNU C++. Click "Add..." and paste __GXX_EXPERIMENTAL_CXX0X__ (ensure to append and prepend two underscores) into "Name" and leave "Value" blank.
+4.Hit Apply, do whatever it asks you to do, then hit OK.
+http://wiki.eclipse.org/CDT/User/FAQ#CDT_does_not_recognize_C.2B.2B11_features
+
+http://stackoverflow.com/questions/33666954/eclipse-mars-symbol-unique-ptr-could-not-be-resolved
+In Eclipse Mars open Window > Preferences > C/C++ > Build > Settings > Discovery > CDT GCC Build-in Compiler Settings
+Append -std=c++11 to the Command to get compiler specs
+Press OK
+Rebuild the index: Project > C/C++ Index > Rebuild
+
