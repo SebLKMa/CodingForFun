@@ -11,7 +11,7 @@
 #include "DerivedA.h"
 #include "DerivedB.h"
 
-class DerivedC : public DerivedA, DerivedB
+class DerivedC : public /*DerivedA,*/ DerivedB
 {
 public:
 	DerivedC(void);
