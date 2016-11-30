@@ -16,6 +16,7 @@ class DerivedB : public virtual Base
 public:
 	DerivedB(void);
 	virtual ~DerivedB(void);
+	void sayHello();
 };
 
 #endif /* DERIVEDB_H_ */
