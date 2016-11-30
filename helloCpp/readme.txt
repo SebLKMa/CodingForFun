@@ -102,3 +102,4 @@ Append -std=c++11 to the Command to get compiler specs
 Press OK
 Rebuild the index: Project > C/C++ Index > Rebuild
 
+...
