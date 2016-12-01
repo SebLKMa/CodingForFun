@@ -9,6 +9,7 @@
 #include "Greet.h"
 #include "HelloContainers.h"
 #include "inheritance\DerivedC.h"
+#include "copymove\MemoryPage.h"
 
 using namespace std;
 
@@ -65,17 +66,35 @@ void testCpp11()
 
 }
 
+void testCopy()
+{
+	MemoryPage myPage(1024);
+	MemoryPage myPage1 = myPage; // copy ctor
+}
+
+void testAssignment()
+{
+	MemoryPage myPage2(1024);
+	MemoryPage myPage3(512);
+	cout << "myPage2: " << myPage2.getSize() << endl;
+	cout << "myPage3: " << myPage3.getSize() << endl;
+	myPage2 = myPage3; // assignment ctor
+	cout << "myPage2: " << myPage2.getSize() << endl;
+}
+
 int main() {
 
-	Greet greeter;
-	greeter.sayHello();
+	//Greet greeter;
+	//greeter.sayHello();
 
-	HelloContainers myContainers;
-	myContainers.helloVector();
+	//HelloContainers myContainers;
+	//myContainers.helloVector();
 
-	testInheritanceInStack();
-	testInheritanceInHeap();
-	testCpp11();
+	//testInheritanceInStack();
+	//testInheritanceInHeap();
+	//testCpp11();
+	testCopy();
+	testAssignment();
 
 	return 0;
 }
