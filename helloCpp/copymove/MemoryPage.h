@@ -21,6 +21,12 @@ public:
 	// typical C++ assignment operator
 	MemoryPage& operator=(const MemoryPage&);
 
+	// C++11 move ctor &&
+	MemoryPage(MemoryPage&&);
+
+	// C++11 move assignment &&
+	MemoryPage& operator=(MemoryPage&&);
+
 	size_t getSize() { return m_Size; }
 
 protected:
@@ -31,7 +37,6 @@ protected:
 private:
 	size_t m_Size;
 	char* m_pBuf;
-	int m_Id;
 };
 
 

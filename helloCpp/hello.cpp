@@ -6,6 +6,7 @@
  */
 #include <iostream>
 #include <memory>
+#include <utility>
 #include "Greet.h"
 #include "HelloContainers.h"
 #include "inheritance\DerivedC.h"
@@ -68,18 +69,27 @@ void testCpp11()
 
 void testCopy()
 {
+	cout << "testCopy" << endl;
 	MemoryPage myPage(1024);
 	MemoryPage myPage1 = myPage; // copy ctor
 }
 
 void testAssignment()
 {
+	cout << "testAssignment" << endl;
 	MemoryPage myPage2(1024);
 	MemoryPage myPage3(512);
 	cout << "myPage2: " << myPage2.getSize() << endl;
 	cout << "myPage3: " << myPage3.getSize() << endl;
 	myPage2 = myPage3; // assignment ctor
 	cout << "myPage2: " << myPage2.getSize() << endl;
+}
+
+void testMove()
+{
+	cout << "testMove" << endl;
+	MemoryPage myPage(1024);
+	MemoryPage myPage1 = std::move(myPage); // force move ctor
 }
 
 int main() {
@@ -95,6 +105,7 @@ int main() {
 	//testCpp11();
 	testCopy();
 	testAssignment();
+	testMove();
 
 	return 0;
 }

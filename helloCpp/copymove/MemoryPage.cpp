@@ -45,6 +45,41 @@ MemoryPage& MemoryPage::operator=(const MemoryPage& other)
 	return *this;
 }
 
+// C++11 move ctor &&
+// move is faster, it does not need to allocate nor deep-copy memory buffer
+MemoryPage::MemoryPage(MemoryPage&& other)
+{
+	// pilfer other's resources
+	m_Size = other.m_Size;
+	m_pBuf = other.m_pBuf;
+
+	// reset on other
+	other.m_Size = 0;
+	other.m_pBuf = nullptr;
+
+	logMessage("MemoryPage move ctor");
+}
+
+// C++11 move assignment &&
+MemoryPage& MemoryPage::operator=(MemoryPage&& other)
+{
+	if (this != &other) // prevent assignment to self
+	{
+		// release current object's resources
+		clear();
+
+		// pilfer other's resources
+		m_Size = other.m_Size;
+		m_pBuf = other.m_pBuf;
+
+		// reset on other
+		other.m_Size = 0;
+		other.m_pBuf = nullptr;
+	}
+	logMessage("MemoryPage move assignment operator");
+	return *this;
+}
+
 void MemoryPage::copyOther(const MemoryPage& other)
 {
 	// codes as copy ctor
@@ -56,10 +91,23 @@ void MemoryPage::copyOther(const MemoryPage& other)
 	}
 }
 
+/*
+void MemoryPage::pilferOther(MemoryPage&& other)
+{
+	// pilfer other's resources
+	m_Size = other.m_Size;
+	m_pBuf = other.m_pBuf;
+
+	// reset on other
+	other.m_Size = 0;
+	other.m_pBuf = nullptr;
+}
+*/
+
 void MemoryPage::clear()
 {
 	delete [] m_pBuf;
-	m_pBuf = 0;
+	m_pBuf = nullptr;
 	m_Size = 0;
 }
 
