@@ -7,6 +7,9 @@
 #include <iostream>
 #include <memory>
 #include <utility>
+#include <iomanip>
+#include <thread>
+#include <chrono>
 #include "Greet.h"
 #include "HelloContainers.h"
 #include "inheritance\DerivedC.h"
@@ -92,6 +95,45 @@ void testMove()
 	MemoryPage myPage1 = std::move(myPage); // force move ctor
 }
 
+void testByteOrder()
+{
+	unsigned long lNumber;
+	unsigned char* pChar;
+
+	// 11 22 33 44 => big-endian
+	// 44 33 22 11 => little-endian
+	// lNumber = 0x1122334455667788UL for long 64-bit
+
+	lNumber = 0x11223344UL;
+	pChar = (unsigned char*) &lNumber;
+	for (int i=0; i<sizeof(long); i++)
+	{
+		//cout << std::hex << setw(4) << *pChar++;
+		printf("%x ", *pChar++);
+	}
+	cout << endl;
+	//printf("\n");
+}
+
+void sayHello(int secs)
+{
+    cout << "Hello started" << endl;
+    for (int i=0; i<secs; ++i)
+    {
+    	cout << i << endl;
+    	std::this_thread::sleep_for(std::chrono::seconds(1));
+    }
+    cout << "Hello completed " << endl;
+}
+
+void testThread()
+{
+	std::thread myThread;
+	myThread = std::thread(sayHello, 3);
+	//myThread.join();
+	myThread.detach();
+}
+
 int main() {
 
 	//Greet greeter;
@@ -103,9 +145,18 @@ int main() {
 	//testInheritanceInStack();
 	//testInheritanceInHeap();
 	//testCpp11();
-	testCopy();
-	testAssignment();
-	testMove();
+
+	//testCopy();
+	//testAssignment();
+	//testMove();
+
+	//testByteOrder();
+
+	testThread();
+
+    cout << "Q or q key to quit...";
+    char chWait;
+	cin >> chWait;
 
 	return 0;
 }
