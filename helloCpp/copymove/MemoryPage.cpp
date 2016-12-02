@@ -13,8 +13,22 @@ using namespace std;
 /**
  *  For copy and assigment
  *  http://www.keithschwarz.com/cs106l/winter20072008/handouts/170_Copy_Constructor_Assignment_Operator.pdf
+ Theorem: If a class has any of the following three member functions:
+ - Destructor
+ - Copy Constructor
+ - Assignment Operator
+ Then that class should have all three of those functions.
+ Corollary: If a class has a destructor, it should also have a copy constructor and assignment operator.
+
  *  For move
  *  http://blog.smartbear.com/c-plus-plus/c11-tutorial-introducing-the-move-constructor-and-the-move-assignment-operator/
+The state of a moved-from object is unspecified.
+Therefore, always assume that a moved-from object no longer owns any resources,
+and that its state is similar to that of an empty (as if default-constructed) object.
+For example, if you move a string s1 to s2, after the move operation the state of s2
+is identical to that of s1 before the move, whereas s1 is now an empty (though valid)
+string object.
+
  */
 
 MemoryPage::MemoryPage(int sz) : m_Size(sz), m_pBuf(new char[m_Size])
@@ -68,6 +82,8 @@ MemoryPage::MemoryPage(MemoryPage&& other)
 }
 
 // C++11 move assignment &&
+// A move assignment operator is similar to a copy constructor except that before
+// pilfering the source object, it releases any resources that its object may own.
 MemoryPage& MemoryPage::operator=(MemoryPage&& other)
 {
 	if (this != &other) // prevent assignment to self
