@@ -11,7 +11,14 @@
 using namespace std;
 
 /**
- *  For copy and assigment
+ * To prevent your default C++ implementation and from your object from being
+ * incorrectly copied or assigned, you make them private, e.g.:
+private:
+	// Hide copy-constructor and assignment operator
+    Activator (const Activator&);
+    Activator& operator= (const Activator&);
+
+ *  For copy and assigment implementation
  *  http://www.keithschwarz.com/cs106l/winter20072008/handouts/170_Copy_Constructor_Assignment_Operator.pdf
  Theorem: If a class has any of the following three member functions:
  - Destructor
