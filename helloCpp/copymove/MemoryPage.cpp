@@ -10,6 +10,13 @@
 
 using namespace std;
 
+/**
+ *  For copy and assigment
+ *  http://www.keithschwarz.com/cs106l/winter20072008/handouts/170_Copy_Constructor_Assignment_Operator.pdf
+ *  For move
+ *  http://blog.smartbear.com/c-plus-plus/c11-tutorial-introducing-the-move-constructor-and-the-move-assignment-operator/
+ */
+
 MemoryPage::MemoryPage(int sz) : m_Size(sz), m_pBuf(new char[m_Size])
 {
 	logMessage("MemoryPage");
