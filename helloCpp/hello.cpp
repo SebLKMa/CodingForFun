@@ -256,15 +256,15 @@ int main() {
 	//testInheritanceInHeap();
 	//testCpp11();
 
-	//testCopy();
-	//testAssignment();
-	//testMove();
+	testCopy();
+	testAssignment();
+	testMove();
 
 	//testByteOrder();
 	//testThread();
 
 	//testThreads();
-	testDeadlockThreads();
+	//testDeadlockThreads();
 	
 	cout << endl;
 	cout << "Q or q key to quit...";
