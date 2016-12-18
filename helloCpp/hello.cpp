@@ -1,9 +1,7 @@
-/*
- * hello.cpp
- *
- *  Created on: Sep 23, 2016
- *      Author: LMA
- */
+// helloCppConsole.cpp : Defines the entry point for the console application.
+//
+
+//#include "stdafx.h" not using pre-compiled headers
 #include <iostream>
 #include <memory>
 #include <utility>
@@ -15,8 +13,15 @@
 #include "HelloContainers.h"
 #include "inheritance\DerivedC.h"
 #include "copymove\MemoryPage.h"
+#include "loops\Loops.h"
 
 using namespace std;
+
+void testLoops()
+{
+	Loops myLoops;
+	myLoops.DoLoop1();
+}
 
 void testInheritanceInStack()
 {
@@ -246,6 +251,8 @@ void testDeadlockThreads()
 
 int main() {
 
+	testLoops();
+
 	//Greet greeter;
 	//greeter.sayHello();
 
@@ -256,9 +263,9 @@ int main() {
 	//testInheritanceInHeap();
 	//testCpp11();
 
-	testCopy();
-	testAssignment();
-	testMove();
+	//testCopy();
+	//testAssignment();
+	//testMove();
 
 	//testByteOrder();
 	//testThread();
