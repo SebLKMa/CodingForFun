@@ -9,11 +9,13 @@
 #include <thread>
 #include <chrono>
 #include <mutex>
+#include <vector>
 #include "Greet.h"
 #include "HelloContainers.h"
 #include "inheritance\DerivedC.h"
 #include "copymove\MemoryPage.h"
 #include "loops\Loops.h"
+#include "algorithms\ArraySorter.h"
 
 using namespace std;
 
@@ -21,6 +23,30 @@ void testLoops()
 {
 	Loops myLoops;
 	myLoops.DoLoop1();
+}
+
+void testArraySorter()
+{
+	vector<double> numbers;
+	double input {};
+	while (true)
+	{
+		cout << "Enter non-zero number value, 0 to end: ";
+		cin >> input;
+		if (!input)
+		{
+			break;
+		}
+		numbers.push_back(input);
+	}
+
+	if (numbers.size() == 0)
+	{
+		return;
+	}
+
+	ArraySorter aSorter;
+	aSorter.SortAscending(numbers);
 }
 
 void testInheritanceInStack()
@@ -252,6 +278,7 @@ void testDeadlockThreads()
 int main() {
 
 	testLoops();
+	testArraySorter();
 
 	//Greet greeter;
 	//greeter.sayHello();
