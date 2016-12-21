@@ -16,6 +16,9 @@ class DerivedA : public virtual Base
 public:
 	DerivedA(void);
 	virtual ~DerivedA(void);
+
+	// overrides Base
+	virtual void sayHi();
 };
 
 #endif /* DERIVEDA_H_ */

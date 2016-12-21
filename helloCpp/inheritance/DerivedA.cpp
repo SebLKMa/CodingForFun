@@ -19,3 +19,8 @@ DerivedA::~DerivedA(void)
 	cout << "DerivedA::~DerivedA()" << endl;
 }
 
+void DerivedA::sayHi()
+{
+	cout << "DerivedA::sayHi()" << endl;
+}
+

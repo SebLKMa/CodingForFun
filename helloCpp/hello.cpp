@@ -78,6 +78,43 @@ void testInheritanceInHeap()
 	}
 }
 
+void testInheritanceInHeap2()
+{
+	cout << "testInheritanceInHeap2" << endl;
+
+	Base* pBase = new DerivedA();
+	cout << "pBase created" << endl;
+	if (nullptr != pBase)
+	{
+		pBase->sayHi();
+
+		delete pBase;
+		cout << "pBase destroyed" << endl;
+	}
+}
+
+void testCpp11unique_ptr()
+{
+	cout << "testCpp11unique_ptr()\n"
+		<< "- same behavior as testInheritanceInHeap2()\n"
+		<< "unique_ptr frees ownership when out of scope."
+		<< endl;
+	unique_ptr<DerivedA> pA(new DerivedA);  // pA owns DerivedA
+	pA->sayHi();
+}
+
+void testCpp11unique_ptr_Move()
+{
+	cout << "testCpp11unique_ptr_Move()\n"
+		<< "- same behavior as testCpp11unique_ptr()\n"
+		<< "std::move passes ownership of unique_ptr."
+		<< endl;
+	unique_ptr<DerivedA> pA(new DerivedA);   // pA owns DerivedA
+	pA->sayHi();
+	unique_ptr<DerivedA> pB = std::move(pA); // passes ownership to pB
+	pB->sayHi();
+}
+
 void testCpp11()
 {
 	cout << "testCpp11" << endl;
@@ -277,8 +314,8 @@ void testDeadlockThreads()
 
 int main() {
 
-	testLoops();
-	testArraySorter();
+	//testLoops();
+	//testArraySorter();
 
 	//Greet greeter;
 	//greeter.sayHello();
@@ -288,6 +325,9 @@ int main() {
 
 	//testInheritanceInStack();
 	//testInheritanceInHeap();
+	testInheritanceInHeap2();
+	testCpp11unique_ptr();
+	testCpp11unique_ptr_Move();
 	//testCpp11();
 
 	//testCopy();

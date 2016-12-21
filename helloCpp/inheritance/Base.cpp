@@ -12,11 +12,17 @@ using namespace std;
 Base::Base(void)
 {
 	cout << "Base::Base()" << endl;
+	sayHi(); // calls self
 }
 
 Base::~Base(void)
 {
 	cout << "Base::~Base()" << endl;
+}
+
+void Base::sayHi()
+{
+	cout << "Base::sayHi()" << endl;
 }
 
 

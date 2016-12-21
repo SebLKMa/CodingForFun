@@ -13,6 +13,8 @@ class Base
 public:
 	Base(void);
 	virtual ~Base(void);
+
+	virtual void sayHi ();
 };
 
 #endif /* BASE_H_ */
