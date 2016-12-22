@@ -99,7 +99,7 @@ void testCpp11unique_ptr()
 		<< "- same behavior as testInheritanceInHeap2()\n"
 		<< "unique_ptr frees ownership when out of scope."
 		<< endl;
-	unique_ptr<DerivedA> pA(new DerivedA);  // pA owns DerivedA
+	unique_ptr<Base> pA(new DerivedA);  // pA owns DerivedA
 	pA->sayHi();
 }
 
@@ -113,6 +113,21 @@ void testCpp11unique_ptr_Move()
 	pA->sayHi();
 	unique_ptr<DerivedA> pB = std::move(pA); // passes ownership to pB
 	pB->sayHi();
+}
+
+void testCpp11shared_ptr2(shared_ptr<Base> pBase)
+{
+	cout << "testCpp11shared_ptr2() ref counted ptr" << endl;
+	pBase->sayHi();
+}
+
+void testCpp11shared_ptr1()
+{
+	// ref counted ptr points to the same object, will be deleted when ref count becomes zero
+	cout << "testCpp11shared_ptr1() ref counted ptr" << endl;
+	shared_ptr<Base> pA(new DerivedA);   //
+	pA->sayHi();
+	testCpp11shared_ptr2(pA);
 }
 
 void testCpp11()
@@ -328,6 +343,7 @@ int main() {
 	testInheritanceInHeap2();
 	testCpp11unique_ptr();
 	testCpp11unique_ptr_Move();
+	testCpp11shared_ptr1();
 	//testCpp11();
 
 	//testCopy();
