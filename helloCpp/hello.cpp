@@ -16,6 +16,8 @@
 #include "copymove\MemoryPage.h"
 #include "loops\Loops.h"
 #include "algorithms\ArraySorter.h"
+#include "templates\TArray.h"
+#include "Box.h"
 
 using namespace std;
 
@@ -327,6 +329,44 @@ void testDeadlockThreads()
 	// Prevent deadlock by acquiring locks in the same order.
 }
 
+void testTArray()
+{
+	const size_t NVALUE = 50;
+	TArray<double> values(NVALUE); // template's class ctor and instance created
+	try
+	{
+		for (size_t i = 0; i < NVALUE; ++i)
+		{
+			values[i] = i + 1;
+		}
+		cout << "Sum of pairs of elements:";
+		size_t lines{};
+		for (size_t i{ NVALUE - 1 }; i >= 0; i--)
+		{
+			cout << (lines++ % 5 == 0 ? "\n" : "")
+				<< std::setw(5) << values[i] + values[i - 1];
+		}
+	}
+	catch (const std::out_of_range& ex)
+	{
+		cerr << "\nout_of_range exception object caught! " << ex.what() << endl;
+	}
+
+	try
+	{
+		const size_t NBOXES = 10;
+		TArray<Box> boxes(NBOXES); // template instance created
+		for (size_t i = 0; i <= NBOXES; ++i)
+		{
+			cout << "Box volume is " << boxes[i].volume() << endl;
+		}
+	}
+	catch (const std::out_of_range& ex)
+	{
+		cerr << "\nout_of_range exception object caught! " << ex.what() << endl;
+	}
+}
+
 int main() {
 
 	//testLoops();
@@ -340,12 +380,12 @@ int main() {
 
 	//testInheritanceInStack();
 	//testInheritanceInHeap();
+	//testCpp11();
 	testInheritanceInHeap2();
 	testCpp11unique_ptr();
 	testCpp11unique_ptr_Move();
 	testCpp11shared_ptr1();
-	//testCpp11();
-
+	
 	//testCopy();
 	//testAssignment();
 	//testMove();
@@ -356,6 +396,8 @@ int main() {
 	//testThreads();
 	//testDeadlockThreads();
 	
+	testTArray();
+
 	cout << endl;
 	cout << "Q or q key to quit...";
 	char chWait;
