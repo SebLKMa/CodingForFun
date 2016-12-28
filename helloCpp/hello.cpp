@@ -17,6 +17,7 @@
 #include "loops\Loops.h"
 #include "algorithms\ArraySorter.h"
 #include "templates\TArray.h"
+#include "datastructures\TruckloadList.h"
 #include "Box.h"
 
 using namespace std;
@@ -367,6 +368,40 @@ void testTArray()
 	}
 }
 
+// gemerate a random integer 1 to count
+inline size_t random(size_t count)
+{
+	return 1 + static_cast<size_t>(count * static_cast<double>(std::rand()) / RAND_MAX+1.0);
+}
+
+void testTruckloadList()
+{
+	const size_t dimLimit {99}; // upper limit on Box dimensions
+	std::srand((unsigned)std::time(0)); // initialize random number generator
+
+	TruckloadList list1;
+	// add 12 random boxes to list
+	const size_t boxCount {12};
+	for (size_t i{}; i<boxCount; ++i)
+	{
+		list1.addBox(std::make_shared<Box>(random(dimLimit), random(dimLimit), random(dimLimit)));
+	}
+	cout << "The first list:\n";
+	list1.listBoxes();
+
+	// Find the largest Box in the list
+	shared_ptr<Box> pBox {list1.getFirstBox()};
+	shared_ptr<Box> pNextBox {};
+	while (pNextBox = list1.getNextBox()) // assign then test to next Box
+	{
+		if (pBox->compare(*pNextBox) < 0)
+			pBox = pNextBox;
+	}
+	cout << "\nThe largest box in the first list is:";
+	pBox->listBox();
+
+}
+
 int main() {
 
 	//testLoops();
@@ -396,7 +431,9 @@ int main() {
 	//testThreads();
 	//testDeadlockThreads();
 	
-	testTArray();
+	//testTArray();
+
+	testTruckloadList();
 
 	cout << endl;
 	cout << "Q or q key to quit...";
