@@ -1,16 +1,22 @@
 #pragma once
+#include <stddef.h> // for size_t
+#include <new> // for bad_alloc
+#include <iostream>
+
 
 template <typename T>
 class TArray
 {
+
 public:
 	// ctor
-	explicit TArray(size_t arraySize) try : m_Size{ arraySize }, m_pElements{ new T[arraySize] }
+	explicit TArray(size_t arraySize)
+	try : m_Size{arraySize}, m_pElements{new T[arraySize]}
 	{
 	}
 	catch (std::bad_alloc&)
 	{
-		cerr << "memory allocation failed for TArray object.\n";
+		std::cerr << "memory allocation failed for TArray object.\n";
 	}
 
 	// dtor
@@ -47,4 +53,5 @@ public:
 private:
 	T* m_pElements; // Array of type T
 	size_t m_Size;   // number of array elements
+
 };

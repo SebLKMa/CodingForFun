@@ -12,9 +12,11 @@ Commented codes are moved to header files.
 Uncommented codes are not used, not compiled or linked.
 */
 
+using namespace std;
+
 /*
 template <typename T>
-inline TArray<T>::TArray(size_t arraySize) try : size{ arraySize }, m_pElements{ new T[arraySize] }
+inline TArray<T>::TArray(size_t arraySize) try : m_Size{arraySize}, m_pElements{ new T[arraySize] }
 {}
 catch (std::bad_alloc&)
 {
