@@ -400,9 +400,9 @@ void testTruckloadList()
 	cout << "\nThe largest box in the first list is:";
 	pBox->listBox();
 	cout << endl;
-	// list1.deleteBox(pBox);
-	// cout << "\nAfter deleting the largest box, the list contains:\n";
-	// list1.listBoxes();
+	list1.deleteBox(pBox);
+	cout << "\nAfter deleting the largest box, the list contains:\n";
+	list1.listBoxes();
 
 	const size_t NBOXES{20};
 	vector<shared_ptr<Box>> boxes;

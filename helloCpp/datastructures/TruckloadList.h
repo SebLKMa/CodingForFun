@@ -34,7 +34,7 @@ public:
 
 	void addBox(std::shared_ptr<Box> pBox);
 
-	//void deleteBox(std::shared_ptr<Box> pBox);
+	void deleteBox(std::shared_ptr<Box> pBox);
 
 	void listBoxes();
 
@@ -42,6 +42,7 @@ private:
 	std::shared_ptr<PackageNode> pHead;
 	std::shared_ptr<PackageNode> pTail;
 	std::shared_ptr<PackageNode> pCurrent; // the last retrieved
+	size_t m_Size{};
 };
 
 #endif /* TRUCKLOADLIST_H_ */

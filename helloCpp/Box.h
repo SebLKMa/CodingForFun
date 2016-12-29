@@ -8,6 +8,12 @@ public:
 	Box(double length, double width, double height) : m_Length{ length }, m_Width{ width }, m_Height{ height } {}
 	Box() = default;
 
+	~Box()
+	{
+		listBox();
+		std::cout << " <-- Deleted" << std::endl;
+	}
+
 	// copy ctor
 	Box(const Box& box) : m_Length{ box.m_Length }, m_Width{ box.m_Width }, m_Height{ box.m_Height } {}
 
