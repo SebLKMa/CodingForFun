@@ -399,7 +399,34 @@ void testTruckloadList()
 	}
 	cout << "\nThe largest box in the first list is:";
 	pBox->listBox();
+	cout << endl;
+	// list1.deleteBox(pBox);
+	// cout << "\nAfter deleting the largest box, the list contains:\n";
+	// list1.listBoxes();
 
+	const size_t NBOXES{20};
+	vector<shared_ptr<Box>> boxes;
+	for (size_t i{}; i<NBOXES; ++i)
+	{
+		boxes.push_back(make_shared<Box>(random(dimLimit), random(dimLimit), random(dimLimit)));
+	}
+
+	TruckloadList list2(boxes);
+	cout << "\nThe second list:\n";
+	list2.listBoxes();
+
+	pBox = list2.getFirstBox();
+	while (pNextBox = list2.getNextBox())
+	{
+		if (pBox->compare(*pNextBox) > 0)
+		{
+			pBox = pNextBox;
+		}
+	}
+
+	cout << "\nThe smallest box in the first list is:";
+	pBox->listBox();
+	cout << endl;
 }
 
 int main() {
