@@ -45,3 +45,38 @@ void ArraySorter::SortAscending(std::vector<double>& numbers)
 	}
 	cout << endl;
 }
+
+void ArraySorter::SortAscending(std::vector<std::string>& strings)
+{
+	string temp;
+	bool sorted{ false };
+	while (!sorted)
+	{
+		sorted = true;  // re-start until all are sorted
+		for (size_t i{1}; i < strings.size(); ++i)	// start loop from second index
+		{
+			if (strings[i - 1] > strings[i])		// start compare from first index
+			{
+				temp = strings[i];
+				strings[i] = strings[i - 1];
+				strings[i - 1] = temp;
+				sorted = false;
+			}
+		}
+	}
+
+	cout << "Strings are sorted in ascending sequence:\n"
+		<< std::fixed << std::setprecision(1);
+	const size_t maxNperLine{ 10 }; // no. of output per line
+	size_t n{}; // no. on current line
+	for (vector<string>::size_type i{}; i < strings.size(); ++i)
+	{
+		cout << std::setw(8) << strings[i];
+		if (++n == maxNperLine)
+		{
+			cout << endl;
+			n = 0;
+		}
+	}
+	cout << endl;
+}

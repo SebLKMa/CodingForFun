@@ -10,6 +10,7 @@
 #include <chrono>
 #include <mutex>
 #include <vector>
+#include <string> // contsins string, wstring, u16string, u32string
 #include "Greet.h"
 #include "HelloContainers.h"
 #include "inheritance\DerivedC.h"
@@ -19,8 +20,17 @@
 #include "templates\TArray.h"
 #include "datastructures\TruckloadList.h"
 #include "Box.h"
+#include "fileio\FileIO.h"
 
 using namespace std;
+
+void testStringTypes()
+{
+	wstring myWstring{ L"Hello wstring" }; //wchar_t characters
+	u16string myU16string{ u"Hello unicode 16" }; // char16_t characters
+	u32string myU32string{ U"Hello unicode 32" }; // char32_t characters
+	wcout << myWstring << endl;
+}
 
 void testLoops()
 {
@@ -50,6 +60,22 @@ void testArraySorter()
 
 	ArraySorter aSorter;
 	aSorter.SortAscending(numbers);
+
+	vector<string> myStrings;
+	myStrings.push_back("deep");
+	myStrings.push_back("skin");
+	myStrings.push_back("beauty");
+	myStrings.push_back("only");
+	myStrings.push_back("is");
+	aSorter.SortAscending(myStrings);
+}
+
+void testFileIO()
+{
+	string infile{"C:\\temp\\C++ Primer - Sampler Chapter.pdf"};
+	string outfile{"C:\\temp\\C++ Primer - Sampler Chapter copy.pdf"};
+	FileIO myFileIO;
+	myFileIO.copy(infile, outfile);
 }
 
 void testInheritanceInStack()
@@ -431,6 +457,7 @@ void testTruckloadList()
 
 int main() {
 
+	//testStringTypes();
 	//testLoops();
 	//testArraySorter();
 
@@ -460,7 +487,9 @@ int main() {
 	
 	//testTArray();
 
-	testTruckloadList();
+	//testTruckloadList();
+
+	//testFileIO();
 
 	cout << endl;
 	cout << "Q or q key to quit...";
