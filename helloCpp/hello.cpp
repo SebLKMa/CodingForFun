@@ -32,6 +32,73 @@ void testStringTypes()
 	wcout << myWstring << endl;
 }
 
+void testPtrsRefs()
+{
+	long number{ 12345L };
+	long* pNumber{ &number }; // address-of
+	std::cout << "Number: " << *pNumber << endl; // de-reference to get the data
+
+	// char* WRONG!!!
+	//char* pPhrase{ "Beauty is only skin deep" };// WRONG! pPhrase only stores the addressof the
+												// first char 'B'. The rest is an array of const char
+	//*pPhrase = "Yes indeed."; // attempt to change contents of pPhrase results compile ERROR
+	//*pPhrase = 'Y';			// Runtime CRASH!!! Not allowed to change string literal
+
+	// const char* CORRECT!!!
+	const char* pPhrase{ "Beauty is only skin deep" };  // CORRECT way, const ptr type
+														// ptr points to a const object
+	std::cout << pPhrase << endl;
+
+	// ptr to a const object, const object cannot be changed
+	pPhrase = { "Yes, indeed." };
+	std::cout << pPhrase << endl;
+
+	const int VALUE_1{ 42 };	   // const object 1
+	const int VALUE_2{ 65 };	   // const object 2
+	const int* pValue{ &VALUE_1 }; // ptr to address of const object
+	std::cout << *pValue << endl;
+	pValue = &VALUE_2;			   // change ptr to address of another const object
+	std::cout << *pValue << endl;
+
+	// array of ptrs to const, these pointers are pointing to const data
+	const char* arrDimSum[]{ "Har Kow", "Siew Mai", "Cheong Fun", "Fung Jao", "Ma Lai Go" };
+	size_t arrSize = sizeof(arrDimSum);    // 4 x 5 elements = 20
+	size_t eleSize = sizeof(arrDimSum[0]); // each pointer address is 4 bytes
+	size_t choice{};
+	std::cout << "Pick your dim sum number between 1 and " << arrSize / eleSize << ": ";
+	std::cin >> choice;
+	if (choice >= 1 && choice <= arrSize / eleSize)
+	{
+		std::cout << "You dim sum is: " << arrDimSum[choice - 1] << endl;
+	}
+	else
+	{
+		std::cout << "No dim sum chosen." << endl;
+	}
+
+	// you can still change the ptr to point to another const data
+	size_t index = arrSize / eleSize;
+	arrDimSum[index - 1] = "Egg tart";
+	std::cout << "Pick your dim sum number between 1 and " << index << ": ";
+	std::cin >> choice;
+	if (choice >= 1 && choice <= index)
+	{
+		std::cout << "You dim sum is: " << arrDimSum[choice - 1] << endl;
+	}
+	else
+	{
+		std::cout << "No dim sum chosen." << endl;
+	}
+
+	// array of const ptrs to const, these are const pointers are pointing to const data
+	// once initialized, these const pointers cannot be changed to point to something else.
+	const char* const arrDimSumFixed[]{ "Har Kow", "Siew Mai", "Cheong Fun", "Fung Jao", "Ma Lai Go" };
+	size_t arrSize2 = sizeof(arrDimSumFixed);    
+	size_t eleSize2 = sizeof(arrDimSumFixed[0]); 
+	size_t index2 = arrSize2 / eleSize2;
+	//arrDimSumFixed[index2 - 1] = "Egg tart"; // compile error!!! lvalue cannot be modified
+}
+
 void testLoops()
 {
 	Loops myLoops;
@@ -458,6 +525,7 @@ void testTruckloadList()
 int main() {
 
 	//testStringTypes();
+	testPtrsRefs();
 	//testLoops();
 	//testArraySorter();
 
@@ -470,10 +538,11 @@ int main() {
 	//testInheritanceInStack();
 	//testInheritanceInHeap();
 	//testCpp11();
-	testInheritanceInHeap2();
-	testCpp11unique_ptr();
-	testCpp11unique_ptr_Move();
-	testCpp11shared_ptr1();
+
+	//testInheritanceInHeap2();
+	//testCpp11unique_ptr();
+	//testCpp11unique_ptr_Move();
+	//testCpp11shared_ptr1();
 	
 	//testCopy();
 	//testAssignment();
