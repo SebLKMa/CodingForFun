@@ -32,7 +32,7 @@ void testStringTypes()
 	wcout << myWstring << endl;
 }
 
-void testPtrsRefs()
+void testPtrsBasics()
 {
 	long number{ 12345L };
 	long* pNumber{ &number }; // address-of
@@ -97,6 +97,47 @@ void testPtrsRefs()
 	size_t eleSize2 = sizeof(arrDimSumFixed[0]); 
 	size_t index2 = arrSize2 / eleSize2;
 	//arrDimSumFixed[index2 - 1] = "Egg tart"; // compile error!!! lvalue cannot be modified
+}
+
+void testRefsBasics()
+{
+	double price{ 3.5 };
+	double& refPrice{ price };  // reference to price
+	refPrice += 1.5;			// changing the value of price
+	cout << price << endl;
+	cout << refPrice << endl;
+
+	const double& fixedPrice{ price };
+	//fixedPrice += 3.3;		// cannot change const ref
+	price += 3.3;
+	cout << price << endl;
+	cout << refPrice << endl;
+	cout << fixedPrice << endl;
+
+	const double FtoC{ 5.0 / 9.0 };
+	double temperatures[]{ 45.5, 50.0, 48.2, 57.0, 63.8 };
+	// t is a copy of the array element for each iteration
+	// temperature array still storing Fahrenheits
+	for (auto t : temperatures) 
+	{
+		t = (t - 32.0) * FtoC;
+	}
+	for (const auto& t : temperatures) // not changing data, use const ref
+	{
+		cout << std::setw(6) << t;
+	}
+	cout << endl;
+	// if results can be store in same temperature array, 
+	// it is more efficient to use references
+	for (auto& t : temperatures)
+	{
+		t = (t - 32.0) * FtoC;
+	}
+	for (const auto& t : temperatures) // not changing data, use const ref
+	{
+		cout << std::setw(6) << t;
+	}
+	cout << endl;
 }
 
 void testLoops()
@@ -525,7 +566,8 @@ void testTruckloadList()
 int main() {
 
 	//testStringTypes();
-	testPtrsRefs();
+	//testPtrsBasics();
+	testRefsBasics();
 	//testLoops();
 	//testArraySorter();
 
