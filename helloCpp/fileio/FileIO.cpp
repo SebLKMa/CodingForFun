@@ -4,6 +4,7 @@
 #include <fstream>
 #include <string>
 #include <stdexcept>
+#include <typeinfo> // for typeid()
 using std::string;
 using std::ios;
 
