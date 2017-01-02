@@ -10,7 +10,7 @@
 #include <chrono>
 #include <mutex>
 #include <vector>
-#include <string> // contsins string, wstring, u16string, u32string
+#include <string> // contains string, wstring, u16string, u32string
 #include "Greet.h"
 #include "HelloContainers.h"
 #include "inheritance\DerivedC.h"
