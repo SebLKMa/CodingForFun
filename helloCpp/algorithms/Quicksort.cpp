@@ -25,6 +25,25 @@ Quicksort::~Quicksort()
 	m_Words.clear();
 }
 
+Quicksort::Quicksort(const Quicksort& other)
+{
+	m_Words = other.m_Words; // invokes vector assigment
+}
+
+Quicksort& Quicksort::operator=(const Quicksort& other)
+{
+	if (this != &other) // prevent assignment to self
+	{
+		// MUST first de-allocate current
+		m_Words.clear();
+
+		// codes as copy ctor
+		m_Words = other.m_Words; // invokes vector assigment
+	}
+
+	return *this;
+}
+
 void Quicksort::sort()
 {
 	if (m_Words.size() == 0)

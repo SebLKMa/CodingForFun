@@ -22,6 +22,11 @@ public:
 	Quicksort(const string& text, const string& separators);
 	~Quicksort();
 
+	// typical C++ copy ctor
+	Quicksort(const Quicksort&);
+	// typical C++ assignment operator
+	Quicksort& operator=(const Quicksort&);
+
 	void sort();
 
 	void showWords();
