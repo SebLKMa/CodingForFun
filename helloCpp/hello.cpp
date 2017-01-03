@@ -17,10 +17,12 @@
 #include "copymove\MemoryPage.h"
 #include "loops\Loops.h"
 #include "algorithms\ArraySorter.h"
+#include "algorithms\Quicksort.h"
 #include "templates\TArray.h"
 #include "datastructures\TruckloadList.h"
 #include "Box.h"
 #include "fileio\FileIO.h"
+
 
 using namespace std;
 
@@ -176,6 +178,18 @@ void testArraySorter()
 	myStrings.push_back("only");
 	myStrings.push_back("is");
 	aSorter.SortAscending(myStrings);
+}
+
+void testQuicksort()
+{
+	const string SEPS{" ,.!?\"\n"};
+	string text;
+	cout << "Enter a string terminated by *: " << endl;
+	getline(cin, text, '*');
+
+	Quicksort sorter(text, SEPS);
+	sorter.sort();
+	sorter.showWords();
 }
 
 void testFileIO()
@@ -567,9 +581,10 @@ int main() {
 
 	//testStringTypes();
 	//testPtrsBasics();
-	testRefsBasics();
+	//testRefsBasics();
 	//testLoops();
 	//testArraySorter();
+	testQuicksort();
 
 	//Greet greeter;
 	//greeter.sayHello();
