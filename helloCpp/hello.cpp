@@ -210,7 +210,7 @@ void testTruckloadList()
 }
 
 int main() {
-	//Test01 test01;
+	Test01 test01;
 	//test01.testStringTypes();
 	//test01.testPtrsBasics();
 	//test01.testRefsBasics();
@@ -218,6 +218,7 @@ int main() {
 	//test01.testArraySorter();
 	//test01.testQuicksort();
 	//test01.testByteOrder();
+	test01.testBitShift();
 	//test01.testTArray();
 	//test01.testFileIO();
 
@@ -227,6 +228,7 @@ int main() {
 	//HelloContainers myContainers;
 	//myContainers.helloVector();
 
+	/*
 	Test02 test02;
 	test02.testInheritanceInStack();
 	test02.testInheritanceInHeap();
@@ -238,7 +240,7 @@ int main() {
 	test02.testCopy();
 	test02.testAssignment();
 	test02.testMove();
-
+	*/
 	//testThread();
 	//testThreads();
 	//testDeadlockThreads();

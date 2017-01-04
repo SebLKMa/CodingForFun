@@ -20,6 +20,7 @@ public:
 	void testFileIO();
 	void testTArray();
 	void testByteOrder();
+	void testBitShift();
 };
 
 #endif /* TEST01_H_ */

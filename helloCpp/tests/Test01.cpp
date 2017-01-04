@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Test01.cpp
  *
  *  Created on: Jan 4, 2017
@@ -249,5 +249,15 @@ void Test01::testByteOrder()
 	}
 	cout << endl;
 	//printf("\n");
+}
+
+void Test01::testBitShift()
+{
+	// we are in 16-bit integer
+	unsigned short number = 16387U;				  // binary ‭0100000000000011‬
+	unsigned short numberLeftShift = number << 2; // binary 00000000000011‬00 == 12, bit are lost, otherwise = *2n where n is n shift
+	unsigned short numberRightShift = number >> 2; // binary 00‭01000000000000 == 4096 == 16387/2n where n is n shift
+
+	cout << number << " 2left shift:" << numberLeftShift << " 2right shift: " << numberRightShift << endl;
 }
 
