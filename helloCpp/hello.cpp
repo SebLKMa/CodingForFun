@@ -3,19 +3,14 @@
 
 //#include "stdafx.h" not using pre-compiled headers
 #include <iostream>
-#include <memory>
-#include <utility>
 #include <iomanip>
 #include <thread>
 #include <chrono>
 #include <mutex>
-#include <vector>
 #include "Greet.h"
-#include "HelloContainers.h"
-#include "datastructures\TruckloadList.h"
-#include "Box.h"
 #include "tests\Test01.h"
 #include "tests\Test02.h"
+#include "tests\Test03.h"
 
 using namespace std;
 
@@ -152,66 +147,6 @@ void testDeadlockThreads()
 	// Prevent deadlock by acquiring locks in the same order.
 }
 
-// gemerate a random integer 1 to count
-inline size_t random(size_t count)
-{
-	return 1 + static_cast<size_t>(count * static_cast<double>(std::rand()) / RAND_MAX+1.0);
-}
-
-void testTruckloadList()
-{
-	const size_t dimLimit {99}; // upper limit on Box dimensions
-	std::srand((unsigned)std::time(0)); // initialize random number generator
-
-	TruckloadList list1;
-	// add 12 random boxes to list
-	const size_t boxCount {12};
-	for (size_t i{}; i<boxCount; ++i)
-	{
-		list1.addBox(std::make_shared<Box>(random(dimLimit), random(dimLimit), random(dimLimit)));
-	}
-	cout << "The first list:\n";
-	list1.listBoxes();
-
-	// Find the largest Box in the list
-	shared_ptr<Box> pBox {list1.getFirstBox()};
-	shared_ptr<Box> pNextBox {};
-	while (pNextBox = list1.getNextBox()) // assign then test to next Box
-	{
-		if (pBox->compare(*pNextBox) < 0)
-			pBox = pNextBox;
-	}
-	cout << "\nThe largest box in the first list is:";
-	pBox->listBox();
-	cout << endl;
-	list1.deleteBox(pBox);
-	cout << "\nAfter deleting the largest box, the list contains:\n";
-	list1.listBoxes();
-
-	const size_t NBOXES{20};
-	vector<shared_ptr<Box>> boxes;
-	for (size_t i{}; i<NBOXES; ++i)
-	{
-		boxes.push_back(make_shared<Box>(random(dimLimit), random(dimLimit), random(dimLimit)));
-	}
-
-	TruckloadList list2(boxes);
-	cout << "\nThe second list:\n";
-	list2.listBoxes();
-
-	pBox = list2.getFirstBox();
-	while (pNextBox = list2.getNextBox())
-	{
-		if (pBox->compare(*pNextBox) > 0)
-		{
-			pBox = pNextBox;
-		}
-	}
-
-	cout << "\nThe smallest box in the first list is:";
-	pBox->listBox();
-	cout << endl;
-}
 
 int main() {
 	//Test01 test01;
@@ -248,8 +183,11 @@ int main() {
 
 	//testThread();
 	//testThreads();
-	testDeadlockThreads();
+	//testDeadlockThreads();
 	//testTruckloadList();
+
+	Test03 test03;
+	test03.testTruckloadList();
 
 	cout << endl;
 	cout << "Q or q key to quit...";
