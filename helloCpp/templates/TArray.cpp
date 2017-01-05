@@ -30,6 +30,7 @@ inline TArray<T>::~TArray()
 }
 */
 
+/*
 template <typename T>
 inline TArray<T>::TArray(const TArray& array)
 {
@@ -59,6 +60,7 @@ inline TArray<T>& TArray<T>::operator=(const TArray& rhs)
 	}
 	return *this;
 }
+*/
 
 /*
 template <typename T>

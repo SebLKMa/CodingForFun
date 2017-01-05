@@ -25,8 +25,35 @@ public:
 		delete[] m_pElements;
 	}
 
-	TArray(const TArray& array); // copy ctor
-	TArray& operator=(const TArray& rhs); // assignment
+	//TArray(const TArray& array); // copy ctor
+	inline TArray(const TArray& array)
+	{
+		m_Size = array.m_Size;
+		m_pElements = new T[array.m_Size];
+		for (size_t i = 0; i < m_Size; ++i)
+		{
+			m_pElements[i] = array.m_pElements[i];
+		}
+	}
+
+	//TArray& operator=(const TArray& rhs); // assignment
+	inline TArray<T>& operator=(const TArray& rhs)
+	{
+		if (this != &rhs) // not pointing to same object
+		{
+			if (m_pElements) // my array is not empty
+			{
+				delete[] m_pElements;
+			}
+			m_Size = rhs.m_Size;
+			m_pElements = new T[rhs.m_Size];
+			for (size_t i = 0; i < m_Size; ++i)
+			{
+				m_pElements[i] = rhs.m_pElements[i];
+			}
+		}
+		return *this;
+	}
 
 	// subscript operator
 	T& operator[](size_t index)

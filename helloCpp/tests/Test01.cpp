@@ -193,7 +193,7 @@ void Test01::testFileIO()
 	myFileIO.copy(infile, outfile);
 }
 
-void Test01::testTArray()
+void Test01::testTArray1()
 {
 	const size_t NVALUE = 50;
 	TArray<double> values(NVALUE); // template's class ctor and instance created
@@ -220,9 +220,35 @@ void Test01::testTArray()
 	{
 		const size_t NBOXES = 10;
 		TArray<Box> boxes(NBOXES); // template instance created
+
+		// i <= NBOXES will exceed index, forcing operator[] to throw
 		for (size_t i = 0; i <= NBOXES; ++i)
 		{
 			cout << "Box volume is " << boxes[i].volume() << endl;
+		}
+	}
+	catch (const std::out_of_range& ex)
+	{
+		cerr << "\nout_of_range exception object caught! " << ex.what() << endl;
+	}
+}
+
+void Test01::testTArray2()
+{
+	try
+	{
+		const size_t NBOXES = 10;
+		TArray<Box> boxes(NBOXES); // template instance created
+		for (size_t i = 0; i < NBOXES; ++i)
+		{
+			cout << "Box volume is " << boxes[i].volume() << endl;
+		}
+
+		TArray<Box> otherBoxes = boxes;
+		for (size_t i = 0; i < NBOXES; ++i)
+		{
+			otherBoxes[i].setLength(i + 1);
+			cout << "Other Box volume is " << otherBoxes[i].volume() << endl;
 		}
 	}
 	catch (const std::out_of_range& ex)

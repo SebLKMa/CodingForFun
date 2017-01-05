@@ -149,7 +149,7 @@ void testDeadlockThreads()
 
 
 int main() {
-	//Test01 test01;
+	Test01 test01;
 	//test01.testStringTypes();
 	//test01.testPtrsBasics();
 	//test01.testRefsBasics();
@@ -158,7 +158,7 @@ int main() {
 	//test01.testQuicksort();
 	//test01.testByteOrder();
 	//test01.testBitShift();
-	//test01.testTArray();
+	test01.testTArray2();
 	//test01.testFileIO();
 
 	//Greet greeter;
@@ -186,8 +186,8 @@ int main() {
 	//testDeadlockThreads();
 	//testTruckloadList();
 
-	Test03 test03;
-	test03.testTruckloadList();
+	//Test03 test03;
+	//test03.testTruckloadList();
 
 	cout << endl;
 	cout << "Q or q key to quit...";

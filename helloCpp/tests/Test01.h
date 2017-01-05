@@ -18,7 +18,8 @@ public:
 	void testArraySorter();
 	void testQuicksort();
 	void testFileIO();
-	void testTArray();
+	void testTArray1();
+	void testTArray2();
 	void testByteOrder();
 	void testBitShift();
 };

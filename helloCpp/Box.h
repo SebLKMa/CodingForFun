@@ -33,6 +33,11 @@ public:
 				<< std::setw(2) << m_Height << ")";
 	}
 
+	void setLength(double newLength)
+	{
+		m_Length = newLength;
+	}
+
 protected:
 	double m_Length{1.0};
 	double m_Width{1.0};
