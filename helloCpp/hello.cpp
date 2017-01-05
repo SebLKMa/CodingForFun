@@ -158,7 +158,8 @@ int main() {
 	//test01.testQuicksort();
 	//test01.testByteOrder();
 	//test01.testBitShift();
-	test01.testTArray2();
+	test01.testBitMasks();
+	//test01.testTArray2();
 	//test01.testFileIO();
 
 	//Greet greeter;

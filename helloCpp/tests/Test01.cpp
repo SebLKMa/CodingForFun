@@ -287,3 +287,85 @@ void Test01::testBitShift()
 	cout << number << " 2left shift:" << numberLeftShift << " 2right shift: " << numberRightShift << endl;
 }
 
+// e.g. unix file permission rwx
+const unsigned short READ = 4;	// 0100  2^2
+const unsigned short WRITE = 2;	// 0010  2^1
+const unsigned short EXEC = 1;	// 0001  2^0
+void Test01::testBitMasks()
+{
+	// user A permission is read, write
+	// rwx
+	// 110 = 6
+	unsigned short userApermission = 6;
+	checkUserPermission("UserA", userApermission);
+
+	// user B permission is read, write, execute
+	// rwx
+	// 101 = 5
+	unsigned short userBpermission = 5;
+	checkUserPermission("UserB", userBpermission);
+
+	// now set user A to have execute permission
+	// rwx
+	// 110
+	// 001
+	setUserPermission(userApermission, EXEC);
+	checkUserPermission("UserA", userApermission);
+
+	// now set user B to have write permission
+	// rwx
+	// 101
+	// 010
+	setUserPermission(userBpermission, WRITE);
+	checkUserPermission("UserB", userBpermission);
+
+	// now set user A not to have write permission
+	// rwx
+	// 111
+	// 010 ~ 101 then & with 111
+	unsetUserPermission(userApermission, WRITE);
+	checkUserPermission("UserA", userApermission);
+
+	// now set user B to have read permission
+	// rwx
+	// 111
+	// 100 ~ 011 then & with 111
+	unsetUserPermission(userBpermission, READ);
+	checkUserPermission("UserB", userBpermission);
+}
+
+void Test01::checkUserPermission(const std::string& userId, const unsigned short& userPermission)
+{
+	cout << "=====================================" << endl;
+
+	// using bitwise AND to extract the bit information
+	// test if user A permitted to read
+	if ((userPermission & READ) == READ)
+		cout << userId <<  " has READ permission" << endl;
+	else
+		cout << userId << " has no READ permission" << endl;
+
+	// test if user A permitted to write
+	if ((userPermission & WRITE) == WRITE)
+		cout << userId << " has WRITE permission" << endl;
+	else
+		cout << userId << " has no WRITE permission" << endl;
+
+	// test if user A permitted to exececute
+	if ((userPermission & EXEC) == EXEC)
+		cout << userId << " has EXEC permission" << endl;
+	else
+		cout << userId << " has no EXEC permission" << endl;
+}
+
+void Test01::setUserPermission(unsigned short& userPermission, const unsigned short& setPermission)
+{
+	// using bitwise OR to turn bits on
+	userPermission |= setPermission;
+}
+
+void Test01::unsetUserPermission(unsigned short& userPermission, const unsigned short& unsetPermission)
+{
+	// using bitwise AND complement to turn bits off
+	userPermission &= ~unsetPermission;
+}

@@ -7,6 +7,7 @@
 
 #ifndef TEST01_H_
 #define TEST01_H_
+#include <string>
 
 class Test01
 {
@@ -22,6 +23,12 @@ public:
 	void testTArray2();
 	void testByteOrder();
 	void testBitShift();
+	void testBitMasks();
+
+private:
+	void checkUserPermission(const std::string& userId, const unsigned short& userPermission);
+	void setUserPermission(unsigned short& userPermission, const unsigned short& setPermission);
+	void unsetUserPermission(unsigned short& userPermission, const unsigned short& unsetPermission);
 };
 
 #endif /* TEST01_H_ */
