@@ -10,7 +10,6 @@
 #include <chrono>
 #include <mutex>
 #include <vector>
-#include <string> // contains string, wstring, u16string, u32string
 #include "Greet.h"
 #include "HelloContainers.h"
 #include "datastructures\TruckloadList.h"
@@ -58,11 +57,12 @@ void testThreads()
 {
 	cout << endl;
 	cout << "testThreads()" << endl;
+
 	thread t1(doForLoop, 1); //  0 - 9
 	thread t2(doForLoop, 2); // 10 - 19
-	thread t3(doForLoop, 3); // 20 - 29
-	thread t4(doForLoop, 4); // 30 - 39
-	thread t5(doForLoop, 5); // 40 - 49
+	//thread t3(doForLoop, 3); // 20 - 29
+	//thread t4(doForLoop, 4); // 30 - 39
+	//thread t5(doForLoop, 5); // 40 - 49
 
 	for (int i = 0; i > -50; i--)
 	{
@@ -71,15 +71,15 @@ void testThreads()
 
 	t1.join();
 	t2.join();
-	t3.join();
-	t4.join();
-	t5.join();
+	//t3.join();
+	//t4.join();
+	//t5.join();
 
 	// NOTE that deadlock can also happen without locks.
 	// Example:
 	// thread 1 calls join on thread 2
 	// thread 2 calls join on thread 1
-	// Therefore, do not wait for another thread of there is a chance
+	// Therefore, do not wait for another thread if there is a chance
 	// the other thread is waiting for you.
 }
 
@@ -89,11 +89,13 @@ void deadlockableCoutEven(int i)
 	// attempt to acquire lock 1
 	lock_guard<mutex> myGuard1(myMutex1);
 	// ... do some operations here
-
+	cout << endl;
+	cout << "deadlockableCoutEven" << " acquired myMutex1" << endl;
+	cout << "deadlockableCoutEven" << " attempt to acquire myMutex2" << endl;
 	// attempt to acquire lock 2
 	lock_guard<mutex> myGuard2(myMutex2);
 
-	cout << " " << i << " ";
+	cout << "deadlockableCoutEven " << i << " ";
 }
 
 void deadlockableCoutOdd(int i)
@@ -101,11 +103,13 @@ void deadlockableCoutOdd(int i)
 	// attempt to acquire lock 2
 	lock_guard<mutex> myGuard2(myMutex2);
 	// ... do some operations here
-
+	cout << endl;
+	cout << "deadlockableCoutOdd" << " acquired myMutex2" << endl;
+	cout << "deadlockableCoutOdd" << " attempt to acquire myMutex1" << endl;
 	// attempt to acquire lock 1
 	lock_guard<mutex> myGuard1(myMutex1);
 	
-	cout << " " << i << " ";
+	cout << "deadlockableCoutOdd " << i << " ";
 }
 
 void doForLoopEvenOdd(int max)
@@ -130,20 +134,20 @@ void testDeadlockThreads()
 
 	thread t1(doForLoopEvenOdd, 1); //  0 - 9
 	thread t2(doForLoopEvenOdd, 2); // 10 - 19
-	thread t3(doForLoopEvenOdd, 3); // 20 - 29
-	thread t4(doForLoopEvenOdd, 4); // 30 - 39
-	thread t5(doForLoopEvenOdd, 5); // 40 - 49
+	//thread t3(doForLoopEvenOdd, 3); // 20 - 29
+	//thread t4(doForLoopEvenOdd, 4); // 30 - 39
+	//thread t5(doForLoopEvenOdd, 5); // 40 - 49
 
-	for (int i = 0; i > -50; i--)
-	{
-		threadSafeCout(i);   // 0, -49
-	}
+	//for (int i = 0; i > -50; i--)
+	//{
+	//	threadSafeCout(i);   // 0, -49
+	//}
 
 	t1.join();
 	t2.join();
-	t3.join();
-	t4.join();
-	t5.join();
+	//t3.join();
+	//t4.join();
+	//t5.join();
 
 	// Prevent deadlock by acquiring locks in the same order.
 }
@@ -210,7 +214,7 @@ void testTruckloadList()
 }
 
 int main() {
-	Test01 test01;
+	//Test01 test01;
 	//test01.testStringTypes();
 	//test01.testPtrsBasics();
 	//test01.testRefsBasics();
@@ -218,7 +222,7 @@ int main() {
 	//test01.testArraySorter();
 	//test01.testQuicksort();
 	//test01.testByteOrder();
-	test01.testBitShift();
+	//test01.testBitShift();
 	//test01.testTArray();
 	//test01.testFileIO();
 
@@ -241,9 +245,10 @@ int main() {
 	test02.testAssignment();
 	test02.testMove();
 	*/
+
 	//testThread();
 	//testThreads();
-	//testDeadlockThreads();
+	testDeadlockThreads();
 	//testTruckloadList();
 
 	cout << endl;
