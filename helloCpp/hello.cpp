@@ -11,6 +11,7 @@
 #include "tests\Test01.h"
 #include "tests\Test02.h"
 #include "tests\Test03.h"
+#include "FileWordsCounter\FileWordsCounter.h"
 
 using namespace std;
 
@@ -149,7 +150,7 @@ void testDeadlockThreads()
 
 
 int main() {
-	Test01 test01;
+	//Test01 test01;
 	//test01.testStringTypes();
 	//test01.testPtrsBasics();
 	//test01.testRefsBasics();
@@ -158,7 +159,7 @@ int main() {
 	//test01.testQuicksort();
 	//test01.testByteOrder();
 	//test01.testBitShift();
-	test01.testBitMasks();
+	//test01.testBitMasks();
 	//test01.testTArray2();
 	//test01.testFileIO();
 
@@ -189,6 +190,10 @@ int main() {
 
 	//Test03 test03;
 	//test03.testTruckloadList();
+
+	FileWordsCounter wordsCounter("C:\\temp\\2489.txt");
+	wordsCounter.startCount();
+	wordsCounter.showTopBySort(20);
 
 	cout << endl;
 	cout << "Q or q key to quit...";
