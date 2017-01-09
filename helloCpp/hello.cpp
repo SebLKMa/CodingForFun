@@ -188,12 +188,12 @@ int main() {
 	//testDeadlockThreads();
 	//testTruckloadList();
 
-	//Test03 test03;
-	//test03.testTruckloadList();
+	Test03 test03;
+	test03.testTruckloadList();
 
-	FileWordsCounter wordsCounter("C:\\temp\\2489.txt");
-	wordsCounter.startCount();
-	wordsCounter.showTopBySort(20);
+	//FileWordsCounter wordsCounter("C:\\temp\\2489.txt");
+	//wordsCounter.startCount();
+	//wordsCounter.showTopBySort(20);
 
 	cout << endl;
 	cout << "Q or q key to quit...";
