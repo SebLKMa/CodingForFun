@@ -21,21 +21,45 @@ class Document;
  * http://www.tomdalling.com/blog/software-design/solid-class-design-the-dependency-inversion-principle/
  *
  */
-class XMLExporter
+class XMLExporterMess
 {
 private:
     URL _runSaveDialog();
-    String _exportDocumentToXML(Document doc);
+    std::string _exportDocumentToXML(const Document& doc);
+    void _writeToURL(URL url);
     void _showSuccessDialog();
 public:
     void exportDocument(Document doc)
     {
-        String xmlFileContent = _exportDocumentToXML(doc);
+        std::string xmlFileContent = _exportDocumentToXML(doc);
         URL fileURL = _runSaveDialog();
-        xmlFileContent.writeToURL(fileURL);
+        _writeToURL(fileURL);
         _showSuccessDialog();
     }
 };
 
+// XMLExporter takes care of exporting document to XML format only
+class XMLConverter {
+public:
+    std::string convertDocumentToXML(const Document& doc);
+};
+
+// XMLExporter, as used by GUI, is not responsible for exporting to XML format
+class XMLExporter {
+private:
+    URL _runSaveDialog();
+    void _showSuccessDialog();
+    void _writeToURL(URL url);
+public:
+    void exportDocument(Document doc)
+    void XMLExporter::exportDocument(Document doc)
+    {
+        XMLConverter converter;
+        std::string xmlFileContent = converter.convertDocumentToXML(doc);
+        URL fileURL = _runSaveDialog();
+        _writeToURL(fileURL);
+        _showSuccessDialog();
+    }
+};
 
 #endif /* SINGLERESPONSIBILTY_H_ */
