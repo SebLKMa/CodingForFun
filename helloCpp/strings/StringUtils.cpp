@@ -28,6 +28,40 @@ bool StringUtils::isPalindrome(const std::string& str)
 	return false;
 }
 
+void StringUtils::removeDuplicates(string& str)
+{
+	if (str.empty()) return;
+
+	unsigned int len = str.size();
+	unsigned int stopper = 1; // first point the stopper to second character
+	for (unsigned int currentIndex=1; currentIndex < len; ++currentIndex) // main loop to iterate all chars
+	{
+		unsigned int runnerIndex; // runner always starts from beginning
+		for (runnerIndex = 0; runnerIndex < stopper; ++runnerIndex) // start comparing chars from beginning
+		{
+			if (str[runnerIndex] == str[currentIndex])
+			{
+				break; // duplicate found, exit from compare loop
+			}
+		}
+
+		if (runnerIndex == stopper)
+		{
+			// reaching here means no duplicate found so far
+			// we re-assign the str position with non-duplicated string
+			str[stopper] = str[currentIndex];
+			++stopper;
+		}
+		// otherwise, duplicate could be found, we ignore the string and continue main loop
+	}
+
+	// remove redundant remaining chars, if any
+	if (stopper < len)
+	{
+		str.erase(stopper, len);
+	}
+}
+
 /*
 void Quicksort::swap(size_t srcIndex, size_t destIndex)
 {

@@ -24,6 +24,11 @@ public:
 	 */
 	bool isPalindrome(const std::string& str);
 
+	/**
+	 * @param str The string with duplicates to be removed.
+	 */
+	void removeDuplicates(std::string& str);
+
 };
 
 #endif /* STRINGUTILS_H_ */
