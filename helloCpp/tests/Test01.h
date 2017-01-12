@@ -13,6 +13,7 @@ class Test01
 {
 public:
 	void testStringTypes();
+	void testStringUtils();
 	void testPtrsBasics();
 	void testRefsBasics();
 	void testLoops();

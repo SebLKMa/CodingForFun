@@ -150,8 +150,9 @@ void testDeadlockThreads()
 
 
 int main() {
-	//Test01 test01;
+	Test01 test01;
 	//test01.testStringTypes();
+	test01.testStringUtils();
 	//test01.testPtrsBasics();
 	//test01.testRefsBasics();
 	//test01.testLoops();
@@ -188,8 +189,8 @@ int main() {
 	//testDeadlockThreads();
 	//testTruckloadList();
 
-	Test03 test03;
-	test03.testTruckloadList();
+	//Test03 test03;
+	//test03.testTruckloadList();
 
 	//FileWordsCounter wordsCounter("C:\\temp\\2489.txt");
 	//wordsCounter.startCount();
