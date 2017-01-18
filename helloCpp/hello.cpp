@@ -148,6 +148,34 @@ void testDeadlockThreads()
 	// Prevent deadlock by acquiring locks in the same order.
 }
 
+/* Preventing deadlock by acquiring locks in the same order
+mutex1 for resA
+mutex2 for resB
+
+threadAFunc()
+{
+   lock(mutex1);
+   lock(mutex2);
+   resA.update();
+   resB.update();
+   unlock(mutex2);
+   unlock(mutex1);
+}
+
+threadBFunc()
+{
+   lock(mutex2);
+   resB.update();
+   unlock(mutex2);
+
+   lock(mutex1);
+   lock(mutex2);
+   resA.update();
+   resB.update();
+   unlock(mutex2);
+   unlock(mutex1);
+}
+*/
 
 int main() {
 	Test01 test01;
