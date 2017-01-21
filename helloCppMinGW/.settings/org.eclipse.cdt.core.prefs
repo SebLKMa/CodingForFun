@@ -1,0 +1,17 @@
+eclipse.preferences.version=1
+environment/project/org.eclipse.cdt.msvc.exe.debug.1233142387/MSYS_HOME/delimiter=;
+environment/project/org.eclipse.cdt.msvc.exe.debug.1233142387/MSYS_HOME/operation=replace
+environment/project/org.eclipse.cdt.msvc.exe.debug.1233142387/MSYS_HOME/value=C\:\\msys64
+environment/project/org.eclipse.cdt.msvc.exe.debug.1233142387/PATH/delimiter=;
+environment/project/org.eclipse.cdt.msvc.exe.debug.1233142387/PATH/operation=replace
+environment/project/org.eclipse.cdt.msvc.exe.debug.1233142387/PATH/value=${MINGW_HOME}\\bin;${MSYS_HOME}\\bin;${MSYS_HOME}\\usr\\bin;
+environment/project/org.eclipse.cdt.msvc.exe.debug.1233142387/append=true
+environment/project/org.eclipse.cdt.msvc.exe.debug.1233142387/appendContributed=true
+environment/project/org.eclipse.cdt.msvc.exe.release.1449657117/MSYS_HOME/delimiter=;
+environment/project/org.eclipse.cdt.msvc.exe.release.1449657117/MSYS_HOME/operation=append
+environment/project/org.eclipse.cdt.msvc.exe.release.1449657117/MSYS_HOME/value=C\:\\msys64
+environment/project/org.eclipse.cdt.msvc.exe.release.1449657117/PATH/delimiter=;
+environment/project/org.eclipse.cdt.msvc.exe.release.1449657117/PATH/operation=append
+environment/project/org.eclipse.cdt.msvc.exe.release.1449657117/PATH/value=${MINGW_HOME}\\bin;${MSYS_HOME}\\bin;${MSYS_HOME}\\usr\\bin;C\:/Program Files/Java/jre1.8.0_111/bin/server;C\:/Program Files/Java/jre1.8.0_111/bin;C\:/Program Files/Java/jre1.8.0_111/lib/amd64;C\:\\Program Files\\Microsoft MPI\\Bin\\;C\:\\ProgramData\\Oracle\\Java\\javapath;C\:\\WINDOWS\\system32;C\:\\WINDOWS;C\:\\WINDOWS\\System32\\Wbem;C\:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C\:\\Program Files (x86)\\Common Files\\lenovo\\easyplussdk\\bin;C\:\\Program Files\\Intel\\WiFi\\bin\\;C\:\\dev\\erl8.0\\bin;C\:\\Program Files (x86)\\Skype\\Phone\\;C\:\\Users\\likke\\.dnx\\bin;C\:\\Program Files\\Microsoft DNX\\Dnvm\\;C\:\\Program Files\\Microsoft SQL Server\\130\\Tools\\Binn\\;C\:\\Program Files (x86)\\Microsoft SQL Server\\130\\Tools\\Binn\\;C\:\\Program Files (x86)\\Microsoft SQL Server\\130\\DTS\\Binn\\;C\:\\Program Files\\Microsoft SQL Server\\130\\DTS\\Binn\\;C\:\\Program Files\\Microsoft SQL Server\\Client SDK\\ODBC\\130\\Tools\\Binn\\;C\:\\Program Files (x86)\\Microsoft SQL Server\\Client SDK\\ODBC\\130\\Tools\\Binn\\;C\:\\Program Files (x86)\\Microsoft SQL Server\\130\\Tools\\Binn\\ManagementStudio\\;C\:\\Pr
+environment/project/org.eclipse.cdt.msvc.exe.release.1449657117/append=true
+environment/project/org.eclipse.cdt.msvc.exe.release.1449657117/appendContributed=true
