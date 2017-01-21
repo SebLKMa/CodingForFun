@@ -148,10 +148,39 @@ void testDeadlockThreads()
 	// Prevent deadlock by acquiring locks in the same order.
 }
 
+/* Preventing deadlock by acquiring locks in the same order
+mutex1 for resA
+mutex2 for resB
+
+threadAFunc()
+{
+   lock(mutex1);
+   lock(mutex2);
+   resA.update();
+   resB.update();
+   unlock(mutex2);
+   unlock(mutex1);
+}
+
+threadBFunc()
+{
+   lock(mutex2);
+   resB.update();
+   unlock(mutex2);
+
+   lock(mutex1);
+   lock(mutex2);
+   resA.update();
+   resB.update();
+   unlock(mutex2);
+   unlock(mutex1);
+}
+*/
 
 int main() {
-	//Test01 test01;
+	Test01 test01;
 	//test01.testStringTypes();
+	test01.testStringUtils();
 	//test01.testPtrsBasics();
 	//test01.testRefsBasics();
 	//test01.testLoops();
@@ -188,8 +217,8 @@ int main() {
 	//testDeadlockThreads();
 	//testTruckloadList();
 
-	Test03 test03;
-	test03.testTruckloadList();
+	//Test03 test03;
+	//test03.testTruckloadList();
 
 	//FileWordsCounter wordsCounter("C:\\temp\\2489.txt");
 	//wordsCounter.startCount();

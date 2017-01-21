@@ -16,6 +16,7 @@
 #include "..\fileio\FileIO.h"
 #include "..\templates\TArray.h"
 #include "..\Box.h"
+#include "..\strings\StringUtils.h"
 
 using namespace std;
 
@@ -25,6 +26,29 @@ void Test01::testStringTypes()
 	u16string myU16string{ u"Hello unicode 16" }; // char16_t characters
 	u32string myU32string{ U"Hello unicode 32" }; // char32_t characters
 	wcout << myWstring << endl;
+}
+
+void Test01::testStringUtils()
+{
+	string myStr{"olla hello"};
+	cout << myStr;
+
+	StringUtils utils;
+	utils.reverse(myStr);
+	cout << " reversed: " << myStr << endl;
+
+	string myStr1{"OLLA"};
+	string myStr2{"ABBA"};
+	string myStr3{"1881"};
+
+	cout << myStr1 << " is palindrome: " << std::boolalpha << utils.isPalindrome(myStr1) << endl;
+	cout << myStr2 << " is palindrome: " << std::boolalpha << utils.isPalindrome(myStr2) << endl;
+	cout << myStr3 << " is palindrome: " << std::boolalpha << utils.isPalindrome(myStr3) << endl;
+
+	string myStr4{"FOLLOWUP"};
+	cout << myStr4;
+	utils.removeDuplicates(myStr4);
+	cout << " removed duplictates: " << myStr4 << endl;
 }
 
 void Test01::testPtrsBasics()
