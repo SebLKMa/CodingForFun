@@ -177,10 +177,10 @@ threadBFunc()
 }
 */
 
-int main() {
+int main(int argc, char* argv[]) {
 	Test01 test01;
 	//test01.testStringTypes();
-	test01.testStringUtils();
+	//test01.testStringUtils();
 	//test01.testPtrsBasics();
 	//test01.testRefsBasics();
 	//test01.testLoops();
@@ -198,8 +198,9 @@ int main() {
 	//HelloContainers myContainers;
 	//myContainers.helloVector();
 
-	/*
+
 	Test02 test02;
+	/*
 	test02.testInheritanceInStack();
 	test02.testInheritanceInHeap();
 	test02.testCpp11();
@@ -211,6 +212,7 @@ int main() {
 	test02.testAssignment();
 	test02.testMove();
 	*/
+	test02.testCopyAssign();
 
 	//testThread();
 	//testThreads();

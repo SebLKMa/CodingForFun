@@ -25,6 +25,7 @@ public:
 	void testCopy();
 	void testAssignment();
 	void testMove();
+	void testCopyAssign();
 };
 
 

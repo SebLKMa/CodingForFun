@@ -13,7 +13,7 @@
 #include <string> // contains string, wstring, u16string, u32string
 #include "..\inheritance\DerivedC.h"
 #include "..\copymove\MemoryPage.h"
-
+#include "..\copyassign\Device.h"
 
 using namespace std;
 
@@ -147,6 +147,22 @@ void Test02::testMove()
 	MemoryPage myPage1 = std::move(myPage); // force move ctor
 }
 
+void Test02::testCopyAssign()
+{
+	Device myAssignedDevice;
+	{
+		Device myDevice("Device1", 3);
+		cout << "Device Name: " << myDevice.getName() << endl;
+
+		myAssignedDevice = myDevice;
+		cout << "Device Name: " << myAssignedDevice.getName() << endl;
+		// myDevice is destroyed when out of scope
+	}
+
+	// Device must implement copy and assignment. Otherwise
+	// will cause [main] helloCpp 11380 cygwin_exception::open_stackdumpfile: Dumping stack trace to helloCpp.exe.stackdump
+	cout << "Device Name: " << myAssignedDevice.getName() << endl;
+}
 
 
 
