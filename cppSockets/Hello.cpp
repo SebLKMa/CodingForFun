@@ -8,9 +8,9 @@
 
 using namespace std;
 
-string Hello::getHello() const
+string Hello::getHello(const std::string& name) const
 {
-	return "Guten Tag!";
+	return "Guten Tag! " + name;
 }
 
 

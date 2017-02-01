@@ -3,6 +3,7 @@
 	<name>cppEchoServer</name>
 	<comment></comment>
 	<projects>
+		<project>cppSockets</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

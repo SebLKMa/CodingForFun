@@ -12,7 +12,7 @@
 class Hello
 {
 public:
-	std::string getHello() const;
+	std::string getHello(const std::string& name) const;
 };
 
 
