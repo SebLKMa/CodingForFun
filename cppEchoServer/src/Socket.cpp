@@ -46,6 +46,21 @@ Socket::~Socket()
 	Close();
 }
 
+Socket::Socket(Socket&& other)
+	: m_pServerInfo(other.m_pServerInfo),
+	  m_Socket(other.m_Socket),
+	  m_AcceptedSocketStorage(other.m_AcceptedSocketStorage),
+	  m_AcceptedSocketSize(other.m_AcceptedSocketSize)
+{
+	if (this != &other)
+	{
+		other.m_pServerInfo = nullptr;
+		other.m_Socket = -1;
+		other.m_AcceptedSocketStorage = sockaddr_storage();
+		other.m_AcceptedSocketSize = sizeof(other.m_AcceptedSocketStorage);
+	}
+}
+
 bool Socket::IsValid()
 {
 	return m_Socket != -1;

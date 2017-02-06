@@ -9,14 +9,42 @@
 #include <iostream>
 #include <string>
 #include <sstream>
-//#include <type_traits>
+#include <thread>
+#include <future>
 #include <Hello.h>
 #include "WinsockWrapper.h"
 #include "Socket.h"
+#include "ProtocolTask.h"
 //#include <winsock2.h> // The dll libws2_32.a is found in (remove the prefix "lib" and ".o" in Libraries setting
 //#include <WS2tcpip.h> // C:\msys64\mingw64\x86_64-w64-mingw32\lib
 
 using namespace std;
+
+void StartProtocolServerThread()
+{
+	WinsockWrapper myWinsockHelper;
+
+	string address{"localhost"};
+	string port{"3000"};
+	Socket bindngSocket(address, port);
+	int bindResult{bindngSocket.Bind()};
+	if (bindResult == -1)
+	{
+		return;
+	}
+	int listenResult{ bindngSocket.Listen(5) };
+	if (listenResult == -1)
+	{
+		return;
+	}
+
+	while (true) // calling thread loops, launches 1 thread per accepted socket from client
+	{
+		Socket acceptingSocket{ bindngSocket.Accept() };
+		ProtocolTask task;
+		async(launch::async, &ProtocolTask::Execute, &task, ref(acceptingSocket));
+	}
+}
 
 void StartServer()
 {
@@ -98,9 +126,10 @@ void firstConnection()
  */
 int main(int argc, char* argv[])
 {
-	sayHello();
+	//sayHello();
 	//firstConnection();
-	StartServer();
+	//StartServer();
+	StartProtocolServerThread();
 
 	return 0;
 }

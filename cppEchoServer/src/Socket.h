@@ -19,6 +19,9 @@ public:
 	Socket(std::string& webAddress, std::string& port, addrinfo& hints);
 	~Socket();
 
+	Socket(const Socket& other) = delete; // does not support copy
+	Socket(Socket&& other); // supports move
+
 	bool IsValid();
 	int Connect();
 	int Bind();
