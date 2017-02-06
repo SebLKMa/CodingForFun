@@ -16,6 +16,64 @@
 
 using namespace std;
 
+void StartProtocolClient()
+{
+	WinsockWrapper myWinsockHelper;
+
+	string address{"localhost"};
+	string port{"3000"};
+	Socket connectingSocket(address, port);
+	int connectionResult{ connectingSocket.Connect() };
+	if (connectionResult == -1)
+	{
+		return;
+	}
+
+	stringstream requestStream{ "QUESTION" } ;
+	connectingSocket.Send(move(requestStream)); // send request for QUESTION
+
+	stringstream responseStream{ connectingSocket.Receive() }; // wait for respond
+	if (responseStream.rdbuf()->in_avail() > 0)
+	{
+		string question;
+		getline(responseStream, question, '\0');
+		responseStream.clear();
+
+		while (question != "FINISHED")
+		{
+			cout << question << endl;
+
+			string answer;
+			cin >> answer;
+
+			requestStream << "ANSWER ";
+			requestStream << answer;
+			connectingSocket.Send(move(requestStream)); // send ANSWER in request
+			requestStream.clear();
+
+			responseStream = connectingSocket.Receive(); // wait for respond
+			if (responseStream.rdbuf()->in_avail() == 0)
+			{
+				break;
+			}
+
+			string result;
+			getline(responseStream, result, '\0');
+			cout << result << endl;
+
+			//requestStream << "QUIT";
+			requestStream << "QUESTION";
+			connectingSocket.Send(move(requestStream)); // send request for next QUESTION
+			requestStream.clear();
+
+			responseStream = connectingSocket.Receive(); // wait for respond
+			getline(responseStream, question, '\0');
+			responseStream.clear();
+			break;
+		}
+	}
+}
+
 void StartClient()
 {
 	WinsockWrapper myWinsockHelper;
@@ -36,6 +94,7 @@ void StartClient()
 using namespace std;
 
 int main() {
-	StartClient();
+	//StartClient();
+	StartProtocolClient();
 	return 0;
 }
