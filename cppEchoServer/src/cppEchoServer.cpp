@@ -42,6 +42,7 @@ void StartProtocolServerThread()
 	{
 		Socket acceptingSocket{ bindngSocket.Accept() };
 		ProtocolTask task;
+		//task.Execute(ref(acceptingSocket)); // comment out while-loop and below if to test in single-thread
 		async(launch::async, &ProtocolTask::Execute, &task, ref(acceptingSocket));
 	}
 }

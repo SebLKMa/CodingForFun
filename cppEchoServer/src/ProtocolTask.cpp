@@ -30,7 +30,7 @@ bool ProtocolTask::Execute(reference_wrapper<Socket> connectionSocketRef)
 {
 	Socket connectionSocket{ move(connectionSocketRef.get()) };
 	int questionIndex{0};
-	string messageReceived;
+	string messageReceived{""};
 	while (messageReceived != "QUIT")
 	{
 		// this socket is used for both receive and send
@@ -42,6 +42,9 @@ bool ProtocolTask::Execute(reference_wrapper<Socket> connectionSocketRef)
 		}
 
 		socketStream >> messageReceived;
+		//getline(socketStream, messageReceived, '\0');
+
+		cout << "messageReceived: " << messageReceived << endl;
 
 		stringstream outputStream;
 		if (messageReceived == "QUESTION") // will send back current question if quiz not completed
@@ -70,6 +73,10 @@ bool ProtocolTask::Execute(reference_wrapper<Socket> connectionSocketRef)
 				outputStream << "Sorry, the correct answer is " <<  ANSWERS[questionIndex];
 			}
 			++questionIndex;
+		}
+		else
+		{
+			outputStream << "Unrecognized message! - " << messageReceived;
 		}
 
 		connectionSocket.Send(move(outputStream));
