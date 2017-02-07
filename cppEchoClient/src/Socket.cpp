@@ -133,17 +133,19 @@ SSIZE_T Socket::Send(std::stringstream data)
 	SSIZE_T sendResult{ send(m_Socket, packetData.c_str(), packetData.length(), 0) };
 	if (sendResult == -1)
 	{
-		cout << "Send failed!" << endl;
+		cout << "Send failed! " << data.str() << endl;
 	}
 	else
 	{
-		cout << "Send successful" << endl;
+		cout << "Send successful " << data.str() <<  endl;
 	}
 	return sendResult;
 }
 
 std::stringstream Socket::Receive()
 {
+	cout << "Receive waiting..." << endl;
+
 	const int dataSize{ 1024 };
 	char dataReceived[dataSize];
 
@@ -160,6 +162,10 @@ std::stringstream Socket::Receive()
 	{
 		cout << "Receive successful" << endl;
 	}
+
+	// http://stackoverflow.com/questions/14404202/receiving-strange-characters-symbols-in-winsock
+	dataReceived[receiveResult] = 0;
+
 	stringstream data{ dataReceived };
 	return move(data);
 }

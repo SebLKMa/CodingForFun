@@ -49,7 +49,6 @@ void StartProtocolClient()
 			requestStream << "ANSWER ";
 			requestStream << answer;
 			connectingSocket.Send(move(requestStream)); // send ANSWER in request
-			requestStream.clear();
 
 			responseStream = connectingSocket.Receive(); // wait for respond
 			if (responseStream.rdbuf()->in_avail() == 0)
@@ -64,12 +63,10 @@ void StartProtocolClient()
 			//requestStream << "QUIT";
 			requestStream << "QUESTION";
 			connectingSocket.Send(move(requestStream)); // send request for next QUESTION
-			requestStream.clear();
 
 			responseStream = connectingSocket.Receive(); // wait for respond
 			getline(responseStream, question, '\0');
 			responseStream.clear();
-			break;
 		}
 	}
 }
@@ -83,7 +80,7 @@ void StartClient()
 	Socket connectingSocket(address, port);
 	connectingSocket.Connect();
 
-	string messageSent{"Beauty is only skin deep."};
+	string messageSent{"Beauty is only skin deep"};
 	stringstream dataSent;
 	dataSent << messageSent;
 	connectingSocket.Send(move(dataSent));
