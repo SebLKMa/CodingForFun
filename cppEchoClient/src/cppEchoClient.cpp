@@ -9,7 +9,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
-#include "WinsockWrapper.h"
+#include "WinsockHelper.h"
 #include "Socket.h"
 //#include <winsock2.h> // The dll libws2_32.a is found in (remove the prefix "lib" and ".o" in Libraries setting
 //#include <WS2tcpip.h> // C:\msys64\mingw64\x86_64-w64-mingw32\lib
@@ -18,7 +18,7 @@ using namespace std;
 
 void StartProtocolClient()
 {
-	WinsockWrapper myWinsockHelper;
+	WinsockHelper myWinsockHelper;
 
 	string address{"localhost"};
 	string port{"3000"};
@@ -73,7 +73,7 @@ void StartProtocolClient()
 
 void StartClient()
 {
-	WinsockWrapper myWinsockHelper;
+	WinsockHelper myWinsockHelper;
 
 	string address{"localhost"};
 	string port{"3000"};
