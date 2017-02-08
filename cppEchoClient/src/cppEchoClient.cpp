@@ -16,6 +16,31 @@
 
 using namespace std;
 
+void SendString(const string& message)
+{
+	WinsockHelper myWinsockHelper;
+
+	string address{"localhost"};
+	string port{"3000"};
+	Socket connectingSocket(address, port);
+	int connectionResult{ connectingSocket.Connect() };
+	if (connectionResult == -1)
+	{
+		return;
+	}
+
+	stringstream requestStream{ message } ;
+	connectingSocket.Send(move(requestStream)); // send request
+
+	stringstream responseStream{ connectingSocket.Receive() }; // wait for respond
+	if (responseStream.rdbuf()->in_avail() > 0)
+	{
+		string result;
+		getline(responseStream, result, '\0');
+		cout << result << endl;
+	}
+}
+
 void StartProtocolClient()
 {
 	WinsockHelper myWinsockHelper;
@@ -90,8 +115,16 @@ void StartClient()
 
 using namespace std;
 
-int main() {
-	//StartClient();
-	StartProtocolClient();
+int main(int argc, char* argv[])
+{
+	// Check the number of command line arguments
+	if (argc == 2) {
+		SendString(argv[1]);
+	}
+	else
+	{
+		//StartClient();
+		StartProtocolClient();
+	}
 	return 0;
 }
