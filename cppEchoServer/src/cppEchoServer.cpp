@@ -12,7 +12,7 @@
 #include <thread>
 #include <future>
 #include <Hello.h>
-#include "WinsockWrapper.h"
+#include "WinsockHelper.h"
 #include "Socket.h"
 #include "ProtocolTask.h"
 //#include <winsock2.h> // The dll libws2_32.a is found in (remove the prefix "lib" and ".o" in Libraries setting
@@ -22,7 +22,7 @@ using namespace std;
 
 void StartProtocolServerThread()
 {
-	WinsockWrapper myWinsockHelper;
+	WinsockHelper myWinsockHelper;
 
 	string address{"localhost"};
 	string port{"3000"};
@@ -49,7 +49,7 @@ void StartProtocolServerThread()
 
 void StartServer()
 {
-	WinsockWrapper myWinsockHelper;
+	WinsockHelper myWinsockHelper;
 
 	string address{"localhost"};
 	string port{"3000"};
