@@ -160,11 +160,10 @@ std::stringstream Socket::Receive()
 	}
 	else
 	{
+		// http://stackoverflow.com/questions/14404202/receiving-strange-characters-symbols-in-winsock
+		dataReceived[receiveResult] = '\0';
 		cout << "Receive successful" << endl;
 	}
-
-	// http://stackoverflow.com/questions/14404202/receiving-strange-characters-symbols-in-winsock
-	dataReceived[receiveResult] = 0;
 
 	stringstream data{ dataReceived };
 	return move(data);
