@@ -105,7 +105,7 @@ void StartClient()
 	Socket connectingSocket(address, port);
 	connectingSocket.Connect();
 
-	string messageSent{"Beauty is only skin deep"};
+	string messageSent{"Beauty is only skin deep."};
 	stringstream dataSent;
 	dataSent << messageSent;
 	connectingSocket.Send(move(dataSent));
