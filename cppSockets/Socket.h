@@ -31,6 +31,8 @@ public:
 	std::stringstream Receive();
 	void Close();
 
+	int SetBlockingMode(u_long mode);
+
 private:
 	Socket(SOCKET newSocket, sockaddr_storage&& socketStorage);
 	void CreateSocket(std::string& webAddress, std::string port, addrinfo& hints);

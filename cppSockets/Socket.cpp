@@ -19,9 +19,10 @@ Socket::Socket(std::string& port)
 	assert(portNumber > 1024); // ports under 1024 are reserved !
 
 	addrinfo hints{};
-	hints.ai_family = AF_UNSPEC;
+	hints.ai_family = AF_INET; //AF_UNSPEC;
 	hints.ai_socktype = SOCK_STREAM;
-	hints.ai_flags = AI_PASSIVE;
+	//hints.ai_flags = AI_PASSIVE;
+	hints.ai_protocol = IPPROTO_TCP;
 
 	string address{""};
 	CreateSocket(address, port, hints);
@@ -30,8 +31,13 @@ Socket::Socket(std::string& port)
 Socket::Socket(std::string& webAddress, std::string& port)
 {
 	addrinfo hints{};
-	hints.ai_family = AF_UNSPEC;
+	//hints.ai_family = AF_UNSPEC;
+	//hints.ai_socktype = SOCK_STREAM;
+
+	hints.ai_family = AF_INET; //AF_UNSPEC;
 	hints.ai_socktype = SOCK_STREAM;
+	//hints.ai_flags = AI_PASSIVE;
+	hints.ai_protocol = IPPROTO_TCP;
 
 	CreateSocket(webAddress, port, hints);
 }
@@ -185,6 +191,27 @@ Socket::Socket(SOCKET newSocket, sockaddr_storage&& socketStorage)
 void Socket::CreateSocket(std::string& webAddress, std::string port, addrinfo& hints)
 {
 	getaddrinfo(webAddress.c_str(), port.c_str(), &hints, &m_pServerInfo);
-	m_Socket = socket(m_pServerInfo->ai_family, m_pServerInfo->ai_socktype, m_pServerInfo->ai_protocol);;
+	m_Socket = socket(m_pServerInfo->ai_family, m_pServerInfo->ai_socktype, m_pServerInfo->ai_protocol);
+	//m_Socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+	if (m_Socket == INVALID_SOCKET)
+	{
+		cout << "CreateSocket is INVALID" << endl;
+		return;
+	}
 }
 
+int Socket::SetBlockingMode(u_long mode)
+{
+	//-------------------------
+	//https://msdn.microsoft.com/en-us/library/windows/desktop/ms738573(v=vs.85).aspx
+	// Set the socket I/O mode: In this case FIONBIO
+	// enables or disables the blocking mode for the
+	// socket based on the numerical value of iMode.
+	// If iMode = 0, blocking is enabled;
+	// If iMode != 0, non-blocking mode is enabled.
+
+	//u_long mode = 1;
+	int iResult = ioctlsocket(m_Socket, FIONBIO, &mode);
+
+	return iResult;
+}
