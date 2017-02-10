@@ -15,6 +15,7 @@ using namespace std;
 
 namespace
 {
+	const int MAX_FOR_TEST{1};
 	const int NUM_QUESTIONS{2};
 	const array<string, NUM_QUESTIONS> QUESTIONS
 	{
@@ -49,7 +50,7 @@ bool ProtocolTask::Execute(reference_wrapper<Socket> connectionSocketRef)
 		stringstream outputStream;
 		if (messageReceived == "QUESTION") // will send back current question if quiz not completed
 		{
-			if (questionIndex >= NUM_QUESTIONS)
+			if (questionIndex >= MAX_FOR_TEST)
 			{
 				outputStream << "FINISHED";
 				connectionSocket.Send(move(outputStream)); // send message to client we are finished
