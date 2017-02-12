@@ -43,6 +43,23 @@ void SendString(const string& message)
 
 void StartProtocolClient()
 {
+	string myString;
+	while (true)
+	{
+		myString.clear();
+		cout << "Message to send: ";
+		getline(cin, myString);
+		if (myString == "quit")
+		{
+			cout << "Quiting..." << endl;
+			break;
+		}
+		SendString(myString);
+	}
+}
+
+void StartQuizClient()
+{
 	WinsockHelper myWinsockHelper;
 
 	string address{"localhost"};
@@ -118,7 +135,8 @@ using namespace std;
 int main(int argc, char* argv[])
 {
 	// Check the number of command line arguments
-	if (argc == 2) {
+	if (argc == 2)
+	{
 		SendString(argv[1]);
 	}
 	else
