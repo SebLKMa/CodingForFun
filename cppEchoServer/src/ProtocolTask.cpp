@@ -6,11 +6,11 @@
  */
 #include <sstream>
 #include <iostream>
-#include <array>
 #include <functional> // for reference_wrapper
 #include "EchoTask.h"
 #include "ProtocolTask.h"
 #include "Socket.h"
+#include "Sessions.h"
 
 using namespace std;
 
@@ -19,31 +19,45 @@ const string QUIT{"QUIT"};
 ProtocolTask::ProtocolTask(std::reference_wrapper<Socket> connectionSocketRef)
 	: EchoTask(connectionSocketRef)
 {
+	//Sessions::instance().Update("42", connectionSocketRef);
 }
 
 bool ProtocolTask::Execute()
 {
-	//Socket connectedSocket{ move(connectionSocketRef.get()) };
+
 
 	// this socket is used for both receive and send
+	//Socket connectionSocket{ move(connectionSocketRef.get()) };
+	//reference_wrapper<Socket> socketRef = Sessions::instance().GetSession("42");
+	//Socket sessionSocket{move(socketRef.get())};
+
 	stringstream inputStream{ m_Socket.Receive() };
 	if (inputStream.rdbuf()->in_avail() == 0)
 	{
 		return false;
 	}
 
+	//string messageReceived;
+	//getline(inputStream, messageReceived, '\0'); // get whole input stream until null-terminator
+	string licenceId;
+	inputStream >> licenceId;
+
+	//cout
+	//	<< "Socket handle ID: " << sessionSocket.GetSocketHandleID()
+	//	<< ", Received message: " << messageReceived << endl;
+	cout << "Licence ID: " << licenceId << endl;
+
 	string messageReceived;
-	getline(inputStream, messageReceived, '\0');
-	//socketStream >> messageReceived;
-
-	cout
-		<< "Socket handle ID: " << m_Socket.GetSocketHandleID()
-		<< ", Received message: " << messageReceived << endl;
-
+	inputStream >> messageReceived;
+	cout << "Message: " << messageReceived << endl;
+/*
 	stringstream outputStream;
 	outputStream << messageReceived;
 
 	m_Socket.Send(move(outputStream));
+*/
+	Sessions::instance().Update(licenceId, ref(m_Socket));
+	Sessions::instance().Broadcast(messageReceived);
 
 	cout << "ProtocolTask::Execute exiting" << endl;
 	return true;

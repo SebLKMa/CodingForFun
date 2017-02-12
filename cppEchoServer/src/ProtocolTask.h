@@ -16,8 +16,6 @@
 class ProtocolTask : public virtual EchoTask
 {
 public:
-	//ProtocolTask() {}
-	//bool Execute(std::reference_wrapper<Socket> connectionSocketRef);
 	ProtocolTask(std::reference_wrapper<Socket> connectionSocketRef);
 	virtual ~ProtocolTask() {}
 
