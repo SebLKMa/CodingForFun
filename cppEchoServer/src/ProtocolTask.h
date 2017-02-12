@@ -7,15 +7,24 @@
 
 #ifndef PROTOCOLTASK_H_
 #define PROTOCOLTASK_H_
+#include "EchoTask.h"
+#include "Socket.h"
 
 // forwards
-class Socket;
+//class Socket;
 
-class ProtocolTask
+class ProtocolTask : public virtual EchoTask
 {
 public:
-	ProtocolTask() {}
-	bool Execute(std::reference_wrapper<Socket> connectionSocketRef);
+	//ProtocolTask() {}
+	//bool Execute(std::reference_wrapper<Socket> connectionSocketRef);
+	ProtocolTask(std::reference_wrapper<Socket> connectionSocketRef);
+	virtual ~ProtocolTask() {}
+
+	/**
+	 * Implements BaseTask::Execute().
+	 */
+	bool Execute();
 };
 
 #endif /* PROTOCOLTASK_H_ */

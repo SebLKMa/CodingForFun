@@ -14,7 +14,8 @@
 #include <Hello.h>
 #include "WinsockHelper.h"
 #include "Socket.h"
-#include "QuizTask.h"
+#include "BaseTask.h"
+#include "EchoTask.h"
 #include "ProtocolTask.h"
 //#include <winsock2.h> // The dll libws2_32.a is found in (remove the prefix "lib" and ".o" in Libraries setting
 //#include <WS2tcpip.h> // C:\msys64\mingw64\x86_64-w64-mingw32\lib
@@ -46,11 +47,14 @@ void StartProtocolServerThread()
 		{
 			break;
 		}
-		ProtocolTask task;
+
+		cout << "Accepted socket handle: " << acceptingSocket.GetSocketHandleID() << endl;
+
+		ProtocolTask task{ref(acceptingSocket)};
 		//shared_ptr<ProtocolTask> pTask(new ProtocolTask);
 		//task.Execute(ref(acceptingSocket)); // comment out while-loop and below if to test in single-thread
 		//async(launch::async, ProtocolTaskExecute, ref(acceptingSocket));
-		async(launch::async, &ProtocolTask::Execute, &task, ref(acceptingSocket));
+		async(launch::async, &BaseTask::Execute, &task);
 
 		// See:
 		// https://www.codeproject.com/Articles/412511/Simple-client-server-network-using-Cplusplus-and-W

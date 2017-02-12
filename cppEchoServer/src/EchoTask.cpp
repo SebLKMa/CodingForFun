@@ -9,21 +9,18 @@
 #include <array>
 #include <functional> // for reference_wrapper
 #include "EchoTask.h"
-#include "ProtocolTask.h"
 #include "Socket.h"
 
 using namespace std;
 
-const string QUIT{"QUIT"};
-
-ProtocolTask::ProtocolTask(std::reference_wrapper<Socket> connectionSocketRef)
-	: EchoTask(connectionSocketRef)
+EchoTask::EchoTask(std::reference_wrapper<Socket> connectionSocketRef)
+	: m_Socket{ move(connectionSocketRef.get()) }
 {
 }
 
-bool ProtocolTask::Execute()
+bool EchoTask::Execute()
 {
-	//Socket connectedSocket{ move(connectionSocketRef.get()) };
+	//Socket connectionSocket{ move(connectionSocketRef.get()) };
 
 	// this socket is used for both receive and send
 	stringstream inputStream{ m_Socket.Receive() };
@@ -45,7 +42,7 @@ bool ProtocolTask::Execute()
 
 	m_Socket.Send(move(outputStream));
 
-	cout << "ProtocolTask::Execute exiting" << endl;
+	cout << "EchoTask::Execute exiting" << endl;
 	return true;
 }
 
