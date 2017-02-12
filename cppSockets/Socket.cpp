@@ -211,3 +211,8 @@ int Socket::SetBlockingMode(u_long mode)
 
 	return iResult;
 }
+
+SOCKET Socket::GetSocketHandleID()
+{
+	return m_Socket;
+}

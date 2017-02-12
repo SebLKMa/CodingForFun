@@ -33,6 +33,12 @@ public:
 
 	int SetBlockingMode(u_long mode);
 
+	/**
+	 * Returns the the accepted socket handle. ID is only unique per process.
+	 * @return The accepted socket handle.
+	 */
+	SOCKET GetSocketHandleID();
+
 private:
 	Socket(SOCKET newSocket, sockaddr_storage&& socketStorage);
 	void CreateSocket(std::string& webAddress, std::string port, addrinfo& hints);
