@@ -19,10 +19,10 @@ Socket::Socket(std::string& port)
 	assert(portNumber > 1024); // ports under 1024 are reserved !
 
 	addrinfo hints{};
-	hints.ai_family = AF_INET; //AF_UNSPEC;
+	hints.ai_family = AF_UNSPEC; //AF_INET;
 	hints.ai_socktype = SOCK_STREAM;
-	//hints.ai_flags = AI_PASSIVE;
-	hints.ai_protocol = IPPROTO_TCP;
+	hints.ai_flags = AI_PASSIVE;
+	//hints.ai_protocol = IPPROTO_TCP;
 
 	string address{""};
 	CreateSocket(address, port, hints);
@@ -31,13 +31,8 @@ Socket::Socket(std::string& port)
 Socket::Socket(std::string& webAddress, std::string& port)
 {
 	addrinfo hints{};
-	//hints.ai_family = AF_UNSPEC;
-	//hints.ai_socktype = SOCK_STREAM;
-
-	hints.ai_family = AF_INET; //AF_UNSPEC;
+	hints.ai_family = AF_UNSPEC;
 	hints.ai_socktype = SOCK_STREAM;
-	//hints.ai_flags = AI_PASSIVE;
-	hints.ai_protocol = IPPROTO_TCP;
 
 	CreateSocket(webAddress, port, hints);
 }
@@ -163,6 +158,7 @@ std::stringstream Socket::Receive()
 	else if (receiveResult == 0)
 	{
 		cout << "Receive detected closed connection !" << endl;
+		Close();
 	}
 	else
 	{
