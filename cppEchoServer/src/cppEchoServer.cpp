@@ -14,85 +14,12 @@
 #include <Hello.h>
 #include "WinsockHelper.h"
 #include "Socket.h"
+#include "QuizTask.h"
 #include "ProtocolTask.h"
 //#include <winsock2.h> // The dll libws2_32.a is found in (remove the prefix "lib" and ".o" in Libraries setting
 //#include <WS2tcpip.h> // C:\msys64\mingw64\x86_64-w64-mingw32\lib
 
 using namespace std;
-/*
-namespace
-{
-	const int NUM_QUESTIONS{2};
-	const array<string, NUM_QUESTIONS> QUESTIONS
-	{
-		"Pomerol is from?", "Malbec is from?"
-	};
-	const array<string, NUM_QUESTIONS> ANSWERS
-	{
-		"France", "Argentina"
-	};
-}
-
-bool ProtocolTaskExecute(reference_wrapper<Socket> connectionSocketRef)
-{
-	Socket connectionSocket{ move(connectionSocketRef.get()) };
-	int questionIndex{0};
-	string messageReceived{""};
-	while (messageReceived != "QUIT")
-	{
-		// this socket is used for both receive and send
-		stringstream socketStream{ connectionSocket.Receive() };
-
-		if (socketStream.rdbuf()->in_avail() == 0)
-		{
-			break;
-		}
-
-		socketStream >> messageReceived;
-		//getline(socketStream, messageReceived, '\0');
-
-		cout << "messageReceived: " << messageReceived << endl;
-
-		stringstream outputStream;
-		if (messageReceived == "QUESTION") // will send back current question if quiz not completed
-		{
-			if (questionIndex >= NUM_QUESTIONS)
-			{
-				outputStream << "FINISHED";
-				connectionSocket.Send(move(outputStream)); // send message to client we are finished
-
-				cout << "Protocol Task completed" << endl;
-				break;
-			}
-
-			outputStream << QUESTIONS[questionIndex];
-		}
-		else if (messageReceived == "ANSWER") // will send back answer based previous currentQuestion sent
-		{
-			string answer;
-			socketStream >> answer;
-			if (answer == ANSWERS[questionIndex])
-			{
-				outputStream << "You are correct";
-			}
-			else
-			{
-				outputStream << "Sorry, the correct answer is " <<  ANSWERS[questionIndex];
-			}
-			++questionIndex;
-		}
-		else
-		{
-			outputStream << "Unrecognized message! - " << messageReceived;
-		}
-
-		connectionSocket.Send(move(outputStream));
-	}
-
-	cout << "ProtocolTask::Execute exiting" << endl;
-	return true;
-}
-*/
 
 void StartProtocolServerThread()
 {
@@ -111,14 +38,7 @@ void StartProtocolServerThread()
 	{
 		return;
 	}
-/*
-	int res = bindngSocket.SetBlockingMode(1);
-	if (res != NO_ERROR)
-	{
-		cout << "SetBlockingMode failed with error: " << res << endl;
-		return ;
-	}
-*/
+
 	while (true) // calling thread loops, launches 1 thread per accepted socket from client
 	{
 		Socket acceptingSocket{ bindngSocket.Accept() };
@@ -127,9 +47,19 @@ void StartProtocolServerThread()
 			break;
 		}
 		ProtocolTask task;
+		//shared_ptr<ProtocolTask> pTask(new ProtocolTask);
 		//task.Execute(ref(acceptingSocket)); // comment out while-loop and below if to test in single-thread
 		//async(launch::async, ProtocolTaskExecute, ref(acceptingSocket));
 		async(launch::async, &ProtocolTask::Execute, &task, ref(acceptingSocket));
+
+		// See:
+		// https://www.codeproject.com/Articles/412511/Simple-client-server-network-using-Cplusplus-and-W
+		// http://stackoverflow.com/questions/15382316/where-does-winsock-store-ip-address-of-a-socket
+		// http://stackoverflow.com/questions/26454836/winsock2-c-multiple-sockets-stored-as-one
+        // https://www.codeproject.com/Articles/4016/Server-Client-Sockets
+		// https://www.codeproject.com/Articles/2477/Multi-threaded-Client-Server-Socket-Class
+		// http://www.dreamincode.net/forums/topic/228484-server-broadcasting-message-to-all-clients-vs-c/
+
 	}
 }
 
