@@ -10,6 +10,7 @@
 #include <map>
 #include <string>
 #include <functional> // for reference_wrapper
+#include <mutex>
 #include "Socket.h"
 
 // alias typedefs
@@ -46,6 +47,7 @@ private:
 	Sessions() {} // cannot be publicly instantiated
 
 	SessionsMap m_Sessions; // holds a map of licensed IDs and their connected sockets.
+	std::mutex m_SessionsMutex; // for locking m_Sessions
 };
 
 #endif /* SESSIONS_H_ */

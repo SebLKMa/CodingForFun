@@ -12,6 +12,8 @@ using namespace std;
 
 void Sessions::Update(std::string licenceId, SocketRef socketRef)
 {
+	lock_guard<mutex> myGuard(m_SessionsMutex);
+
 	//_Sessions[id] = move(socketRef.get());
 	m_Sessions.emplace(licenceId, move(socketRef));
 	cout << "Sessions::Update session Id - " << licenceId << endl;
@@ -19,6 +21,8 @@ void Sessions::Update(std::string licenceId, SocketRef socketRef)
 
 SocketRef Sessions::GetSession(std::string licenceId)
 {
+	lock_guard<mutex> myGuard(m_SessionsMutex);
+
 	SessionsMapIter it = m_Sessions.find(licenceId);
 	if (it != m_Sessions.end())
 	{
@@ -30,6 +34,8 @@ SocketRef Sessions::GetSession(std::string licenceId)
 
 bool Sessions::GetSession(std::string licenceId, SocketRef socketRef)
 {
+	lock_guard<mutex> myGuard(m_SessionsMutex);
+
 	SessionsMapIter it = m_Sessions.find(licenceId);
 	if (it != m_Sessions.end())
 	{
@@ -41,6 +47,8 @@ bool Sessions::GetSession(std::string licenceId, SocketRef socketRef)
 
 void Sessions::Broadcast(const std::string& message)
 {
+	lock_guard<mutex> myGuard(m_SessionsMutex);
+
 	for (auto const& entry : m_Sessions)
 	{
 		//Socket sessionSocket{move(entry.second.get())};
