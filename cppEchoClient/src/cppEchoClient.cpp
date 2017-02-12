@@ -39,6 +39,30 @@ void SendString(const string& message)
 		getline(responseStream, result, '\0');
 		cout << result << endl;
 	}
+
+}
+
+void ReceiveString()
+{
+	WinsockHelper myWinsockHelper;
+
+	string address{"localhost"};
+	string port{"3000"};
+	Socket connectingSocket(address, port);
+	int connectionResult{ connectingSocket.Connect() };
+	if (connectionResult == -1)
+	{
+		return;
+	}
+
+	stringstream responseStream{ connectingSocket.Receive() }; // wait for respond
+	if (responseStream.rdbuf()->in_avail() > 0)
+	{
+		string result;
+		getline(responseStream, result, '\0');
+		cout << result << endl;
+	}
+
 }
 
 void StartProtocolClient()
@@ -54,7 +78,14 @@ void StartProtocolClient()
 			cout << "Quiting..." << endl;
 			break;
 		}
-		SendString(myString);
+		else if (myString == "read")
+		{
+			ReceiveString();
+		}
+		else
+		{
+			SendString(myString);
+		}
 	}
 }
 
