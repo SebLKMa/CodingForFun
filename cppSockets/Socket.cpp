@@ -145,15 +145,15 @@ SSIZE_T Socket::Send(std::stringstream data)
 
 std::stringstream Socket::Receive()
 {
-	cout << "Receive waiting..." << endl;
-
 	const int dataSize{ 1024 };
 	char dataReceived[dataSize];
 
 	SSIZE_T receiveResult{ recv(m_Socket, dataReceived, dataSize, 0) };
-	if (receiveResult == -1)
+	if (receiveResult > 0)
 	{
-		cout << "Receive failed!" << endl;
+		// http://stackoverflow.com/questions/14404202/receiving-strange-characters-symbols-in-winsock
+		dataReceived[receiveResult] = '\0';
+		cout << "Receive successful" << endl;
 	}
 	else if (receiveResult == 0)
 	{
@@ -162,9 +162,7 @@ std::stringstream Socket::Receive()
 	}
 	else
 	{
-		// http://stackoverflow.com/questions/14404202/receiving-strange-characters-symbols-in-winsock
-		dataReceived[receiveResult] = '\0';
-		cout << "Receive successful" << endl;
+		//cout << "Receive failed!" << endl;
 	}
 
 	stringstream data{ dataReceived };
@@ -173,6 +171,7 @@ std::stringstream Socket::Receive()
 
 void Socket::Close()
 {
+	cout << "Closing socket " << m_Socket << endl;
 	closesocket(m_Socket);
 	m_Socket = -1;
 	freeaddrinfo(m_pServerInfo);
@@ -215,4 +214,14 @@ int Socket::SetBlockingMode(u_long mode)
 SOCKET Socket::GetSocketHandleID()
 {
 	return m_Socket;
+}
+
+bool Socket::ShutdownSend()
+{
+	int result = shutdown(m_Socket, SD_SEND);
+	if (result == SOCKET_ERROR) {
+		cout << "ShutdownSend is failed" << endl;
+	    return false;
+	}
+	return true;
 }

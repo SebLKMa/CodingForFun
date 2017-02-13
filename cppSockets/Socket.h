@@ -39,6 +39,8 @@ public:
 	 */
 	SOCKET GetSocketHandleID();
 
+	bool ShutdownSend();
+
 private:
 	Socket(SOCKET newSocket, sockaddr_storage&& socketStorage);
 	void CreateSocket(std::string& webAddress, std::string port, addrinfo& hints);
