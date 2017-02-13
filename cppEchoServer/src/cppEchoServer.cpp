@@ -17,6 +17,7 @@
 #include "BaseTask.h"
 #include "EchoTask.h"
 #include "ProtocolTask.h"
+#include "QuizTask.h"
 //#include <winsock2.h> // The dll libws2_32.a is found in (remove the prefix "lib" and ".o" in Libraries setting
 //#include <WS2tcpip.h> // C:\msys64\mingw64\x86_64-w64-mingw32\lib
 
@@ -42,6 +43,7 @@ void StartProtocolServerThread()
 
 	while (true) // calling thread loops, launches 1 thread per accepted socket from client
 	{
+		cout << "Accepting..." << endl;
 		Socket acceptingSocket{ bindngSocket.Accept() };
 		if (!acceptingSocket.IsValid())
 		{
@@ -50,11 +52,16 @@ void StartProtocolServerThread()
 
 		cout << "Accepted socket handle: " << acceptingSocket.GetSocketHandleID() << endl;
 
-		ProtocolTask task{ref(acceptingSocket)};
-		//shared_ptr<ProtocolTask> pTask(new ProtocolTask);
+		//ProtocolTask task{ref(acceptingSocket)};
+		//async(launch::async, &BaseTask::Execute, &task); // http://stackoverflow.com/questions/22242719/what-is-the-difference-between-async-and-thread-detach
+
+		shared_ptr<BaseTask> pTask(new ProtocolTask(ref(acceptingSocket)));
+		std::thread myThread(&BaseTask::Execute, pTask);
+		myThread.detach();
+
 		//task.Execute(ref(acceptingSocket)); // comment out while-loop and below if to test in single-thread
-		//async(launch::async, ProtocolTaskExecute, ref(acceptingSocket));
-		async(launch::async, &BaseTask::Execute, &task);
+		//QuizTask task;
+		//async(launch::async, &QuizTask::Execute, &task, ref(acceptingSocket));
 
 		// See:
 		// https://www.codeproject.com/Articles/412511/Simple-client-server-network-using-Cplusplus-and-W

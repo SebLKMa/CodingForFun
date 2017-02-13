@@ -31,7 +31,7 @@ public:
 		return s_Instance;
 	}
 
-	~Sessions() {}
+	~Sessions();
 
 	Sessions(const Sessions& other) = delete; // no copy
 	Sessions& operator=(const Sessions& other) = delete; // no assignment

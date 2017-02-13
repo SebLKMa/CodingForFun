@@ -17,7 +17,7 @@ class ProtocolTask : public virtual EchoTask
 {
 public:
 	ProtocolTask(std::reference_wrapper<Socket> connectionSocketRef);
-	virtual ~ProtocolTask() {}
+	virtual ~ProtocolTask();
 
 	/**
 	 * Implements BaseTask::Execute().
