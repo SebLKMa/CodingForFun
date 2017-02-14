@@ -113,7 +113,7 @@ void StartProtocolClient()
 		}
 	}
 
-	connectingSocket.Close();
+	//connectingSocket.Close();
 }
 
 void StartQuizClient()
