@@ -10,7 +10,7 @@
 #include <string>
 #include <sstream>
 #include <thread>
-#include <future> // for async
+#include <vector>
 #include <functional> // for reference_wrapper
 #include "WinsockHelper.h"
 #include "Socket.h"
@@ -59,6 +59,8 @@ void ReceiveString(std::reference_wrapper<Socket> socketRef)
 	{
 		stringstream responseStream{ socketRef.get().Receive() }; // wait for respond
 
+		// TODO: detect disconnection
+
 		if (responseStream.rdbuf()->in_avail() == 0)
 		{
 			break;
@@ -78,12 +80,24 @@ void ReceiveString(std::reference_wrapper<Socket> socketRef)
 	cout << "ReceiveString completed" << endl;
 }
 
+std::vector<string> connectionStrings;
 void StartProtocolClient()
 {
-	WinsockHelper myWinsockHelper;
+	string address;
+	string port;
 
-	string address{"localhost"};
-	string port{"3000"};
+	string connectionString = connectionStrings[0];
+	istringstream stream(connectionString);
+	getline(stream, address, ':');
+	getline(stream, port, ':');
+
+	if (address.empty() || port.empty())
+	{
+		cout << "connection string error" << endl;
+		return;
+	}
+
+	WinsockHelper myWinsockHelper;
 	Socket connectingSocket(address, port);
 	int connectionResult{ connectingSocket.Connect() };
 	if (connectionResult == -1)
@@ -204,13 +218,18 @@ void StartConnect()
 
 }
 
+
 int main(int argc, char* argv[])
 {
 	// Check the number of command line arguments
 	if (argc == 2)
 	{
 		//SendString(argv[1]);
+		string connectionString{argv[1]};
+		connectionStrings.push_back(connectionString);
+		StartProtocolClient();
 	}
+	/*
 	else
 	{
 		//StartConnect();
@@ -218,5 +237,6 @@ int main(int argc, char* argv[])
 		StartProtocolClient();
 		//StartQuizClient();
 	}
+	*/
 	return 0;
 }

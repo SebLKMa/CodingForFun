@@ -76,11 +76,14 @@ void Sessions::Broadcast(const std::string& message)
 			outputStream << message;
 			cout << "Sessions::Broadcast sending " << entry.first << " " << message << endl;
 			entry.second.get().Send(move(outputStream));
-			//entry.second.get().ShutdownSend();
+			//TOOO: store failed entry.first in a list
 		}
 		else
 		{
 			cout << "Sessions::Broadcast Invalid socket " << entry.first << endl;
+			//TOOO: store failed entry.first in a list
 		}
 	}
+
+	//TODO: for each failed entry in failure list, remove from m_Sessions
 }
