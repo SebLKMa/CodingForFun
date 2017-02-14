@@ -11,6 +11,7 @@
 #include <sstream>
 #include <thread>
 #include <future>
+#include <list>
 #include <Hello.h>
 #include "WinsockHelper.h"
 #include "Socket.h"
@@ -18,6 +19,8 @@
 #include "EchoTask.h"
 #include "ProtocolTask.h"
 #include "QuizTask.h"
+#include "BaseTaskThread.h"
+#include "ProtocolTaskThread.h"
 //#include <winsock2.h> // The dll libws2_32.a is found in (remove the prefix "lib" and ".o" in Libraries setting
 //#include <WS2tcpip.h> // C:\msys64\mingw64\x86_64-w64-mingw32\lib
 
@@ -41,6 +44,8 @@ void StartProtocolServerThread()
 		return;
 	}
 
+	//list<shared_ptr<BaseTaskThread>> tasks;
+
 	while (true) // calling thread loops, launches 1 thread per accepted socket from client
 	{
 		cout << "Accepting..." << endl;
@@ -59,6 +64,10 @@ void StartProtocolServerThread()
 		std::thread myThread(&BaseTask::Execute, pTask);
 		myThread.detach();
 
+		//shared_ptr<BaseTaskThread> pTaskThread(new ProtocolTaskThread(ref(acceptingSocket)));
+		//tasks.push_back(pTaskThread);
+		//pTaskThread->Execute();
+
 		//task.Execute(ref(acceptingSocket)); // comment out while-loop and below if to test in single-thread
 		//QuizTask task;
 		//async(launch::async, &QuizTask::Execute, &task, ref(acceptingSocket));
@@ -70,8 +79,8 @@ void StartProtocolServerThread()
         // https://www.codeproject.com/Articles/4016/Server-Client-Sockets
 		// https://www.codeproject.com/Articles/2477/Multi-threaded-Client-Server-Socket-Class
 		// http://www.dreamincode.net/forums/topic/228484-server-broadcasting-message-to-all-clients-vs-c/
-
 	}
+	//tasks.clear();
 }
 
 void StartServer()
