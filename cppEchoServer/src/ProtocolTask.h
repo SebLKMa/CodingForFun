@@ -10,17 +10,23 @@
 #include "EchoTask.h"
 #include "Socket.h"
 
-// forwards
-//class Socket;
-
+/**
+ * This task will receive messages based on the message string format:
+ *     "<LicenceID> <Message>"
+ */
 class ProtocolTask : public virtual EchoTask
 {
 public:
+	/**
+	 * The constructor takes ownership of the socket reference.
+	 * @connectionSocketRef The reference object of the Socket.
+	 */
 	ProtocolTask(std::reference_wrapper<Socket> connectionSocketRef);
 	virtual ~ProtocolTask();
 
 	/**
-	 * Implements BaseTask::Execute().
+	 * Overrides EchoTask::Execute().
+	 * Performs the socket receive and broadcast.
 	 */
 	bool Execute();
 };

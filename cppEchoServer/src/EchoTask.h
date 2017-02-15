@@ -13,14 +13,23 @@
 // forwards
 //class Socket;
 
+/**
+ * This task merely performs a echo message back to the same socket connection.
+ * This class takes ownership of the socket reference.
+ */
 class EchoTask : public virtual BaseTask
 {
 public:
+	/**
+	 * The constructor takes ownership of the socket reference.
+	 * @connectionSocketRef The reference object of the Socket.
+	 */
 	EchoTask(std::reference_wrapper<Socket> connectionSocketRef);
 	virtual ~EchoTask() {}
 
 	/**
 	 * Implements BaseTask::Execute().
+	 * Performs the socket receive and sends echo.
 	 */
 	bool Execute();
 

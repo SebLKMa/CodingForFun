@@ -25,6 +25,9 @@ using SessionsMapIter = std::map<std::string, SocketRef>::const_iterator;
 class Sessions
 {
 public:
+	/**
+	 * Singleton instance accessor.
+	 */
 	static Sessions& instance()
 	{
 		static Sessions s_Instance; // instantiated on first use, guaranteed to be destroyed
@@ -36,15 +39,24 @@ public:
 	Sessions(const Sessions& other) = delete; // no copy
 	Sessions& operator=(const Sessions& other) = delete; // no assignment
 
-	void Update(std::string licenceId, SocketRef);
+	/**
+	 * Update sessions. If licenceId not found, entry will be added.
+	 * @licenceId The ID as key
+	 * @socketRef The reference object of the Socket.
+	 */
+	void Update(std::string licenceId, SocketRef socketRef);
 
-	SocketRef GetSession(std::string licenceId);
-	bool GetSession(std::string licenceId, SocketRef socketRef);
-
+	/**
+	 * Broadcast the message to all connected licenced sockets.
+	 * #message The message to send.
+	 */
 	void Broadcast(const std::string& message);
 
 private:
 	Sessions() {} // cannot be publicly instantiated
+
+	SocketRef GetSession(std::string licenceId);
+	bool GetSession(std::string licenceId, SocketRef socketRef);
 
 	SessionsMap m_Sessions; // holds a map of licensed IDs and their connected sockets.
 	std::mutex m_SessionsMutex; // for locking m_Sessions

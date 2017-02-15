@@ -11,29 +11,24 @@
 #include "ProtocolTask.h"
 #include "Socket.h"
 #include "Sessions.h"
+#include "Common.h"
 
 using namespace std;
 
 ProtocolTask::~ProtocolTask()
 {
-	cout << "ProtocolTask::~ProtocolTask()" << endl;
+	Common::DebugMessage("ProtocolTask::~ProtocolTask()");
 	m_Socket.Close();
 }
 
 ProtocolTask::ProtocolTask(std::reference_wrapper<Socket> connectionSocketRef)
 	: EchoTask(connectionSocketRef)
 {
-	//Sessions::instance().Update("42", connectionSocketRef);
 }
 
 bool ProtocolTask::Execute()
 {
-	cout << "ProtocolTask::Execute entering" << endl;
-
-	// this socket is used for both receive and send
-	//Socket connectionSocket{ move(connectionSocketRef.get()) };
-	//reference_wrapper<Socket> socketRef = Sessions::instance().GetSession("42");
-	//Socket sessionSocket{move(socketRef.get())};
+	Common::DebugMessage("ProtocolTask::Execute entering");
 
 	string licenceId;
 	string messageReceived;
@@ -58,22 +53,17 @@ bool ProtocolTask::Execute()
 
 		inputStream >> licenceId; // get first string until white-space
 
-		//cout << "Licence ID: " << licenceId << endl;
-		//cout << "Licence ID: " << licenceId.length() << endl;
-
 		inputStream >> messageReceived; // get next string until white-space
-		//cout << "Message: " << messageReceived << endl;
-		//cout << "Message: " << messageReceived.length() << endl;
 
+		// Broadcast the received message if licenceId is valid
 		if (!licenceId.empty() && !messageReceived.empty())
 		{
 			Sessions::instance().Update(licenceId, ref(m_Socket));
 			Sessions::instance().Broadcast(messageReceived);
-			//break;
 		}
 	}
 
-	cout << "ProtocolTask::Execute exiting" << endl;
+	Common::DebugMessage("ProtocolTask::Execute exiting");
 	return true;
 }
 

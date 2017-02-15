@@ -10,6 +10,7 @@
 #include <functional> // for reference_wrapper
 #include "EchoTask.h"
 #include "Socket.h"
+#include "Common.h"
 
 using namespace std;
 
@@ -20,8 +21,6 @@ EchoTask::EchoTask(std::reference_wrapper<Socket> connectionSocketRef)
 
 bool EchoTask::Execute()
 {
-	//Socket connectionSocket{ move(connectionSocketRef.get()) };
-
 	// this socket is used for both receive and send
 	stringstream inputStream{ m_Socket.Receive() };
 	if (inputStream.rdbuf()->in_avail() == 0)
@@ -42,7 +41,7 @@ bool EchoTask::Execute()
 
 	m_Socket.Send(move(outputStream));
 
-	cout << "EchoTask::Execute exiting" << endl;
+	Common::DebugMessage("EchoTask::Execute exiting");
 	return true;
 }
 
