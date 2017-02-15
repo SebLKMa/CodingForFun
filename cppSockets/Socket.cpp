@@ -8,6 +8,7 @@
 #include <cassert>
 #include <iostream>
 #include "Socket.h"
+#include "Common.h"
 
 using namespace std;
 
@@ -72,11 +73,11 @@ int Socket::Connect()
 	int connectionResult{ connect(m_Socket, m_pServerInfo->ai_addr, m_pServerInfo->ai_addrlen) };
 	if (connectionResult == -1)
 	{
-		cout << "Connection failed!" << endl;
+		Common::ErrorMessage("Connection failed!");
 	}
 	else
 	{
-		cout << "Connection successful" << endl;
+		Common::DebugMessage("Connection successful");
 	}
 	return connectionResult;
 }
@@ -86,11 +87,11 @@ int Socket::Bind()
 	int bindResult{ ::bind(m_Socket, m_pServerInfo->ai_addr, m_pServerInfo->ai_addrlen) };
 	if (bindResult == -1)
 	{
-		cout << "Bind failed!" << endl;
+		Common::ErrorMessage("Bind failed!");
 	}
 	else
 	{
-		cout << "Bind successful" << endl;
+		Common::DebugMessage("Bind successful");
 	}
 	return bindResult;
 }
@@ -100,11 +101,11 @@ int Socket::Listen(int queueSize)
 	int listenResult{ listen(m_Socket, queueSize) };
 	if (listenResult == -1)
 	{
-		cout << "Listen failed!" << endl;
+		Common::ErrorMessage("Listen failed!");
 	}
 	else
 	{
-		cout << "Listen successful" << endl;
+		Common::DebugMessage("Listen successful");
 	}
 	return listenResult;
 }
@@ -117,11 +118,11 @@ Socket Socket::Accept()
 						&m_AcceptedSocketSize) };
 	if (newSocket == -1)
 	{
-		cout << "Accept failed!" << endl;
+		Common::ErrorMessage("Accept failed!");
 	}
 	else
 	{
-		cout << "Accept successful" << endl;
+		Common::DebugMessage("Accept successful");
 	}
 
 	m_AcceptedSocketSize = sizeof(m_AcceptedSocketStorage);
@@ -134,11 +135,11 @@ SSIZE_T Socket::Send(std::stringstream data)
 	SSIZE_T sendResult{ send(m_Socket, packetData.c_str(), packetData.length(), 0) };
 	if (sendResult == -1)
 	{
-		cout << "Send failed! " << data.str() << endl;
+		Common::ErrorMessage("Send failed!");
 	}
 	else
 	{
-		cout << "Send successful " << data.str() <<  endl;
+		Common::DebugMessage("Send successful");
 	}
 	return sendResult;
 }
@@ -153,16 +154,17 @@ std::stringstream Socket::Receive()
 	{
 		// http://stackoverflow.com/questions/14404202/receiving-strange-characters-symbols-in-winsock
 		dataReceived[receiveResult] = '\0';
-		cout << "Receive successful" << endl;
+		Common::DebugMessage("Receive successful");
 	}
 	else if (receiveResult == 0)
 	{
-		cout << "Receive detected closed connection !" << endl;
+		Common::ErrorMessage("Receive detected closed connection!");
 		Close();
 	}
 	else
 	{
-		//cout << "Receive failed!" << endl;
+		dataReceived[0] = '\0'; // you must set this to terminate stringstream
+		Common::ErrorMessage("Receive failedQ");
 	}
 
 	stringstream data{ dataReceived };
@@ -171,7 +173,8 @@ std::stringstream Socket::Receive()
 
 void Socket::Close()
 {
-	cout << "Closing socket " << m_Socket << endl;
+	string msg = "Closing socket:" + m_Socket;
+	Common::DebugMessage(msg);
 	closesocket(m_Socket);
 	m_Socket = -1;
 	freeaddrinfo(m_pServerInfo);

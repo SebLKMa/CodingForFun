@@ -8,10 +8,20 @@
 #ifndef WINSOCKHELPER_H_
 #define WINSOCKHELPER_H_
 
+/**
+ * A wrapper class for Winsock.
+ */
 class WinsockHelper
 {
 public:
+	/**
+	 * Starts up Winsock.
+	 */
 	WinsockHelper();
+
+	/**
+	 * Cleans up Winsock.
+	 */
 	~WinsockHelper();
 };
 
