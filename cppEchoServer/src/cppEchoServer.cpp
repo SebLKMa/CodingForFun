@@ -26,12 +26,11 @@
 
 using namespace std;
 
-void StartProtocolServerThread()
+void StartProtocolServerThread(string& port)
 {
 	WinsockHelper myWinsockHelper;
 
 	string address{"localhost"};
-	string port{"3000"};
 	Socket bindngSocket(address, port);
 	int bindResult{bindngSocket.Bind()};
 	if (bindResult == -1)
@@ -163,10 +162,19 @@ void firstConnection()
  */
 int main(int argc, char* argv[])
 {
+	// Check the number of command line arguments
+	if (argc != 2) {
+		// display Usage message
+		std::cerr << "Usage: " << argv[0] << " <port>" << std::endl;
+		std::cerr << "where <port> is the port number this process will accept requests on." << std::endl;
+		return 1;
+	}
+
 	//sayHello();
 	//firstConnection();
 	//StartServer();
-	StartProtocolServerThread();
+	string port{argv[1]};
+	StartProtocolServerThread(port);
 
 	return 0;
 }

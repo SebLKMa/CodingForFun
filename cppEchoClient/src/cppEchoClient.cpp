@@ -19,35 +19,21 @@
 
 using namespace std;
 
-void SendString(std::reference_wrapper<Socket> socketRef, const string& message)
+bool keepRunning = true;
+void SetRunning(const bool& run)
 {
-	/*
-	string wait;
-	cout << "wait send...";
-	cin >> wait;
-    */
+	keepRunning = run;
+}
 
+bool SendString(std::reference_wrapper<Socket> socketRef, const string& message)
+{
 	stringstream requestStream{ message } ;
-	socketRef.get().Send(move(requestStream)); // send request
-
-	//socketRef.get().ShutdownSend();
-
-	/*
-	cout << "wait receive...";
-	cin >> wait;
-
-	while (wait != "quit")
+	SSIZE_T result = socketRef.get().Send(move(requestStream)); // send request
+	if (result == -1)
 	{
-		stringstream responseStream{ connectingSocket.Receive() }; // wait for respond
-		if (responseStream.rdbuf()->in_avail() > 0)
-		{
-			string result;
-			getline(responseStream, result, '\0');
-			cout << result << endl;
-			break;
-		}
+		return false;
 	}
-	*/
+	return true;
 }
 
 void ReceiveString(std::reference_wrapper<Socket> socketRef)
@@ -83,51 +69,73 @@ void ReceiveString(std::reference_wrapper<Socket> socketRef)
 std::vector<string> connectionStrings;
 void StartProtocolClient()
 {
+	if (connectionStrings.size() == 0)
+	{
+		cout << "Connection strings are emoty." << endl;
+		return;
+	}
+
 	string address;
 	string port;
-
-	string connectionString = connectionStrings[0];
-	istringstream stream(connectionString);
-	getline(stream, address, ':');
-	getline(stream, port, ':');
-
-	if (address.empty() || port.empty())
-	{
-		cout << "connection string error" << endl;
-		return;
-	}
-
-	WinsockHelper myWinsockHelper;
-	Socket connectingSocket(address, port);
-	int connectionResult{ connectingSocket.Connect() };
-	if (connectionResult == -1)
-	{
-		return;
-	}
+	string connectionString;
 
 	//async(launch::async, &ReceiveString, ref(connectingSocket));
 	std::thread myThread;
-	myThread = std::thread(ReceiveString, ref(connectingSocket));
-	myThread.detach();
 
-	string myString;
-	while (true)
+	vector<string>::iterator connectionsIter = connectionStrings.begin();
+	while (keepRunning)
 	{
-		myString.clear();
-		cout << "Message to send: ";
-		getline(cin, myString);
-		if (myString == "quit")
+		connectionString = (*connectionsIter);//connectionStrings[0];
+		istringstream stream(connectionString);
+		getline(stream, address, ':');
+		getline(stream, port, ':');
+
+		if (address.empty() || port.empty())
 		{
-			cout << "Quiting..." << endl;
-			break;
+			cout << "connection string error" << endl;
+			return;
 		}
-		else
+
+		WinsockHelper myWinsockHelper;
+		Socket connectingSocket(address, port);
+		int connectionResult{ connectingSocket.Connect() };
+		if (connectionResult == -1)
 		{
-			SendString(ref(connectingSocket), myString);
+			return;
+		}
+
+
+		myThread = std::thread(ReceiveString, ref(connectingSocket));
+		myThread.detach();
+
+		string myString;
+		while (true)
+		{
+			myString.clear();
+			cout << "Message to send: ";
+			getline(cin, myString);
+			if (myString == "quit")
+			{
+				cout << "Quiting..." << endl;
+				SetRunning(false);
+				break;
+			}
+			else
+			{
+				if (!SendString(ref(connectingSocket), myString))
+				{
+					break; // break for next connection
+				}
+			}
+		}
+
+		++connectionsIter;
+		if (connectionsIter == connectionStrings.end())
+		{
+			connectionsIter = connectionStrings.begin(); // round-robin
 		}
 	}
 
-	//connectingSocket.Close();
 }
 
 void StartQuizClient()
@@ -222,13 +230,16 @@ void StartConnect()
 int main(int argc, char* argv[])
 {
 	// Check the number of command line arguments
-	if (argc == 2)
-	{
-		//SendString(argv[1]);
-		string connectionString{argv[1]};
-		connectionStrings.push_back(connectionString);
-		StartProtocolClient();
+	if (argc != 3) {
+		// display Usage message
+		std::cerr << "Usage: " << argv[0] << " <server1 Hostname:port> <sserer2 Hostname:port>" << std::endl;
+		return 1;
 	}
+
+	connectionStrings.push_back(argv[1]);
+	connectionStrings.push_back(argv[2]);
+	StartProtocolClient();
+
 	/*
 	else
 	{
