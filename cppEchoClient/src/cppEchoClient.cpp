@@ -70,16 +70,13 @@ void ReceiveMessage(std::reference_wrapper<Socket> socketRef)
 std::vector<string> connectionStrings; // holds server connection strings
 void StartProtocolClient()
 {
-	Common::DebugMessage("DEBUG StartProtocolClient");
-
 	if (connectionStrings.size() == 0)
 	{
 		Common::ErrorMessage("Connection strings are empty.");
 		return;
 	}
 
-	cout << "Enter message (format:\"<LicenceID> <Message>\") to send or \"quit\" to quit: " << endl;
-
+	WinsockHelper myWinsockHelper;
 	string address;
 	string port;
 	string connectionString;
@@ -88,28 +85,44 @@ void StartProtocolClient()
 	vector<string>::iterator connectionsIter = connectionStrings.begin();
 	while (keepRunning)
 	{
-		connectionString = (*connectionsIter);//connectionStrings[0];
+		connectionString = (*connectionsIter);
 		istringstream stream(connectionString);
 		getline(stream, address, ':');
 		getline(stream, port, ':');
 
 		if (address.empty() || port.empty())
 		{
-			cout << "connection string error" << endl;
+			Common::ErrorMessage("connection string error");
 			return;
 		}
 
-		WinsockHelper myWinsockHelper;
+		// Attempt to connect to known servers.
+		// If attempts here fail, we quit before we start client activities.
 		Socket connectingSocket(address, port);
 		int connectionResult{ connectingSocket.Connect() };
 		if (connectionResult == -1)
 		{
-			return;
+			Common::ErrorMessage(connectionString);
+			Common::ErrorMessage("Server may not be running.");
+			++connectionsIter; // try next server
+
+			if (connectionsIter == connectionStrings.end())
+			{
+				Common::ErrorMessage("Servers are down.");
+				return;
+			}
+			else
+			{
+				Common::ErrorMessage("Attempting to connect to next server...");
+				continue;
+			}
 		}
 
+		// Starts the receive thread
 		receiveThread = thread(ReceiveMessage, ref(connectingSocket));
 		receiveThread.detach();
 
+		cout << "Enter message (format:\"<LicenceID> <Message>\") to send or \"quit\" to quit: " << endl;
 		string myString;
 		while (true) // loop until "quit"
 		{
@@ -125,11 +138,14 @@ void StartProtocolClient()
 			{
 				if (!SendMessage(ref(connectingSocket), myString))
 				{
+					cout << "Please re-send message." << endl;
 					break; // break for next connection
 				}
 			}
 		}
 
+		// Reaching here means the connected server was lost, attempt o connect to next server.
+		// This gooes on until user enter "quit"
 		++connectionsIter;
 		if (connectionsIter == connectionStrings.end())
 		{
