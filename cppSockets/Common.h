@@ -1,10 +1,9 @@
 /*
- * Common.h
+ * Common.cpp
  *
  *  Created on: 15 Feb 2017
- *      Author: likke
+ *      Author: seblkma
  */
-
 #ifndef COMMON_H_
 #define COMMON_H_
 

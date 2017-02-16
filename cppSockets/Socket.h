@@ -1,8 +1,8 @@
 /*
  * Socket.h
  *
- *  Created on: 5 Feb 2017
- *      Author: likke
+ *  Created on: 15 Feb 2017
+ *      Author: seblkma
  */
 
 #ifndef SOCKET_H_

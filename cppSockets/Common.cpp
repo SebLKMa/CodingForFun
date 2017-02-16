@@ -2,7 +2,7 @@
  * Common.cpp
  *
  *  Created on: 15 Feb 2017
- *      Author: likke
+ *      Author: seblkma
  */
 #include <string>
 #include <iostream>

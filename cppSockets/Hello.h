@@ -1,8 +1,8 @@
 /*
  * Hello.h
  *
- *  Created on: Feb 1, 2017
- *      Author: LMA
+ *  Created on: 15 Feb 2017
+ *      Author: seblkma
  */
 
 #ifndef HELLO_H_

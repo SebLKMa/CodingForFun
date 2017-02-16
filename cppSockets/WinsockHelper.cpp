@@ -2,8 +2,8 @@
  * WinsockWrapper.cpp
 
  *
- *  Created on: 5 Feb 2017
- *      Author: likke
+ *  Created on: 15 Feb 2017
+ *      Author: seblkma
  */
 #include <iostream>
 //#include <type_traits>
