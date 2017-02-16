@@ -12,6 +12,7 @@
 #include <thread>
 #include <vector>
 #include <functional> // for reference_wrapper
+#include <exception>
 #include "WinsockHelper.h"
 #include "Socket.h"
 #include "Common.h"
@@ -20,12 +21,21 @@
 
 using namespace std;
 
+/**
+ * The run flag used by the main client loop.
+ */
 bool keepRunning = true;
 void SetRunning(const bool& run)
 {
 	keepRunning = run;
 }
 
+/**
+ * This function sends a message using the provided socket.
+ *
+ * @socketRef The reference to the socket object used in calling send.
+ * @message The message to send.
+ */
 bool SendMessage(std::reference_wrapper<Socket> socketRef, const string& message)
 {
 	stringstream requestStream{ message } ;
@@ -38,31 +48,43 @@ bool SendMessage(std::reference_wrapper<Socket> socketRef, const string& message
 	return true;
 }
 
+/**
+ * This is a blocking function that calls recv in a loop.
+ * Hence, it should be called by a worker thread.
+ *
+ * @socketRef The reference to the socket object used in calling recv.
+ */
 void ReceiveMessage(std::reference_wrapper<Socket> socketRef)
 {
 	cout << "ReceiveMessage starting" << endl;
 
-	while (true)
+	try
 	{
-		stringstream responseStream{ socketRef.get().Receive() }; // wait for respond
-
-		if (responseStream.rdbuf()->in_avail() == 0)
+		while (true)
 		{
-			Common::ErrorMessage("Receive detected null stream. ReceiveMessage exiting...");
-			break;
+			stringstream responseStream{ socketRef.get().Receive() }; // wait for respond
+
+			if (responseStream.rdbuf()->in_avail() == 0)
+			{
+				Common::ErrorMessage("Receive detected null stream. ReceiveMessage exiting...");
+				break;
+			}
+
+			if (!socketRef.get().IsValid()) // socket could be closed by peer
+			{
+				Common::ErrorMessage("Receive socket invalid. ReceiveMessage exiting...");
+				break;
+			}
+
+			string result;
+			getline(responseStream, result, '\0'); // get the whole string from the stream
+			cout << "Message received:" << result << endl;
+			responseStream.clear();
 		}
-
-		if (!socketRef.get().IsValid()) // socket could be closed by peer
-		{
-			Common::ErrorMessage("Receive socket invalid. ReceiveMessage exiting...");
-			break;
-		}
-
-		string result;
-		getline(responseStream, result, '\0'); // get the whole string from the stream
-		cout << "Message received:" << result << endl;
-		responseStream.clear();
-
+	}
+	catch (const exception& ex)
+	{
+		Common::ErrorMessage(ex.what());
 	}
 	cout << "ReceiveMessage completed" << endl;
 }
@@ -93,6 +115,13 @@ void StartProtocolClient()
 		if (address.empty() || port.empty())
 		{
 			Common::ErrorMessage("connection string error");
+			return;
+		}
+
+		// validate port number.
+		if (!Common::PortIsValid(port))
+		{
+			Common::ErrorMessage("Please provide a valid port number");
 			return;
 		}
 
@@ -166,7 +195,15 @@ int main(int argc, char* argv[])
 
 	connectionStrings.push_back(argv[1]);
 	connectionStrings.push_back(argv[2]);
+
+	try
+	{
 	StartProtocolClient();
+	}
+	catch (const exception& ex)
+	{
+		Common::ErrorMessage(ex.what());
+	}
 
 	cout << endl << "Tschuess!" << endl;
 	return 0;

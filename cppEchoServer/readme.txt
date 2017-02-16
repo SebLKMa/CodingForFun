@@ -39,5 +39,7 @@ In theory, server should validate LicenceID from client, i.e. client is allowed 
 
 1. Client cppEchoClient has not been refactored to individual classes.
 2. Client limited to 2 connections strings for now.
-3. Client only establishes real connection on first send.
-4. Client only detects lost connection on receive.
+3. Client establishes real connection on first send.
+4. Client detects lost connection on receive thread. Currently it does not notify lost connection to main sending thread.
+5. Client would prompt user to re-send message on lost connection.
+
