@@ -12,7 +12,10 @@ class Common
 {
 public:
 	static void DebugMessage(const std::string& str);
+
 	static void ErrorMessage(const std::string& str);
+
+	static bool PortIsValid(const std::string& port);
 };
 
 
