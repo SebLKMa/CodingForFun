@@ -1,8 +1,8 @@
 /*
  * Protocol.h
  *
- *  Created on: Feb 6, 2017
- *      Author: LMA
+ *  Created on: 15 Feb 2017
+ *      Author: seblkma
  */
 
 #ifndef PROTOCOLTASK_H_

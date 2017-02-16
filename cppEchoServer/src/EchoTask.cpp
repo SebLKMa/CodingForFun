@@ -1,8 +1,8 @@
 /*
  * ProtocolTask.cpp
  *
- *  Created on: Feb 6, 2017
- *      Author: LMA
+ *  Created on: 15 Feb 2017
+ *      Author: seblkma
  */
 #include <sstream>
 #include <iostream>

@@ -1,3 +1,5 @@
+ This project is built using Eclipse C/C++ Development Tool (in particular MSYS64, MinGW GCC)
+ 
 	NOTE:
 	remove the prefix "lib" if your DLL name starts with lib...
 	the location of DLL has to be in your runtime search PATH

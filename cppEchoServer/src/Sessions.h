@@ -1,8 +1,8 @@
 /*
  * SessionsMap.h
  *
- *  Created on: 12 Feb 2017
- *      Author: likke
+ *  Created on: 15 Feb 2017
+ *      Author: seblkma
  */
 
 #ifndef SESSIONS_H_
