@@ -34,6 +34,7 @@ LIMITATIONS:
 Graceful shutdown should be a client to send a shutdown signal to server or via Windows Services control.
 2. Upon detection, Server should remove invalid socket entries from Sessions.
 3. Message format now limited to "<LicenceID> <Message>", in theory server should validate client LicenceID.
+4. No synchronization of states between servers. 
 
 1. Client cppEchoClient has not been refactored to individual classes.
 2. Client limited to 2 connections strings for now.
