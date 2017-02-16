@@ -24,7 +24,7 @@ RELEASE NOTES:
 This project serves to demonstrate the concepts required in building process communications applications.
 It has not yet reached a matured and stable release.
 
-1. cppEchoServer starts listening on localhost port 3000 (port cab be passed in as command line args).
+1. cppEchoServer starts listening on localhost. Port is be passed in as command line argument.
 2. On accepting connection from client, an independent thread will be started for the client socket.
 3. The client thread will receive message and broadcast the message to all connected clients via the Sessions singleton.
 4. Sessions is a threadsafe singleton holding a map of IDs and Client Sockets.
@@ -33,7 +33,8 @@ LIMITATIONS:
 1. Server Shutdown currently using CTRL-C to kill this process. 
 Graceful shutdown should be a client to send a shutdown signal to server or via Windows Services control.
 2. Upon detection, Server should remove invalid socket entries from Sessions.
-3. Message format now limited to "<LicenceID> <Message>", in theory server should validate client LicenceID.
+3. Message format now limited to "<LicenceID> <Message>".
+In theory, server should validate LicenceID from client, i.e. client is allowed to use the server operation.
 4. No synchronization of states between servers. 
 
 1. Client cppEchoClient has not been refactored to individual classes.

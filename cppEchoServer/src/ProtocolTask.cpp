@@ -7,6 +7,7 @@
 #include <sstream>
 #include <iostream>
 #include <functional> // for reference_wrapper
+#include <exception>
 #include "EchoTask.h"
 #include "ProtocolTask.h"
 #include "Socket.h"
@@ -29,38 +30,45 @@ ProtocolTask::ProtocolTask(std::reference_wrapper<Socket> connectionSocketRef)
 bool ProtocolTask::Execute()
 {
 	Common::DebugMessage("ProtocolTask::Execute entering");
-
-	string licenceId;
-	string messageReceived;
-	while (true)
+	try
 	{
-		licenceId.clear();
-		messageReceived.clear();
-
-		stringstream inputStream{ m_Socket.Receive() };
-		if (inputStream.rdbuf()->in_avail() == 0)
+		string licenceId;
+		string messageReceived;
+		while (true)
 		{
-			break;
+			licenceId.clear();
+			messageReceived.clear();
+
+			stringstream inputStream{ m_Socket.Receive() };
+			if (inputStream.rdbuf()->in_avail() == 0)
+			{
+				break;
+			}
+
+			if (!m_Socket.IsValid())
+			{
+				break;
+			}
+
+			//string messageReceived;
+			//getline(inputStream, messageReceived, '\0'); // get whole input stream until null-terminator
+
+			inputStream >> licenceId; // get first string until white-space
+
+			inputStream >> messageReceived; // get next string until white-space
+
+			// Broadcast the received message if licenceId is valid
+			if (!licenceId.empty() && !messageReceived.empty())
+			{
+				Sessions::instance().Update(licenceId, ref(m_Socket));
+				Sessions::instance().Broadcast(messageReceived);
+			}
 		}
-
-		if (!m_Socket.IsValid())
-		{
-			break;
-		}
-
-		//string messageReceived;
-		//getline(inputStream, messageReceived, '\0'); // get whole input stream until null-terminator
-
-		inputStream >> licenceId; // get first string until white-space
-
-		inputStream >> messageReceived; // get next string until white-space
-
-		// Broadcast the received message if licenceId is valid
-		if (!licenceId.empty() && !messageReceived.empty())
-		{
-			Sessions::instance().Update(licenceId, ref(m_Socket));
-			Sessions::instance().Broadcast(messageReceived);
-		}
+	}
+	catch (const std::exception& ex)
+	{
+		Common::ErrorMessage(ex.what());
+		return false;
 	}
 
 	Common::DebugMessage("ProtocolTask::Execute exiting");

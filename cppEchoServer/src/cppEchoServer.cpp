@@ -10,7 +10,7 @@
 #include <string>
 #include <sstream>
 #include <thread>
-#include <future>
+#include <exception>
 #include "WinsockHelper.h"
 #include "Socket.h"
 #include "BaseTask.h"
@@ -73,7 +73,22 @@ int main(int argc, char* argv[])
 	}
 
 	string port{argv[1]};
-	StartProtocolServerThread(port);
+	// validate port number.
+	if (!Common::PortIsValid(port))
+	{
+		Common::ErrorMessage("Please provide a valid port number");
+		return 1;
+	}
+
+	// start the server
+	try
+	{
+		StartProtocolServerThread(port);
+	}
+	catch (const std::exception& ex)
+	{
+		Common::ErrorMessage(ex.what());
+	}
 
 	return 0;
 }
