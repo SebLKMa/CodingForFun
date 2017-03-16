@@ -219,8 +219,9 @@ int main(int argc, char* argv[]) {
 	//testDeadlockThreads();
 	//testTruckloadList();
 
-	//Test03 test03;
+	Test03 test03;
 	//test03.testTruckloadList();
+	test03.testBinaryTree();
 
 	//FileWordsCounter wordsCounter("C:\\temp\\2489.txt");
 	//wordsCounter.startCount();

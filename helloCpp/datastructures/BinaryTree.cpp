@@ -4,15 +4,20 @@
  *  Created on: Mar 16, 2017
  *      Author: SebLkMa
  */
+#include <iostream>
 #include "BinaryTree.h"
+
+using namespace std;
 
 BinaryTree::BinaryTree()
 {
+	cout << "BinaryTree::BinaryTree()" << endl;
 	pRoot = nullptr;
 }
 
 BinaryTree::~BinaryTree()
 {
+	cout << "BinaryTree::~BinaryTree()" << endl;
 	destroyTree();
 }
 
@@ -102,6 +107,7 @@ void BinaryTree::destroyTree(BNode* pLeaf)
 	{
 		destroyTree(pLeaf->pLeft);
 		destroyTree(pLeaf->pRight);
+		cout << "deleting node " << pLeaf->keyValue << endl;
 		delete pLeaf;
 	}
 }

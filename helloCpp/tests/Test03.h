@@ -11,7 +11,9 @@
 class Test03
 {
 public:
+	Test03();
 	void testTruckloadList();
+	void testBinaryTree();
 private:
 	// gemerate a random integer 1 to count
 	inline size_t random(size_t count)

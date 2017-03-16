@@ -13,8 +13,14 @@
 #include "..\HelloContainers.h"
 #include "..\datastructures\TruckloadList.h"
 #include "..\Box.h"
+#include "..\datastructures\BinaryTree.h"
 
 using namespace std;
+
+Test03::Test03()
+{
+	cout << "Test03::Test03()" << endl;
+}
 
 void Test03::testTruckloadList()
 {
@@ -71,5 +77,23 @@ void Test03::testTruckloadList()
 	cout << endl;
 }
 
-
-
+void Test03::testBinaryTree()
+{
+	unique_ptr<BinaryTree> pTree(new BinaryTree);
+	pTree->insert(10);
+	pTree->insert(6);
+	pTree->insert(14);
+	pTree->insert(5);
+	pTree->insert(8);
+	pTree->insert(11);
+	pTree->insert(18);
+}
+/*
+void Test02::testCpp11unique_ptr_Move()
+{
+	unique_ptr<DerivedA> pA(new DerivedA);   // pA owns DerivedA
+	pA->sayHi();
+	unique_ptr<DerivedA> pB = std::move(pA); // passes ownership to pB
+	pB->sayHi();
+}
+*/
