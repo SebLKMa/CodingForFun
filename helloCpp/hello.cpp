@@ -200,7 +200,7 @@ int main(int argc, char* argv[]) {
 
 
 	Test02 test02;
-	/*
+
 	test02.testInheritanceInStack();
 	test02.testInheritanceInHeap();
 	test02.testCpp11();
@@ -211,7 +211,7 @@ int main(int argc, char* argv[]) {
 	test02.testCopy();
 	test02.testAssignment();
 	test02.testMove();
-	*/
+
 	test02.testCopyAssign();
 
 	//testThread();

@@ -10,8 +10,7 @@
 
 #include "Base.h"
 
-//class DerivedB : public Base
-class DerivedB : public virtual Base
+class DerivedB : public Base
 {
 public:
 	DerivedB(void);
