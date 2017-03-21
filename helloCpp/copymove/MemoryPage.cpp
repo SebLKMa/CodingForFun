@@ -5,6 +5,7 @@
  *      Author: LMA
  */
 #include <iostream>
+#include <time.h>
 #include "string.h"
 #include "MemoryPage.h"
 
