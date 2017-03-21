@@ -17,6 +17,7 @@
 #include "..\templates\TArray.h"
 #include "..\Box.h"
 #include "..\strings\StringUtils.h"
+#include "..\templates\TUtils.h"
 
 using namespace std;
 
@@ -392,4 +393,12 @@ void Test01::unsetUserPermission(unsigned short& userPermission, const unsigned 
 {
 	// using bitwise AND complement to turn bits off
 	userPermission &= ~unsetPermission;
+}
+
+void Test01::testIsSameClass()
+{
+	bool result = isSameClass<ArraySorter, Quicksort>();
+	cout << "testIsSameClass ArraySorter, Quicksort:" << std::boolalpha << result << endl;
+	result = isSameClass<ArraySorter, ArraySorter>();
+	cout << "testIsSameClass ArraySorter, ArraySorter:" << std::boolalpha << result << endl;
 }

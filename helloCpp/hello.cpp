@@ -191,6 +191,7 @@ int main(int argc, char* argv[]) {
 	//test01.testBitMasks();
 	//test01.testTArray2();
 	//test01.testFileIO();
+	test01.testIsSameClass();
 
 	//Greet greeter;
 	//greeter.sayHello();
@@ -200,7 +201,7 @@ int main(int argc, char* argv[]) {
 
 
 	Test02 test02;
-
+    /*
 	test02.testInheritanceInStack();
 	test02.testInheritanceInHeap();
 	test02.testCpp11();
@@ -211,7 +212,7 @@ int main(int argc, char* argv[]) {
 	test02.testCopy();
 	test02.testAssignment();
 	test02.testMove();
-
+    */
 	test02.testCopyAssign();
 
 	//testThread();

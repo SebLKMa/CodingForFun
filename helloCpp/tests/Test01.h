@@ -25,6 +25,7 @@ public:
 	void testByteOrder();
 	void testBitShift();
 	void testBitMasks();
+	void testIsSameClass();
 
 private:
 	void checkUserPermission(const std::string& userId, const unsigned short& userPermission);
