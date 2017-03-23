@@ -50,6 +50,11 @@ void Test01::testStringUtils()
 	cout << myStr4;
 	utils.removeDuplicates(myStr4);
 	cout << " removed duplictates: " << myStr4 << endl;
+
+	myStr4 ="ADDRESS";
+	cout << myStr4;
+	utils.removeDuplicates(myStr4);
+	cout << " removed duplictates: " << myStr4 << endl;
 }
 
 void Test01::testPtrsBasics()

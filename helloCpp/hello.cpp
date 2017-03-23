@@ -180,7 +180,7 @@ threadBFunc()
 int main(int argc, char* argv[]) {
 	Test01 test01;
 	//test01.testStringTypes();
-	//test01.testStringUtils();
+	test01.testStringUtils();
 	//test01.testPtrsBasics();
 	//test01.testRefsBasics();
 	//test01.testLoops();
