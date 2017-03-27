@@ -45,6 +45,8 @@ void Test01::testStringUtils()
 	cout << myStr1 << " is palindrome: " << std::boolalpha << utils.isPalindrome(myStr1) << endl;
 	cout << myStr2 << " is palindrome: " << std::boolalpha << utils.isPalindrome(myStr2) << endl;
 	cout << myStr3 << " is palindrome: " << std::boolalpha << utils.isPalindrome(myStr3) << endl;
+	myStr3 = "HIPPI";
+	cout << myStr3 << " is palindrome: " << std::boolalpha << utils.isPalindrome(myStr3) << endl;
 
 	string myStr4{"FOLLOWUP"};
 	cout << myStr4;

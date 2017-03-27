@@ -191,7 +191,7 @@ int main(int argc, char* argv[]) {
 	//test01.testBitMasks();
 	//test01.testTArray2();
 	//test01.testFileIO();
-	test01.testIsSameClass();
+	//test01.testIsSameClass();
 
 	//Greet greeter;
 	//greeter.sayHello();
