@@ -1,0 +1,14 @@
+{
+  "name": "A-Team",
+  "dateFounded": "2008-08-01",
+  "players": [
+    {
+      "name": "Peter",
+      "position": "Engineer"
+    },
+    {
+      "name": "Mary",
+      "position": "QA"
+    }
+  ]
+}
