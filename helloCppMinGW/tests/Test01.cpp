@@ -10,6 +10,8 @@
 #include <iomanip>
 #include <vector>
 #include <string> // contains string, wstring, u16string, u32string
+#include <string.h> // strncpy
+#include <stdlib.h> // itoa
 #include "..\loops\Loops.h"
 #include "..\algorithms\ArraySorter.h"
 #include "..\algorithms\Quicksort.h"
@@ -163,6 +165,46 @@ void Test01::testLoops()
 {
 	Loops myLoops;
 	myLoops.DoLoop1();
+
+	//char values[]{ 1,0,0,1,0,1 };
+	//int binaryGap = myLoops.GetBinaryGap(values);
+	//cout << "Binary MaxGap:" << binaryGap << endl;
+
+	string str = "100101";
+	char values[1024];
+	strncpy(values, str.c_str(), sizeof(values));
+	values[sizeof(values) - 1] = 0;
+	int binaryGap = myLoops.GetBinaryGap(values);
+	cout << "Binary values:" << str << endl;
+	cout << "Binary MaxGap:" << binaryGap << endl;
+
+	str = "101001";
+	strncpy(values, str.c_str(), sizeof(values));
+	values[sizeof(values) - 1] = 0;
+	binaryGap = myLoops.GetBinaryGap(values);
+	cout << "Binary values:" << str << endl;
+	cout << "Binary MaxGap:" << binaryGap << endl;
+
+	str = "101000";
+	strncpy(values, str.c_str(), sizeof(values));
+	values[sizeof(values) - 1] = 0;
+	binaryGap = myLoops.GetBinaryGap(values);
+	cout << "Binary values:" << str << endl;
+	cout << "Binary MaxGap:" << binaryGap << endl;
+
+	str = "001010";
+	strncpy(values, str.c_str(), sizeof(values));
+	values[sizeof(values) - 1] = 0;
+	binaryGap = myLoops.GetBinaryGap(values);
+	cout << "Binary values:" << str << endl;
+	cout << "Binary MaxGap:" << binaryGap << endl;
+
+	str = "110010";
+	strncpy(values, str.c_str(), sizeof(values));
+	values[sizeof(values) - 1] = 0;
+	binaryGap = myLoops.GetBinaryGap(values);
+	cout << "Binary values:" << str << endl;
+	cout << "Binary MaxGap:" << binaryGap << endl;
 }
 
 void Test01::testArraySorter()

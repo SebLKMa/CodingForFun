@@ -27,3 +27,47 @@ void Loops::DoLoop1()
 	}
 	cout << "The sum of elements is " << sum << "." << endl;
 }
+
+int Loops::GetBinaryGap(const char values[])
+{
+	size_t size = sizeof(values) / sizeof(values[0]);
+	cout << "There are " << size << " elements." << endl;
+
+	// not interested in leading zeroes
+	int startIndex = 0;
+	for (size_t i=0; i<size; ++i)
+	{
+		if (values[i] == '1')
+		{
+			startIndex = i;
+			break;
+		}
+	}
+
+	int max = 0;
+	int currCount = 0;
+	for (size_t i=startIndex; i<size; ++i)
+	{
+		if (values[i]=='1' && currCount==0)
+		{
+			continue;
+		}
+
+		if (values[i]=='1' && currCount!=0)
+		{
+			if (currCount > max)
+			{
+				max = currCount;
+			}
+			currCount = 0;
+			continue;
+		}
+
+		if (values[i]=='0')
+		{
+			++currCount;
+		}
+	}
+
+	return max;
+}

@@ -192,7 +192,7 @@ int main(int argc, char* argv[]) {
 	//test01.testStringUtils();
 	//test01.testPtrsBasics();
 	//test01.testRefsBasics();
-	//test01.testLoops();
+	test01.testLoops();
 	//test01.testArraySorter();
 	//test01.testQuicksort();
 	//test01.testByteOrder();
