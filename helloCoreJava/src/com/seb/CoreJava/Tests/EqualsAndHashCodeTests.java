@@ -27,7 +27,7 @@ public class EqualsAndHashCodeTests {
 		
 		// logically equals to person1
 		final PersonDefect person1a = new PersonDefect("Tom", 28);
-		// should return false because Alice already in the set
+		// should return false because Tom already in the set
 		final boolean person1aAdded = persons.add(person1a);
 		
 		// but returns true because the equals has not been implemented
@@ -51,7 +51,7 @@ public class EqualsAndHashCodeTests {
 		
 		// logically equals to person1
 		final PersonDefectFixed person1a = new PersonDefectFixed("Tom", 28);
-		// should return false because Alice already in the set
+		// should return false because Tom already in the set
 		final boolean person1aAdded = persons.add(person1a);
 		
 		// equals has been implemented
