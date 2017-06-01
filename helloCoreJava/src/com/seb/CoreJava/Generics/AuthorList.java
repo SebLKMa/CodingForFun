@@ -50,7 +50,8 @@ public class AuthorList {
 	@Test
 	public void authorListMessUp() {
 		createAuthors();
-		authors.add("J.K. Rowling");
+		authors.add("J.K. Rowling"); // list now contains not only Author objects, but also String
+		                             // effective making our list a mess of different object types
 		
 		final String authorAsString = (String)authors.get(authors.size() - 1);
 		assertEquals("J.K. Rowling", authorAsString);
