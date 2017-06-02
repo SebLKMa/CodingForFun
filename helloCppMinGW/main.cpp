@@ -54,6 +54,7 @@ void doForLoop(int max)
 	{
 		threadSafeCout(i);
 	}
+	cout << endl;
 }
 
 void testThreads()
@@ -71,6 +72,7 @@ void testThreads()
 	{
 		threadSafeCout(i);   // 0, -49
 	}
+	cout << endl;
 
 	t1.join();
 	t2.join();
@@ -93,12 +95,13 @@ void deadlockableCoutEven(int i)
 	lock_guard<mutex> myGuard1(myMutex1);
 	// ... do some operations here
 	cout << endl;
+	cout << "Thread Id: " << std::this_thread::get_id() << endl;
 	cout << "deadlockableCoutEven" << " acquired myMutex1" << endl;
 	cout << "deadlockableCoutEven" << " attempt to acquire myMutex2" << endl;
 	// attempt to acquire lock 2
 	lock_guard<mutex> myGuard2(myMutex2);
 
-	cout << "deadlockableCoutEven " << i << " ";
+	cout << "deadlockableCoutEven " << i << " ok";
 }
 
 void deadlockableCoutOdd(int i)
@@ -107,12 +110,13 @@ void deadlockableCoutOdd(int i)
 	lock_guard<mutex> myGuard2(myMutex2);
 	// ... do some operations here
 	cout << endl;
+	cout << "Thread Id: " << std::this_thread::get_id() << endl;
 	cout << "deadlockableCoutOdd" << " acquired myMutex2" << endl;
 	cout << "deadlockableCoutOdd" << " attempt to acquire myMutex1" << endl;
 	// attempt to acquire lock 1
 	lock_guard<mutex> myGuard1(myMutex1);
 
-	cout << "deadlockableCoutOdd " << i << " ";
+	cout << "deadlockableCoutOdd " << i << " ok";
 }
 
 void doForLoopEvenOdd(int max)
@@ -152,8 +156,40 @@ void testDeadlockThreads()
 	//t4.join();
 	//t5.join();
 
+	// See Deadlock run below.
 	// Prevent deadlock by acquiring locks in the same order.
 }
+/** Deadlocked run
+testDeadlockThreads()
+
+Thread Id: 2
+deadlockableCoutEven acquired myMutex1
+deadlockableCoutEven attempt to acquire myMutex2
+deadlockableCoutEven 0 ok
+Thread Id: 2
+deadlockableCoutOdd acquired myMutex2
+deadlockableCoutOdd attempt to acquire myMutex1
+deadlockableCoutOdd 1 ok
+Thread Id: 2
+deadlockableCoutEven acquired myMutex1
+deadlockableCoutEven attempt to acquire myMutex2
+deadlockableCoutEven 2 ok
+Thread Id: 2
+deadlockableCoutOdd acquired myMutex2
+deadlockableCoutOdd attempt to acquire myMutex1
+deadlockableCoutOdd 3 ok
+Thread Id: 2
+deadlockableCoutEven acquired myMutex1
+deadlockableCoutEven attempt to acquire myMutex2
+deadlockableCoutEven 4 ok
+Thread Id: 2
+deadlockableCoutOdd acquired myMutex2
+deadlockableCoutOdd attempt to acquire myMutex1
+
+Thread Id: 3
+deadlockableCoutEven acquired myMutex1
+deadlockableCoutEven attempt to acquire myMutex2
+ */
 
 /* Preventing deadlock by acquiring locks in the same order
 mutex1 for resA
@@ -187,12 +223,12 @@ threadBFunc()
 int main(int argc, char* argv[]) {
 	A::doSimpleTest();
 
-	Test01 test01;
+	//Test01 test01;
 	//test01.testStringTypes();
 	//test01.testStringUtils();
 	//test01.testPtrsBasics();
 	//test01.testRefsBasics();
-	test01.testLoops();
+	//test01.testLoopsForBinaryGaps();
 	//test01.testArraySorter();
 	//test01.testQuicksort();
 	//test01.testByteOrder();
@@ -201,35 +237,31 @@ int main(int argc, char* argv[]) {
 	//test01.testTArray2();
 	//test01.testFileIO();
 
+	//Test02 test02;
+	//test02.testInheritanceInStack();
+	//test02.testInheritanceInHeap();
+	//test02.testCpp11();
+	//test02.testInheritanceInHeap2();
+	//test02.testCpp11unique_ptr();
+	//test02.testCpp11unique_ptr_Move();
+	//test02.testCpp11shared_ptr1();
+	//test02.testCopy();
+	//test02.testAssignment();
+	//test02.testMove();
+	//test02.testCopyAssign();
+
+	Test03 test03;
+	test03.testTruckloadList();
+
+	//testThread();
+	//testThreads();
+	//testDeadlockThreads();
+
 	//Greet greeter;
 	//greeter.sayHello();
 
 	//HelloContainers myContainers;
 	//myContainers.helloVector();
-
-
-	Test02 test02;
-	/*
-	test02.testInheritanceInStack();
-	test02.testInheritanceInHeap();
-	test02.testCpp11();
-	test02.testInheritanceInHeap2();
-	test02.testCpp11unique_ptr();
-	test02.testCpp11unique_ptr_Move();
-	test02.testCpp11shared_ptr1();
-	test02.testCopy();
-	test02.testAssignment();
-	test02.testMove();
-	*/
-	test02.testCopyAssign();
-
-	//testThread();
-	//testThreads();
-	//testDeadlockThreads();
-	//testTruckloadList();
-
-	//Test03 test03;
-	//test03.testTruckloadList();
 
 	//FileWordsCounter wordsCounter("C:\\temp\\2489.txt");
 	//wordsCounter.startCount();
