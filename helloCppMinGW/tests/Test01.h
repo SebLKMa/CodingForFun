@@ -16,7 +16,7 @@ public:
 	void testStringUtils();
 	void testPtrsBasics();
 	void testRefsBasics();
-	void testLoops();
+	void testLoopsForBinaryGaps();
 	void testArraySorter();
 	void testQuicksort();
 	void testFileIO();

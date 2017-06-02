@@ -161,7 +161,7 @@ void Test01::testRefsBasics()
 	cout << endl;
 }
 
-void Test01::testLoops()
+void Test01::testLoopsForBinaryGaps()
 {
 	Loops myLoops;
 	myLoops.DoLoop1();
