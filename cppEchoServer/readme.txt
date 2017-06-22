@@ -32,12 +32,13 @@ It has not yet reached a matured and stable release.
 4. Sessions is a threadsafe singleton holding a map of IDs and Client Sockets.
 5. 
 LIMITATIONS:
-1. Server Shutdown currently using CTRL-C to kill this process. 
+1. Server current spawns one thread for each client connection. This should be improved for scalability.
+2. Server Shutdown currently using CTRL-C to kill this process. 
 Graceful shutdown should be a client to send a shutdown signal to server or via Windows Services control.
-2. Upon detection, Server should remove invalid socket entries from Sessions.
-3. Message format now limited to "<LicenceID> <Message>".
+3. Upon detection, Server should remove invalid socket entries from Sessions.
+4. Message format now limited to "<LicenceID> <Message>".
 In theory, server should validate LicenceID from client, i.e. client is allowed to use the server operation.
-4. No synchronization of states between servers. 
+5. No synchronization of states between servers. 
 
 1. Client cppEchoClient has not been refactored to individual classes.
 2. Client limited to 2 connections strings for now.
