@@ -1,3 +1,6 @@
+This is my collection of C++ fundamentals that should not be forgotten.
+
+STEP TO INSTALL AND RUN FROM ECLIPSE
 If install from existing Eclipse > Help > Install New Software... Work with: [Add...] button
 Location: http://download.eclipse.org/tools/cdt/releases/9.2
 
