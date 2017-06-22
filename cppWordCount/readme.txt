@@ -1,3 +1,5 @@
+This is just a fun coding as a therapeutic remedy from daily grind.
+
 To run this program from command line:
 Go to directory ..\cppWordCount\Debug
 Then execute 
