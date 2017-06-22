@@ -1,0 +1,1 @@
+This is my collection of Java Core fundamentals that should not be forgotten.
