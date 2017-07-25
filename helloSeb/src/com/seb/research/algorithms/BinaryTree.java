@@ -203,8 +203,8 @@ public class BinaryTree {
 	}
 	
 	public static void main(String[] args) {
-		//doPopulateTreeTest();
-		doTreeIsBalanceTest();
+		doPopulateTreeTest();
+		//doTreeIsBalanceTest();
 	}
 	
 	public static void doPopulateTreeTest() {
