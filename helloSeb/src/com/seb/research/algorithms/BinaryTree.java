@@ -36,8 +36,8 @@ public class BinaryTree {
 		return lookup(root, data); // start searching from root
 	}
 	
-	public void insert(int data) {
-		root = insert(root, data);
+	public void insert(int newData) {
+		root = insert(root, newData);
 	}
 	
 	public int size() {
@@ -100,26 +100,26 @@ public class BinaryTree {
 	 * @param data
 	 * @return
 	 */
-	private Node insert(Node node, int data) {
+	private Node insert(Node node, int newData) {
 		if (node == null) {
 			// reaching here means we are at end of branch (either left or right)
 			// if node is root and it is null, then tree is empty
 			// we found where new node should be created
-			node = new Node(data);
+			node = new Node(newData);
 		}
 		else {
-			if (data <= node.data) {
+			if (newData <= node.data) {
 				// data is less than this node, insert in left branch
 				// when insert returns we update this node left reference
-				node.left = insert(node.left, data);
+				node.left = insert(node.left, newData);
 			}
 			else {
 				// data is greater than this node, insert in right branch
 				// when insert returns we update this node right reference
-				node.right = insert(node.right, data);
+				node.right = insert(node.right, newData);
 			}
 		}
-		return node; // return the node as-is
+		return node; // return the new node or the node we were at.
 	}
 	
 	private int size(Node node) {

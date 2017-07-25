@@ -68,7 +68,7 @@ public class LinkedList {
      * @param data
      */
     public void add(Object data) {
-        Node temp = new Node(data);
+        Node newNode = new Node(data);
         Node current = getHead();
         
         // BEFORE:
@@ -81,7 +81,7 @@ public class LinkedList {
             current = current.getNext();
         }
         
-        current.setNext(temp);
+        current.setNext(newNode);
         count++;
     }
     
@@ -91,7 +91,7 @@ public class LinkedList {
      * @param index
      */
     public void add(Object data, int index) {
-        Node temp = new Node(data);
+        Node newNode = new Node(data);
         Node current = getHead();
         
         // BEFORE:
@@ -105,10 +105,10 @@ public class LinkedList {
         }
         
         // sets new node's next to point to current node's next
-        temp.setNext(current.getNext());
+        newNode.setNext(current.getNext());
         
         // sets current node's next to point to new node
-        current.setNext(temp);
+        current.setNext(newNode);
         
         count++;
     }
