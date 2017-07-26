@@ -23,10 +23,37 @@ public class BinarySearch {
     private BinarySearch() { }
 
     /**
+     * This is just simple function to sort an array of integers.
+     * Warning! O(N^N)
+     * @param numbers An array of unsorted integers.
+     * @return An array of sorted integers in ascending order.
+     */
+    public static void sortAscending(int[] numbers) {
+    	boolean sorted = false;
+    	int temp;
+    	while (true) {
+    		for (int i=0; i<numbers.length-1; i++) {
+    			if (numbers[i] > numbers[i+1]) {
+    				temp = numbers[i];
+    				numbers[i] = numbers[i+1];
+    				numbers[i+1] = temp;
+    				sorted = true; // indicate we did sorting
+    			}
+    		}
+    		
+    		if (!sorted) {
+    			break; // fully sorted now
+    		}
+    		
+    		sorted = false; // loop until nothing to sort
+    	}
+    }
+    
+    /**
      * Searches for the integer key in the sorted array a[].
-     * @param key the search key
-     * @param a the array of integers, must be sorted in ascending order
-     * @return index of key in array a[] if present; -1 if not present
+     * @param key The search key
+     * @param a The array of integers, must be sorted in ascending order
+     * @return The index of key in array a[] if present; -1 if not present
      */
     public static int search(int key, int[] a) {
         int lo = 0;
@@ -61,8 +88,17 @@ public class BinarySearch {
         // numbers array
         int[] numbers = { 3, 2, 1, 4, 7, 6, 8, 5 };
 
-        // sort the array
-        Arrays.sort(numbers);
+        // sort the array using Java Array
+        //Arrays.sort(numbers);
+        
+        // sort the array using own naive sorting
+        sortAscending(numbers);
+        
+        for (int i : numbers) {
+        	System.out.print(i);
+        	System.out.print(' ');
+        }
+        System.out.println();
         
         int myNumber = 5;
         int i = search(myNumber, numbers);
