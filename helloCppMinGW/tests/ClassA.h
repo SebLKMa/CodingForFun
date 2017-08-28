@@ -8,15 +8,24 @@
 #ifndef TESTS_CLASSA_H_
 #define TESTS_CLASSA_H_
 #include <iostream>
+#include <string>
 #include <memory>
 using namespace std;
 
 class A
 {
+private:
+	std::string m_Hello = "Beauty is only skin deep";
+
 public:
-	A() { cout << "A()" << endl;}
+	A()
+	{
+		cout << "A()" << endl;
+	}
+
 	~A() { cout << "~A()" << endl; }
-	void hello() { cout << "Beauty is only skin deep" << endl; }
+	void hello() { cout << m_Hello << endl; }
+	std::string& getHello() { return m_Hello; }
 
 	static void test1()
 	{
