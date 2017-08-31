@@ -1,5 +1,9 @@
 package com.seb.research.utils;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+
 public class StringUtil {
 
 	public static String removeDupsSlow(String str) {
@@ -29,11 +33,25 @@ public class StringUtil {
 		String newStr = new String(newChrs);
 		return newStr;
 	}
+	
+	public static String dateTo(LocalDate date, int days) {
+		LocalDate toDate = date.plusDays(days);
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
+
+		String formattedDate = formatter.format(toDate);
+		
+		return formattedDate;
+	}
 
 	public static void main(String[] args) {
 		String str = "FOLLOWUP";
 		System.out.println("Old string: " + str);
 		String newStr = removeDupsSlow(str);
 		System.out.println("New string: " + newStr);
+		
+		LocalDate fromDate = LocalDate.of(2017, 9, 5);
+		System.out.println("Date from: " + fromDate.format(DateTimeFormatter.ISO_LOCAL_DATE));
+		System.out.println("Date to  : " + dateTo(fromDate, 30));
 	}
 }
