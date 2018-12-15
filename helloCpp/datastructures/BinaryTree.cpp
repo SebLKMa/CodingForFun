@@ -82,6 +82,8 @@ void BinaryTree::insert(int newKey, BNode* pLeaf)
 	}
 }
 
+// https://www.geeksforgeeks.org/binary-search-tree-set-1-search-and-insertion/
+//
 BNode* BinaryTree::search(int key, BNode* pLeaf)
 {
 	if (pLeaf == nullptr)
