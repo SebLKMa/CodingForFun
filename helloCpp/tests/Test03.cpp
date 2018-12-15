@@ -79,6 +79,8 @@ void Test03::testTruckloadList()
 
 void Test03::testBinaryTree()
 {
+	// unique_ptr is a smart pointer that owns the object.
+	// object will be deleted when goes out of scope.
 	unique_ptr<BinaryTree> pTree(new BinaryTree);
 	pTree->insert(10);
 	pTree->insert(6);
@@ -87,6 +89,27 @@ void Test03::testBinaryTree()
 	pTree->insert(8);
 	pTree->insert(11);
 	pTree->insert(18);
+
+	int value = 8;
+	BNode* pNode = pTree->search(value);
+	if (pNode == nullptr)
+	{
+		cout << "Binary node not found for value " << value << endl;
+	}
+	else
+	{
+		cout << "Binary node found for value: " << pNode->keyValue << endl;
+	}
+	value = 42;
+	pNode = pTree->search(value);
+	if (pNode == nullptr)
+	{
+		cout << "Binary node not found for value " << value << endl;
+	}
+	else
+	{
+		cout << "Binary node found for value: " << pNode->keyValue << endl;
+	}
 }
 /*
 void Test02::testCpp11unique_ptr_Move()

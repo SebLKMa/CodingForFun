@@ -11,14 +11,15 @@ using namespace std;
 
 BinaryTree::BinaryTree()
 {
-	cout << "BinaryTree::BinaryTree()" << endl;
 	pRoot = nullptr;
+	cout << "BinaryTree::BinaryTree()" << endl;
 }
 
 BinaryTree::~BinaryTree()
 {
-	cout << "BinaryTree::~BinaryTree()" << endl;
+	cout << "BinaryTree::~BinaryTree() begin" << endl;
 	destroyTree();
+	cout << "BinaryTree::~BinaryTree() end" << endl;
 }
 
 void BinaryTree::insert(int newKey)
@@ -48,57 +49,63 @@ void BinaryTree::destroyTree()
 
 void BinaryTree::insert(int newKey, BNode* pLeaf)
 {
-	// recursively inserts the newKey in the correct location of this b-tree
+	// based on value is greater or less than current node
+	// recursively inserts the newKey on the left side or right side of b-tree
+
 	if (newKey < pLeaf->keyValue)
 	{
-		if (pLeaf->pLeft != nullptr)
-		{
-			insert(newKey, pLeaf->pLeft);
-		}
-		else
+		if (pLeaf->pLeft == nullptr) // if left ptr is empty, set new Node to it
 		{
 			pLeaf->pLeft = new BNode();
 			pLeaf->pLeft->keyValue = newKey;
 			pLeaf->pLeft->pLeft = nullptr;
 			pLeaf->pLeft->pRight = nullptr;
 		}
+		else                        // otherwise continue on the left side
+		{
+			insert(newKey, pLeaf->pLeft);
+		}
 	}
 	if (newKey >= pLeaf->keyValue)
 	{
-		if (pLeaf->pRight != nullptr)
-		{
-			insert(newKey, pLeaf->pRight);
-		}
-		else
+		if (pLeaf->pRight == nullptr) // if right ptr is empty, set new Node to it
 		{
 			pLeaf->pRight = new BNode();
 			pLeaf->pRight->keyValue = newKey;
 			pLeaf->pRight->pLeft = nullptr;
 			pLeaf->pRight->pRight = nullptr;
 		}
+		else                         // otherwise continue on the right side
+		{
+			insert(newKey, pLeaf->pRight);
+		}
 	}
 }
 
 BNode* BinaryTree::search(int key, BNode* pLeaf)
 {
-	if (pLeaf != nullptr)
+	if (pLeaf == nullptr)
 	{
-		if (key == pLeaf->keyValue)
-		{
-			return pLeaf; // node found
-		}
-
-		if (key < pLeaf->keyValue)
-		{
-			search(key, pLeaf->pLeft);
-		}
-		else
-		{
-			search(key, pLeaf->pRight);
-		}
+		// reaching here means we found nothing
+		return pLeaf;
 	}
 
-	return nullptr; // reaching here means not found
+	cout << "Searching for " << key << "...Current node value: " << pLeaf->keyValue << endl;
+	// based on value is greater or less than current node
+	// recursively search the left side or right side of b-tree
+
+	if (key == pLeaf->keyValue)
+	{
+		cout << "Search found at node value: " << pLeaf->keyValue << endl;
+		return pLeaf; // node found
+	}
+
+	if (key < pLeaf->keyValue)
+	{
+		return search(key, pLeaf->pLeft);
+	}
+
+	return search(key, pLeaf->pRight);
 }
 
 void BinaryTree::destroyTree(BNode* pLeaf)
