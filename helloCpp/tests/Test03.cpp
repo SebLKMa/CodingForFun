@@ -9,11 +9,13 @@
 #include <utility>
 #include <iomanip>
 #include <vector>
+#include <stdio.h>
 #include "Test03.h"
 #include "..\HelloContainers.h"
 #include "..\datastructures\TruckloadList.h"
 #include "..\Box.h"
 #include "..\datastructures\BinaryTree.h"
+#include "..\algorithms\ArraySorter.h"
 
 using namespace std;
 
@@ -120,3 +122,17 @@ void Test02::testCpp11unique_ptr_Move()
 	pB->sayHi();
 }
 */
+
+void Test03::testArrayFloorSearch()
+{
+    int arr[] = {1, 2, 4, 6, 10, 12, 14};
+    int n = sizeof(arr)/sizeof(arr[0]);
+    int x = 7;
+    ArraySorter sorter;
+    int index = sorter.floorSearch(arr, 0, n-1, x);
+    if (index == -1)
+        printf("Floor of %d doesn't exist in array ", x);
+    else
+        printf("Floor of %d is %d", x, arr[index]);
+}
+

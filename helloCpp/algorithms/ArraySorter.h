@@ -11,4 +11,6 @@ public:
 	void SortAscending(std::vector<double>& numbers);
 
 	void SortAscending(std::vector<std::string>& strings);
+
+	int floorSearch(int arr[], int low, int high, int x);
 };

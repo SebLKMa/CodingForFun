@@ -14,6 +14,8 @@ public:
 	Test03();
 	void testTruckloadList();
 	void testBinaryTree();
+	void testArrayFloorSearch();
+
 private:
 	// gemerate a random integer 1 to count
 	inline size_t random(size_t count)

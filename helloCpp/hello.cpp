@@ -223,6 +223,7 @@ int main(int argc, char* argv[]) {
 	Test03 test03;
 	//test03.testTruckloadList();
 	test03.testBinaryTree();
+	test03.testArrayFloorSearch();
 
 	//FileWordsCounter wordsCounter("C:\\temp\\2489.txt");
 	//wordsCounter.startCount();
