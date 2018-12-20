@@ -1,0 +1,35 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "mybuildtask",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-g", "-o", "vcmain.exe", "vcmain.cpp" , 
+                "tests/Test01.cpp", 
+                "tests/Test02.cpp", 
+                "tests/Test03.cpp",
+                "algorithms/ArraySorter.cpp",
+                "algorithms/Quicksort.cpp",
+                "copyassign/Device.cpp",
+                "copymove/MemoryPage.cpp",
+                "datastructures/BinaryTree.cpp",
+                "datastructures/TruckloadList.cpp",
+                "fileio/FileIO.cpp",
+                "inheritance/Base.cpp",
+                "inheritance/DerivedA.cpp",
+                "inheritance/DerivedB.cpp",
+                "inheritance/DerivedC.cpp",
+                "loops/Loops.cpp",
+                "strings/StringUtils.cpp"
+            ],         
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
